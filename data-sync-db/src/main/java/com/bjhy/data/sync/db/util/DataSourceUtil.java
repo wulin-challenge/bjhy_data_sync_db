@@ -177,7 +177,7 @@ public class DataSourceUtil {
 		ConnectConfig connect = syncTemplate.getConnectConfig();
 		if(!connect.getIsEnable()){
 			LogCache.addDataSourceLog("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源以被停用!!");
-			LoggerUtils.error("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源以被停用!!");
+			LoggerUtils.warn("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源以被停用!!");
 			return false;
 		}
 		
@@ -187,7 +187,7 @@ public class DataSourceUtil {
 			connection.close();
 		} catch (SQLException e) {
 			LogCache.addDataSourceLog("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
-			LoggerUtils.error("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
+			LoggerUtils.warn("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
 			return false;
 		}
 		return true;

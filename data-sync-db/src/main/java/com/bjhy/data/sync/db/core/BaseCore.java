@@ -46,7 +46,11 @@ public class BaseCore {
 			//是否为只同步一次步骤
 			isRunOnlyOne(singleStepSyncConfig);
 		} catch (Exception e) {
-			LoggerUtils.error("这是同步入口最外层  BaseCore 49 行 抛出的错误信息: "+e.getMessage());
+			String dataSourceName = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+			String dataSourceNumber = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+			String toTableName =singleStepSyncConfig.getToTableName();
+			
+			LoggerUtils.error("这是同步入口最外层  BaseCore 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+" 第49 行 抛出的错误信息: "+e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -203,9 +207,9 @@ public class BaseCore {
 		DataSource fromDataSource = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getDataSource();
 		DataSource toDataSource = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getToTemplate().getDataSource();
 		try (Connection fromconnection = fromDataSource.getConnection();Connection toConnection = toDataSource.getConnection()){
-			List<String> fromColumns = getColumnNames(fromconnection, null, syncLogicEntity.getSingleStepSyncConfig().getFromSql());
+			List<String> fromColumns = getColumnNames(syncLogicEntity,fromconnection, null, syncLogicEntity.getSingleStepSyncConfig().getFromSql());
 			
-			List<String> toColumns = getColumnNames(toConnection, syncLogicEntity.getSingleStepSyncConfig().getToTableName(), null);
+			List<String> toColumns = getColumnNames(syncLogicEntity,toConnection, syncLogicEntity.getSingleStepSyncConfig().getToTableName(), null);
 			setToColumns(syncLogicEntity, toColumns);;
 			refreshSyncColumns(syncLogicEntity, fromColumns,null);
 		} catch (SQLException e) {
@@ -296,7 +300,7 @@ public class BaseCore {
 	 * @param tableName
 	 * @return
 	 */
-	public List<String> getColumnNames(Connection conn, String tableName,String sql){
+	public List<String> getColumnNames(SyncLogicEntity syncLogicEntity,Connection conn, String tableName,String sql){
 		String selectSql = "SELECT * FROM " + tableName;
 		if(sql != null){
 			selectSql = sql;
@@ -309,7 +313,12 @@ public class BaseCore {
 				columnNames.add(rsmd.getColumnLabel(i).toUpperCase());
 			}
 		} catch (SQLException e) {
-			LoggerUtils.error("执行的语句是:"+selectSql+" , 错误信息  : "+e.getMessage());
+			
+			String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+			String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+			String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+			
+			LoggerUtils.error("执行的语句是:"+selectSql+"表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+" , 错误信息  : "+e.getMessage());
 			throw new RuntimeException(e);
 		}
 		return columnNames;

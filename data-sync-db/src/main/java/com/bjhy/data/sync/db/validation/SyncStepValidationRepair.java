@@ -84,8 +84,15 @@ public class SyncStepValidationRepair {
 			
 			String isRepairSync = stepStoreEntity.getIsRepairSync();
 			
-			//修复同步值为0,不能同步
-			if("0".equals(isRepairSync)){
+			//要修复的步骤,步骤配置都不能为null
+			if(stepStoreEntity.getSingleStepByte() == null){
+				continue;
+			}
+			
+			Boolean isThisOnlyOneSync = stepStoreEntity.getSingleStepSyncConfig().getIsThisOnlyOneSync();
+			
+			//修复同步值为0,不能同步  && 只同步于一次的步骤只同步一次
+			if("0".equals(isRepairSync) || isThisOnlyOneSync){
 				continue;
 			}
 			

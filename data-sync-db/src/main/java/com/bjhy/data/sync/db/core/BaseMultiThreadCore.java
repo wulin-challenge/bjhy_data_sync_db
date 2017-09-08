@@ -201,7 +201,12 @@ public class BaseMultiThreadCore {
 				namedToTemplate.update(insertSql, rowParam);
 			}
 		} catch (DataAccessException e) {
-			LoggerUtils.error("当前这条数据已经存在或sql有错误,具体的错误信息:"+e.getMessage());
+			Boolean isThisOnlyOneSync = syncLogicEntity.getSingleStepSyncConfig().getIsThisOnlyOneSync();
+			//只同步一次的步骤,重复就不打印出来
+			if(!isThisOnlyOneSync){
+				LoggerUtils.error("当前这条数据已经存在或sql有错误,具体的错误信息:"+e.getMessage());
+			}
+			
 		}
 	}
 	
