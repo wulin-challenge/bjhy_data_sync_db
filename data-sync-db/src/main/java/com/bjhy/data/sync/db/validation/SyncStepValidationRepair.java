@@ -2,7 +2,6 @@ package com.bjhy.data.sync.db.validation;
 
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -22,6 +21,7 @@ import com.bjhy.data.sync.db.util.LoggerUtils;
  */
 public class SyncStepValidationRepair {
 	
+	
 	private static SyncStepValidationRepair syncStepValidationRepair;
 	
 	private StepStoreDao stepStoreDao;
@@ -40,6 +40,7 @@ public class SyncStepValidationRepair {
 	 */
 	public void validationRepair(){
 		startOneThread();//开启一个线程
+		
 	}
 	
 	/**
@@ -48,31 +49,27 @@ public class SyncStepValidationRepair {
 	private void startOneThread(){
 		thread = new Thread(){
 			public void run() {
-				try {
-					logic();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				logic();
 			}
 		};
 		thread.start();
 	}
 	
 	//逻辑
-	private void logic() throws InterruptedException{
-		
-//		Thread.sleep(1000*15);
-		
-		LoggerUtils.info("开始校验数据库");
-		validationLogic();//校验的逻辑
-		
-		LoggerUtils.info("开始修复数据");
-		repairData();
-		
-//		Thread.sleep(1000*60*5);
-		Thread.sleep(1000*15);
-		
-		logic();
+	private void logic(){
+		try {
+			Thread.sleep(1000*15);
+			LoggerUtils.info("开始校验数据库");
+			validationLogic();//校验的逻辑
+			
+			LoggerUtils.info("开始修复数据");
+			repairData();
+			
+		} catch (Exception e) {
+			LoggerUtils.error("修复数据时出现了错误:错误信息 : "+e.getMessage());
+		}finally{
+			logic();
+		}
 	}
 	
 	/**
