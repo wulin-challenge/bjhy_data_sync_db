@@ -2,6 +2,7 @@ package com.bjhy.data.sync.db.validation;
 
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -59,10 +60,7 @@ public class SyncStepValidationRepair {
 	private void logic(){
 		try {
 			Thread.sleep(1000*15);
-			LoggerUtils.info("开始校验数据库");
 			validationLogic();//校验的逻辑
-			
-			LoggerUtils.info("开始修复数据");
 			repairData();
 			
 		} catch (Exception e) {
@@ -158,8 +156,16 @@ public class SyncStepValidationRepair {
 					&& "1".equals(findOneById.getIsRepairSync())){
 				
 				SingleStepSyncConfig singleStepSyncConfig = findOneById.getSingleStepSyncConfig();
+				
+				String dataSourceName = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+				String dataSourceNumber = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+				String toTableName = singleStepSyncConfig.getToTableName();
+				LoggerUtils.info("[开始修复数据] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
+			
 				BaseCore baseCore = new BaseCore();
 				baseCore.syncEntry(singleStepSyncConfig);
+				
+				LoggerUtils.info("[结束修复数据] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
 			}
 			
 		}

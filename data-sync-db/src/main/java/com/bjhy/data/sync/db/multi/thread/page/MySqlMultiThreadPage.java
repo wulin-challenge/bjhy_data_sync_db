@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.MultiThreadPage;
+import com.bjhy.data.sync.db.util.SqlUtil;
 
 /**
  * 没有多线程的实现
@@ -80,8 +81,16 @@ public class MySqlMultiThreadPage implements MultiThreadPage{
 	private String getHighPerformancePageSql(int index){
 		String highPerformancePageColumn = syncLogicEntity.getSingleStepSyncConfig().getHighPerformancePageColumn();
 		String fromSql = syncLogicEntity.getSingleStepSyncConfig().getFromSql();
+		String fromFromPart = syncLogicEntity.getSingleStepSyncConfig().getFromFromPart();
+		Boolean simpleSql = SqlUtil.isSimpleSql(fromFromPart);
 		
-		String firstHighPerformancePageSql = "SELECT a_00_."+highPerformancePageColumn+" FROM ( "+fromSql+" ) a_00_ LIMIT "+getStartPageIndex(index)+","+pageNumber;
+		String firstHighPerformancePageSql;
+		if(simpleSql){//判断是否为简单sql
+			firstHighPerformancePageSql = "SELECT "+highPerformancePageColumn+" "+fromFromPart+" LIMIT "+getStartPageIndex(index)+","+pageNumber;
+		}else{
+			firstHighPerformancePageSql = "SELECT a_00_."+highPerformancePageColumn+" FROM ( "+fromSql+" ) a_00_ LIMIT "+getStartPageIndex(index)+","+pageNumber;
+		}
+		
 		return firstHighPerformancePageSql;
 	}
 	
@@ -100,7 +109,15 @@ public class MySqlMultiThreadPage implements MultiThreadPage{
 		
 		params.put(highPerformancePageColumn, pageColumnList);
 		
+		String fromFromPart = syncLogicEntity.getSingleStepSyncConfig().getFromFromPart();
+		String fromSelectPart = syncLogicEntity.getSingleStepSyncConfig().getFromSelectPart();
 		String fromSql = syncLogicEntity.getSingleStepSyncConfig().getFromSql();
+		
+		Boolean simpleSql = SqlUtil.isSimpleSql(fromFromPart);
+		
+		if(simpleSql){//判断是否为简单sql
+			fromSql = fromSelectPart+" "+fromFromPart+" where "+highPerformancePageColumn+" IN(:"+highPerformancePageColumn+")";
+		}
 		
 		String pageFramSql = "SELECT * FROM ("+fromSql+") a_ where a_."+highPerformancePageColumn+" IN(:"+highPerformancePageColumn+")";
 		List<Map<String, Object>> queryForList = syncLogicEntity.getNamedFromTemplate().queryForList(pageFramSql, params);
@@ -179,5 +196,4 @@ public class MySqlMultiThreadPage implements MultiThreadPage{
 	public Integer stepMaxThreadNumber() {
 		return syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getBaseRunEntity().getTablePageMaxThreadNum();
 	}
-
 }

@@ -305,6 +305,8 @@ public class BaseCore {
 		if(sql != null){
 			selectSql = sql;
 		}
+		
+		selectSql = "select * from ("+selectSql+") a where 1=2";
 		List<String> columnNames = new ArrayList<>();
 		try (PreparedStatement pst = conn.prepareStatement(selectSql);
 				ResultSet rs = pst.executeQuery();){
