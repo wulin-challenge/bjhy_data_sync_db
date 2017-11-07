@@ -1676,3 +1676,356 @@
 2017-11-07 12:19:35[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
 2017-11-07 12:19:35[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
 2017-11-07 12:19:35[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:criminal_base_info,数据源名称:省局数据库,数据源编号:5100_sjzfjc
+2017-11-07 12:33:38[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2017-11-07 12:33:39[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:33:39[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:33:39[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:33:39[platform] INFO [main] DruidDataSource.init(669) | {dataSource-1} inited
+2017-11-07 12:33:41[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:33:41[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_from , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_to , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:41[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:33:42[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-11-07 12:33:42[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-11-07 12:33:42[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-2} inited
+2017-11-07 12:33:42[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-3} inited
+2017-11-07 12:33:43[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3383
+2017-11-07 12:33:43[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:33:43[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:33:43[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:criminal_base_info,数据源名称:省局数据库,数据源编号:5100_sjzfjc
+2017-11-07 12:33:56[platform] ERROR [pool-4-thread-1] LoggerUtils.error(32) | 当前这条数据已经存在或sql有错误,具体的错误信息:PreparedStatementCallback; SQL [INSERT INTO criminal_base_info(ID) VALUES(?)]; ORA-00001: 违反唯一约束条件 (SJZFJC_BACK.SYS_C00192579)
+; nested exception is java.sql.SQLIntegrityConstraintViolationException: ORA-00001: 违反唯一约束条件 (SJZFJC_BACK.SYS_C00192579)
+
+2017-11-07 12:35:08[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2017-11-07 12:35:09[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:35:09[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:35:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:35:09[platform] INFO [main] DruidDataSource.init(669) | {dataSource-1} inited
+2017-11-07 12:35:11[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:35:11[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_from , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_to , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:35:12[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-11-07 12:35:13[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-11-07 12:35:13[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-2} inited
+2017-11-07 12:35:13[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-3} inited
+2017-11-07 12:35:13[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3383
+2017-11-07 12:35:13[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:35:14[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:35:14[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:criminal_base_info,数据源名称:省局数据库,数据源编号:5100_sjzfjc
+2017-11-07 12:37:52[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2017-11-07 12:37:52[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:37:52[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:37:52[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:37:53[platform] INFO [main] DruidDataSource.init(669) | {dataSource-1} inited
+2017-11-07 12:37:54[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:37:54[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_from , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:54[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_to , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:37:55[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-11-07 12:37:55[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-11-07 12:37:56[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-2} inited
+2017-11-07 12:37:56[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-3} inited
+2017-11-07 12:37:56[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3383
+2017-11-07 12:37:56[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:37:57[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:37:57[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:criminal_base_info,数据源名称:省局数据库,数据源编号:5100_sjzfjc
+2017-11-07 12:39:52[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2017-11-07 12:39:52[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:39:53[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:39:53[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:39:53[platform] INFO [main] DruidDataSource.init(669) | {dataSource-1} inited
+2017-11-07 12:39:55[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:39:55[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_from , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_to , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:55[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:39:56[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-11-07 12:39:56[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-11-07 12:39:56[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-2} inited
+2017-11-07 12:39:56[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-3} inited
+2017-11-07 12:39:57[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3383
+2017-11-07 12:39:57[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:39:57[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:39:57[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:criminal_base_info,数据源名称:省局数据库,数据源编号:5100_sjzfjc
+2017-11-07 12:44:00[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2017-11-07 12:44:01[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:44:01[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:44:01[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:44:01[platform] INFO [main] DruidDataSource.init(669) | {dataSource-1} inited
+2017-11-07 12:44:03[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:44:03[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_from , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_to , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:03[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:44:04[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-11-07 12:44:04[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-11-07 12:44:04[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-2} inited
+2017-11-07 12:44:04[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-3} inited
+2017-11-07 12:44:05[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3383
+2017-11-07 12:44:05[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:44:05[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:44:05[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:criminal_base_info,数据源名称:省局数据库,数据源编号:5100_sjzfjc
+2017-11-07 12:45:04[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2017-11-07 12:45:04[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:45:04[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:45:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:45:05[platform] INFO [main] DruidDataSource.init(669) | {dataSource-1} inited
+2017-11-07 12:45:06[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:45:06[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_from , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:07[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:07[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_to , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:07[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:45:07[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-11-07 12:45:07[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-11-07 12:45:07[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-2} inited
+2017-11-07 12:45:07[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-3} inited
+2017-11-07 12:45:08[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3383
+2017-11-07 12:45:08[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:45:08[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:45:09[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:criminal_base_info,数据源名称:省局数据库,数据源编号:5100_sjzfjc
+2017-11-07 12:46:03[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2017-11-07 12:46:03[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: dm.jdbc.driver.DmDriver
+2017-11-07 12:46:04[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!
+2017-11-07 12:46:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2017-11-07 12:46:04[platform] INFO [main] DruidDataSource.init(669) | {dataSource-1} inited
+2017-11-07 12:46:06[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:46:06[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!ORA-00955: 名称已由现有对象使用
+
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_from , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111 , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_sqlServer , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:省局数据库 , 数据源编号:5100_root_to , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:06[platform] WARN [main] LoggerUtils.warn(39) | 数据源名称:数据库名称 , 数据源编号:11111_dm , 错误信息:当前数据源以被停用!!
+2017-11-07 12:46:07[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-11-07 12:46:07[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-11-07 12:46:07[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-2} inited
+2017-11-07 12:46:07[platform] INFO [pool-2-thread-1] DruidDataSource.init(669) | {dataSource-3} inited
+2017-11-07 12:46:08[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3383
+2017-11-07 12:46:08[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:46:08[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2017-11-07 12:46:09[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:criminal_base_info,数据源名称:省局数据库,数据源编号:5100_sjzfjc

@@ -15,7 +15,7 @@ public class SyncPageRowEntity {
 	/**
 	 * 分行的列数
 	 */
-	private int pageRowColumns = 55;
+	private int pageRowColumns = 100;
 	
 	/**
 	 * 用于分行的insert分行列

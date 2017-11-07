@@ -279,53 +279,6 @@ public class BaseCore {
 		syncPageRowEntity.setPageRowInsertColumnSql(pageRowInsertSql.toString()+pageRowInsertValuesSql.toString());
 	}
 	
-//	/**
-//	 * 构建inserSql和updateSql和checkSql和DeleteSql语句(即dll)
-//	 * @param syncLogicEntity
-//	 * @param rowColumns 一行的列
-//	 */
-//	void buildDllSql2(SyncLogicEntity syncLogicEntity){
-//		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
-//		
-//		String updateColumn = syncLogicEntity.getSingleStepSyncConfig().getUpdateColumn();
-//		String updateWhere = syncLogicEntity.getSingleStepSyncConfig().getUpdateWhere();
-//		
-//		Set<String> syncColumns = syncLogicEntity.getSyncColumns();
-//		
-//		StringBuffer insert = new StringBuffer("INSERT INTO "+toTableName+"(");
-//		StringBuffer values = new StringBuffer(" VALUES(");
-//		StringBuffer update = new StringBuffer("UPDATE "+toTableName+" SET ");
-//		
-//		Boolean firstFor = true;
-//		for (String column : syncColumns) {
-//			if(firstFor){
-//				firstFor = false;
-//				insert.append(column);
-//				values.append(":"+column);
-//				update.append(column+"=:"+column);
-//			}else{
-//				insert.append(","+column);
-//				values.append(",:"+column);
-//				update.append(","+column+"=:"+column);
-//			}
-//		}
-//		insert.append(")");
-//		values.append(")");
-//		
-//		//构建updateWhere
-//		if(updateWhere == null){
-//			updateWhere = "WHERE "+updateColumn+"=:"+updateColumn;
-//		}
-//		updateWhere = updateWhere.toUpperCase();
-//		update.append(" "+updateWhere);
-//		
-//		//设置dll语句
-//		syncLogicEntity.setUpdateSql(update.toString());
-//		syncLogicEntity.setInsertSql(insert.toString()+values.toString());
-//		syncLogicEntity.setCheckSql("SELECT COUNT(1) NUM_ FROM  "+toTableName+" "+updateWhere);
-//		syncLogicEntity.setDeleteSql("DELETE FROM  "+toTableName+" "+updateWhere);
-//	}
-	
 	/**
 	 * 设置要同步的列
 	 * @param syncLogicEntity

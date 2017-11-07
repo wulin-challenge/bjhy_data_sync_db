@@ -177,15 +177,12 @@ public class BaseMultiThreadCore {
 		///分页中每一行的逻辑处理的方法
 		pageRowLogicDealWith(syncLogicEntity, rowParam);
 		SyncPageRowEntity syncPageRowEntity = syncLogicEntity.getSingleStepSyncConfig().getSyncPageRowEntity();
-		long start = System.currentTimeMillis();
+		
 		if(syncPageRowEntity != null){
 			pageRowInsertOrUpdate(syncLogicEntity, syncPageRowEntity, syncPageRowEntity.getPageRowInsertColumnSql(), rowParam);
 		}else{
 			insertOrUpdate(syncLogicEntity, syncLogicEntity.getInsertSql(), syncLogicEntity.getUpdateSql(), rowParam);
 		}
-		long end = System.currentTimeMillis();
-		System.out.println((end-start));
-		System.out.println();
 	}
 	
 	/**
@@ -206,17 +203,15 @@ public class BaseMultiThreadCore {
 			if(!exis){
 				namedToTemplate.update(insertSql, rowParam);
 			}
-			List<String> pageRowUpdateColumnSqlList = syncPageRowEntity.getPageRowUpdateColumnSqlList();
-			for (final String updateSql : pageRowUpdateColumnSqlList) {
-				Thread thread = new Thread(){
-					@Override
-					public void run() {
-						namedToTemplate.update(updateSql, rowParam);
-					}
-				};
-				thread.start();
-				
-			}
+			final List<String> pageRowUpdateColumnSqlList = syncPageRowEntity.getPageRowUpdateColumnSqlList();
+			
+			ThreadControl threadControler = new ThreadControl(3);//固定线程数为5
+			threadControler.forRunStart(pageRowUpdateColumnSqlList.size(), new ForRunThread(){
+				@Override
+				public void currentThreadRunning(int iterations, int i) {
+					namedToTemplate.update(pageRowUpdateColumnSqlList.get(i), rowParam);
+				}
+			});
 		} catch (DataAccessException e) {
 			Boolean isThisOnlyOneSync = syncLogicEntity.getSingleStepSyncConfig().getIsThisOnlyOneSync();
 			//只同步一次的步骤,重复就不打印出来
