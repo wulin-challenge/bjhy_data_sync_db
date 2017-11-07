@@ -35,6 +35,11 @@ import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 public class BaseMultiThreadCore {
 	
 	/**
+	 * 行拆分的线程数
+	 */
+	private final ThreadControl pageRowThreadControler = new ThreadControl(10);//固定线程数为5
+	
+	/**
 	 * 利用 ThreadControl 的事件机制进行控制同步事件的触发,同时控制是否开启多线程
 	 * @param syncLogicEntity
 	 */
@@ -205,8 +210,7 @@ public class BaseMultiThreadCore {
 			}
 			final List<String> pageRowUpdateColumnSqlList = syncPageRowEntity.getPageRowUpdateColumnSqlList();
 			
-			ThreadControl threadControler = new ThreadControl(3);//固定线程数为5
-			threadControler.forRunStart(pageRowUpdateColumnSqlList.size(), new ForRunThread(){
+			pageRowThreadControler.forRunStart(pageRowUpdateColumnSqlList.size(), new ForRunThread(){
 				@Override
 				public void currentThreadRunning(int iterations, int i) {
 					namedToTemplate.update(pageRowUpdateColumnSqlList.get(i), rowParam);
