@@ -108,6 +108,13 @@ public class SingleStepSyncConfig {
 	private String toValidationWhere;
 	
 	/**
+	 * 同步分行实体: 将同步字段量非常多的实体进行拆分,先插入主字段后采用多线程的方式进行进行更新后面的字段值
+	 * 例如:user(column1,column2,...,column300) 假设 column1,column2是主字段,
+	 * 而数据库中又不存在改行的值,就先进行查询,然后采用多线程的方式更新其他值
+	 */
+	private SyncPageRowEntity syncPageRowEntity;
+	
+	/**
 	 * 单个步骤的同步监听器
 	 */
 	private SingleStepListener singleStepListener;
@@ -286,5 +293,13 @@ public class SingleStepSyncConfig {
 
 	public void setToValidationWhere(String toValidationWhere) {
 		this.toValidationWhere = toValidationWhere;
+	}
+
+	public SyncPageRowEntity getSyncPageRowEntity() {
+		return syncPageRowEntity;
+	}
+
+	public void setSyncPageRowEntity(SyncPageRowEntity syncPageRowEntity) {
+		this.syncPageRowEntity = syncPageRowEntity;
 	}
 }

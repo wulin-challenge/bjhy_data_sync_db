@@ -1,6 +1,7 @@
 package com.bjhy.data.sync.db.core;
 
 import java.sql.Connection;
+import java.sql.ParameterMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -17,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
+import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
 import com.bjhy.data.sync.db.loader.DataSourceLoader;
 import com.bjhy.data.sync.db.util.LoggerUtils;
@@ -162,6 +164,11 @@ public class BaseCore {
 		
 		String updateColumn = syncLogicEntity.getSingleStepSyncConfig().getUpdateColumn();
 		String updateWhere = syncLogicEntity.getSingleStepSyncConfig().getUpdateWhere();
+		//构建updateWhere
+		if(updateWhere == null){
+			updateWhere = "WHERE "+updateColumn+"=:"+updateColumn;
+		}
+		updateWhere = updateWhere.toUpperCase();
 		
 		Set<String> syncColumns = syncLogicEntity.getSyncColumns();
 		
@@ -169,10 +176,28 @@ public class BaseCore {
 		StringBuffer values = new StringBuffer(" VALUES(");
 		StringBuffer update = new StringBuffer("UPDATE "+toTableName+" SET ");
 		
-		Boolean firstFor = true;
+		//拆分行数据
+		SyncPageRowEntity syncPageRowEntity = syncLogicEntity.getSingleStepSyncConfig().getSyncPageRowEntity();
+		//分页行的updatesql
+		StringBuffer pageRowUpdateSql =  new StringBuffer();
+		
+		//拆分行数据(insert语句拼装)
+		if(syncPageRowEntity != null){
+			syncPageRowEntity.getPageRowUpdateColumnSqlList().clear();
+			buildPageRowInsertDll(toTableName,syncLogicEntity);
+		}
+		
+		//当前列数
+		int currentColumn = 1;
+		int columnTotal = syncColumns.size();
 		for (String column : syncColumns) {
-			if(firstFor){
-				firstFor = false;
+			
+			//拆分行数据(update语句拼装)
+			if(syncPageRowEntity != null){
+				buildPageRowUpdateDll(currentColumn,columnTotal, column, pageRowUpdateSql,toTableName,updateWhere, syncLogicEntity);
+			}
+			
+			if(currentColumn == 1){
 				insert.append(column);
 				values.append(":"+column);
 				update.append(column+"=:"+column);
@@ -181,15 +206,11 @@ public class BaseCore {
 				values.append(",:"+column);
 				update.append(","+column+"=:"+column);
 			}
+			currentColumn++;
 		}
 		insert.append(")");
 		values.append(")");
 		
-		//构建updateWhere
-		if(updateWhere == null){
-			updateWhere = "WHERE "+updateColumn+"=:"+updateColumn;
-		}
-		updateWhere = updateWhere.toUpperCase();
 		update.append(" "+updateWhere);
 		
 		//设置dll语句
@@ -198,6 +219,112 @@ public class BaseCore {
 		syncLogicEntity.setCheckSql("SELECT COUNT(1) NUM_ FROM  "+toTableName+" "+updateWhere);
 		syncLogicEntity.setDeleteSql("DELETE FROM  "+toTableName+" "+updateWhere);
 	}
+	
+	/**
+	 * 将一行数据拆分成多条数据然后采用多线程的方式进行插入(update语句拼装)
+	 * @param currentColumn 当前字段列
+	 * @param column字段列
+	 * @param pageRowUpdateSql 分页的update语句
+	 * @param syncLogicEntity 同步逻辑实体
+	 */
+	void buildPageRowUpdateDll(int currentColumn,int columnTotal,String column,StringBuffer pageRowUpdateSql,String toTableName,String updateWhere,SyncLogicEntity syncLogicEntity){
+		//拆分行数据
+		SyncPageRowEntity syncPageRowEntity = syncLogicEntity.getSingleStepSyncConfig().getSyncPageRowEntity();
+		int pageRowColumns = syncPageRowEntity.getPageRowColumns();//分页的列数
+		
+		//开始
+		if((currentColumn%pageRowColumns) ==1){
+			pageRowUpdateSql.delete(0, pageRowUpdateSql.length() ==0?0:(pageRowUpdateSql.length()));
+			pageRowUpdateSql.append("UPDATE "+toTableName+" SET ");
+			pageRowUpdateSql.append(column+"=:"+column);
+		}else{
+			pageRowUpdateSql.append(","+column+"=:"+column);
+		}
+		//结束
+		if((currentColumn%pageRowColumns) ==0 || columnTotal == currentColumn){
+			String pageRowUpdateSql2 = pageRowUpdateSql.append(" "+updateWhere).toString();
+			syncPageRowEntity.getPageRowUpdateColumnSqlList().add(pageRowUpdateSql2);
+		}
+	}
+	
+	/**
+	 * 将一行数据拆分成多条数据然后采用多线程的方式进行插入(insert语句拼装)
+	 * @param syncLogicEntity
+	 */
+	void buildPageRowInsertDll(String toTableName,SyncLogicEntity syncLogicEntity){
+		//拆分行数据
+		SyncPageRowEntity syncPageRowEntity = syncLogicEntity.getSingleStepSyncConfig().getSyncPageRowEntity();
+		List<String> pageRowInsertColumns = syncPageRowEntity.getPageRowInsertColumns();
+		
+		StringBuffer pageRowInsertSql = new StringBuffer("INSERT INTO "+toTableName+"(");
+		StringBuffer pageRowInsertValuesSql = new StringBuffer(" VALUES(");
+		
+		//当前列数
+		int currentColumn = 1;
+		for (String column : pageRowInsertColumns) {
+			column = column.toUpperCase();//将当前列传为大写
+			if(currentColumn == 1){
+				pageRowInsertSql.append(column);
+				pageRowInsertValuesSql.append(":"+column);
+			}else{
+				pageRowInsertSql.append(","+column);
+				pageRowInsertValuesSql.append(",:"+column);
+			}
+			currentColumn++;
+		}
+		
+		pageRowInsertSql.append(")");
+		pageRowInsertValuesSql.append(")");
+		
+		syncPageRowEntity.setPageRowInsertColumnSql(pageRowInsertSql.toString()+pageRowInsertValuesSql.toString());
+	}
+	
+//	/**
+//	 * 构建inserSql和updateSql和checkSql和DeleteSql语句(即dll)
+//	 * @param syncLogicEntity
+//	 * @param rowColumns 一行的列
+//	 */
+//	void buildDllSql2(SyncLogicEntity syncLogicEntity){
+//		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+//		
+//		String updateColumn = syncLogicEntity.getSingleStepSyncConfig().getUpdateColumn();
+//		String updateWhere = syncLogicEntity.getSingleStepSyncConfig().getUpdateWhere();
+//		
+//		Set<String> syncColumns = syncLogicEntity.getSyncColumns();
+//		
+//		StringBuffer insert = new StringBuffer("INSERT INTO "+toTableName+"(");
+//		StringBuffer values = new StringBuffer(" VALUES(");
+//		StringBuffer update = new StringBuffer("UPDATE "+toTableName+" SET ");
+//		
+//		Boolean firstFor = true;
+//		for (String column : syncColumns) {
+//			if(firstFor){
+//				firstFor = false;
+//				insert.append(column);
+//				values.append(":"+column);
+//				update.append(column+"=:"+column);
+//			}else{
+//				insert.append(","+column);
+//				values.append(",:"+column);
+//				update.append(","+column+"=:"+column);
+//			}
+//		}
+//		insert.append(")");
+//		values.append(")");
+//		
+//		//构建updateWhere
+//		if(updateWhere == null){
+//			updateWhere = "WHERE "+updateColumn+"=:"+updateColumn;
+//		}
+//		updateWhere = updateWhere.toUpperCase();
+//		update.append(" "+updateWhere);
+//		
+//		//设置dll语句
+//		syncLogicEntity.setUpdateSql(update.toString());
+//		syncLogicEntity.setInsertSql(insert.toString()+values.toString());
+//		syncLogicEntity.setCheckSql("SELECT COUNT(1) NUM_ FROM  "+toTableName+" "+updateWhere);
+//		syncLogicEntity.setDeleteSql("DELETE FROM  "+toTableName+" "+updateWhere);
+//	}
 	
 	/**
 	 * 设置要同步的列

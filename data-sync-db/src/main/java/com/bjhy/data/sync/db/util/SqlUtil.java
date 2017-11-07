@@ -31,6 +31,10 @@ public class SqlUtil {
 		 if(tempSql.contains("GROUP")){
 			 return false;
 		 }
+		 
+		 if(tempSql.contains("JOIN")){
+			 return false;
+		 }
 		//如果匹配成功表示当前sql有子查询,则返回false
 		Matcher matcher = FROM_PATTERN_2.matcher(fromSql);
 		if (matcher.find()) {

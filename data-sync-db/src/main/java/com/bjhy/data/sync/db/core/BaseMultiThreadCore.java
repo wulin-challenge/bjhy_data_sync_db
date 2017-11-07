@@ -13,6 +13,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
+import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ForRunThread;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.MultiThreadPage;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
@@ -175,7 +176,56 @@ public class BaseMultiThreadCore {
 	private void threadSafetyLogic(SyncLogicEntity syncLogicEntity,Map<String, Object> rowParam){
 		///分页中每一行的逻辑处理的方法
 		pageRowLogicDealWith(syncLogicEntity, rowParam);
-		insertOrUpdate(syncLogicEntity, syncLogicEntity.getInsertSql(), syncLogicEntity.getUpdateSql(), rowParam);
+		SyncPageRowEntity syncPageRowEntity = syncLogicEntity.getSingleStepSyncConfig().getSyncPageRowEntity();
+		long start = System.currentTimeMillis();
+		if(syncPageRowEntity != null){
+			pageRowInsertOrUpdate(syncLogicEntity, syncPageRowEntity, syncPageRowEntity.getPageRowInsertColumnSql(), rowParam);
+		}else{
+			insertOrUpdate(syncLogicEntity, syncLogicEntity.getInsertSql(), syncLogicEntity.getUpdateSql(), rowParam);
+		}
+		long end = System.currentTimeMillis();
+		System.out.println((end-start));
+		System.out.println();
+	}
+	
+	/**
+	 * 行拆分后数据的保存或者更新
+	 * @param syncLogicEntity
+	 * @param syncPageRowEntity
+	 * @param insertSql
+	 * @param rowParam
+	 */
+	private void pageRowInsertOrUpdate(SyncLogicEntity syncLogicEntity,SyncPageRowEntity syncPageRowEntity,String insertSql,final Map<String, Object> rowParam){
+		final NamedParameterJdbcTemplate namedToTemplate = syncLogicEntity.getNamedToTemplate();
+		
+		//数据检查操作
+		String checkSql = syncLogicEntity.getCheckSql();
+		Boolean exis = isExis(syncLogicEntity,checkSql, rowParam);
+		//数据保存或者更新
+		try {
+			if(!exis){
+				namedToTemplate.update(insertSql, rowParam);
+			}
+			List<String> pageRowUpdateColumnSqlList = syncPageRowEntity.getPageRowUpdateColumnSqlList();
+			for (final String updateSql : pageRowUpdateColumnSqlList) {
+				Thread thread = new Thread(){
+					@Override
+					public void run() {
+						namedToTemplate.update(updateSql, rowParam);
+					}
+				};
+				thread.start();
+				
+			}
+		} catch (DataAccessException e) {
+			Boolean isThisOnlyOneSync = syncLogicEntity.getSingleStepSyncConfig().getIsThisOnlyOneSync();
+			//只同步一次的步骤,重复就不打印出来
+			if(!isThisOnlyOneSync){
+				LoggerUtils.error("当前这条数据已经存在或sql有错误,具体的错误信息:"+e.getMessage());
+			}
+			
+		}
+		
 	}
 
 	/**

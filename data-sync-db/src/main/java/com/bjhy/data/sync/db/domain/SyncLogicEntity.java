@@ -159,5 +159,4 @@ public class SyncLogicEntity {
 	public void setVersionCheckCore(VersionCheckCore versionCheckCore) {
 		this.versionCheckCore = versionCheckCore;
 	}
-
 }
