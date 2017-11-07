@@ -23,6 +23,7 @@ import com.bjhy.data.sync.db.multi.thread.page.NoMultiThreadPage;
 import com.bjhy.data.sync.db.multi.thread.page.OracleMultiThreadPage;
 import com.bjhy.data.sync.db.multi.thread.page.SqlServerMultiThreadPage;
 import com.bjhy.data.sync.db.thread.ThreadControl;
+import com.bjhy.data.sync.db.thread.ThreadControl2;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 import com.bjhy.data.sync.db.validation.SyncStepValidationStore;
 import com.bjhy.data.sync.db.version.check.VersionCheckCore;
@@ -35,9 +36,9 @@ import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 public class BaseMultiThreadCore {
 	
 	/**
-	 * 行拆分的线程数
+	 * 行拆分的线程数(必须是静态的,为了避开每次都实例化)
 	 */
-	private final ThreadControl pageRowThreadControler = new ThreadControl(10);//固定线程数为5
+	private static final ThreadControl2 pageRowThreadControler = new ThreadControl2(15);//固定线程数为15
 	
 	/**
 	 * 利用 ThreadControl 的事件机制进行控制同步事件的触发,同时控制是否开启多线程
@@ -209,8 +210,8 @@ public class BaseMultiThreadCore {
 				namedToTemplate.update(insertSql, rowParam);
 			}
 			final List<String> pageRowUpdateColumnSqlList = syncPageRowEntity.getPageRowUpdateColumnSqlList();
-			
-			pageRowThreadControler.forRunStart(pageRowUpdateColumnSqlList.size(), new ForRunThread(){
+			//这个方式谨慎使用,因为最后线程池是没有被关闭的
+			pageRowThreadControler.forRunStart2(pageRowUpdateColumnSqlList.size(), new ForRunThread(){
 				@Override
 				public void currentThreadRunning(int iterations, int i) {
 					namedToTemplate.update(pageRowUpdateColumnSqlList.get(i), rowParam);
