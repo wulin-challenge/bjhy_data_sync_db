@@ -53,7 +53,6 @@ public class BaseCore {
 			String toTableName =singleStepSyncConfig.getToTableName();
 			
 			LoggerUtils.error("这是同步入口最外层  BaseCore ,最后向外抛出的 RuntimeException 异常. 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+" 第49 行 抛出的错误信息: "+e.getMessage());
-			throw new RuntimeException(e);
 		}
 	}
 	
@@ -401,6 +400,7 @@ public class BaseCore {
 			String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
 			
 			LoggerUtils.error("执行的语句是:"+selectSql+"表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+" , 错误信息  : "+e.getMessage());
+			throw new RuntimeException(e);
 		}
 		return columnNames;
 	}
