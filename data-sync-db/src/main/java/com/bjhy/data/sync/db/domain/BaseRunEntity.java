@@ -1,6 +1,9 @@
 package com.bjhy.data.sync.db.domain;
 
+import java.util.List;
+
 import com.bjhy.data.sync.db.core.BaseLoaderCore;
+import com.bjhy.data.sync.db.util.DataSourceUtil;
 
 /**
  * 基本架构运行参数实体
@@ -67,6 +70,29 @@ public class BaseRunEntity {
 	 */
 	private String fromTask;
 	
+	/**
+	 * 得到能用的 来源 同步Template 通过 fromTask
+	 * @return
+	 */
+	public List<SyncTemplate> enableFromSyncTemplateList(){
+		return DataSourceUtil.getInstance().getEnableFromSyncTemplateByTask(this.getFromTask());
+	}
+	
+	/**
+	 * 得到能用的 目标 同步Template 通过 toTask
+	 * @return
+	 */
+	public List<SyncTemplate> enableToSyncTemplateList(){
+		return DataSourceUtil.getInstance().getEnableToSyncTemplateByTask(this.getToTask());
+	}
+	
+	/**
+	 * 得到能用的 本地 存储Template
+	 * @return
+	 */
+	public SyncTemplate enableNativeSyncTemplate(){
+		return DataSourceUtil.getInstance().getEnableNativeSyncTemplate();
+	}
 	
 	public Integer getToMaxThreadNum() {
 		Integer syncToMaxThreadNum = syncConfig.getSyncToMaxThreadNum();

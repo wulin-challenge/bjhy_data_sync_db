@@ -39,7 +39,7 @@ public class BaseRun {
 		BaseLoaderCore.getInstance().coreLoader();
 		
 	}
-
+	
 	public void baseForRun(final BaseRunEntity baseRunEntity,final ForRunSync forRunSync){
 		//自动//校验修复
 		if(baseRunEntity.getIsAutoRepair() && repairFlagOnlyOne){
@@ -47,11 +47,11 @@ public class BaseRun {
 			SyncStepValidationRepair.getInstance().validationRepair();
 		}
 		//得到能用的 来源 同步Template 通过 fromTask
-		final List<SyncTemplate> enableFromSyncTemplateList = DataSourceUtil.getInstance().getEnableFromSyncTemplateByTask(baseRunEntity.getFromTask());
+		final List<SyncTemplate> enableFromSyncTemplateList = baseRunEntity.enableFromSyncTemplateList();
 		//得到能用的 目标 同步Template 通过 toTask
-		final List<SyncTemplate> enableToSyncTemplateList = DataSourceUtil.getInstance().getEnableToSyncTemplateByTask(baseRunEntity.getToTask());
+		final List<SyncTemplate> enableToSyncTemplateList = baseRunEntity.enableToSyncTemplateList();
 		//得到能用的 本地 存储Template
-		final SyncTemplate enableNativeSyncTemplate = DataSourceUtil.getInstance().getEnableNativeSyncTemplate();
+		final SyncTemplate enableNativeSyncTemplate = baseRunEntity.enableNativeSyncTemplate();
 		
 		//所有同步开始前运行
 		ThreadControl toThreadControl = new ThreadControl(baseRunEntity.getToMaxThreadNum());
