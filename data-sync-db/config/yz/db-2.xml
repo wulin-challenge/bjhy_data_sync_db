@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+<!-- 	<import-data-sources> -->
+<!-- 		<import-data-source>yz/db-1.xml</import-data-source> -->
+<!-- 		<import-data-source>yz/db-2.xml</import-data-source> -->
+<!-- 	</import-data-sources> -->
+
+<!-- 	<native-template task="task" isEnable="true" databaseType="oracle"> -->
+<!-- 		<sort-number>1</sort-number> -->
+<!-- 		<data-source-name>省局数据库</data-source-name> -->
+<!-- 		<data-source-number>5100_sjzfjc_back</data-source-number> -->
+<!-- 		<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 		<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url> -->
+<!-- 		<connect-username>sjzfjc_back</connect-username> -->
+<!-- 		<connect-password>123456789</connect-password> -->
+<!-- 		<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect> -->
+<!-- 	</native-template> -->
+
+	<from-template>
+
+<!-- 		<data-source task="task2,task1" isEnable="false" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>数据库名称</data-source-name> -->
+<!-- 			<data-source-number>11111</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url> -->
+<!-- 			<connect-username>wulin</connect-username> -->
+<!-- 			<connect-password>wulin</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect> -->
+<!-- 		</data-source> -->
+<!-- 		<data-source task="task2" isEnable="false" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>数据库名称</data-source-name> -->
+<!-- 			<data-source-number>11111</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url> -->
+<!-- 			<connect-username>wulin</connect-username> -->
+<!-- 			<connect-password>wulin</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect> -->
+<!-- 		</data-source> -->
+	</from-template>
+	
+	
+	
+	
+	
+	<to-template>
+<!-- 		<data-source task="task3" isEnable="false" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>数据库名称</data-source-name> -->
+<!-- 			<data-source-number>11111</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url> -->
+<!-- 			<connect-username>wulin</connect-username> -->
+<!-- 			<connect-password>wulin</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect> -->
+<!-- 		</data-source> -->
+	
+		
+<!-- 		<data-source task="task_dm_to" isEnable="false" databaseType="dm"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>数据库名称</data-source-name> -->
+<!-- 			<data-source-number>11111_dm</data-source-number> -->
+<!-- 			<connect-driver>dm.jdbc.driver.DmDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:dm://192.168.0.49:5236</connect-url> -->
+<!-- 			<connect-username>HJXT</connect-username> -->
+<!-- 			<connect-password>123456789</connect-password> -->
+<!-- 			<connect-dialect>dm.jdbc.xa.DmdbXADataSource</connect-dialect> -->
+<!-- 		</data-source> -->
+	</to-template>
+</data-sources>

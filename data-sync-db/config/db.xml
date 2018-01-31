@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data-sources>
+	<import-data-sources>
+		<import-data-source>yz/db-1.xml</import-data-source>
+		<import-data-source>yz/db-2.xml</import-data-source>
+	</import-data-sources>
 	<!-- 
 	<native-template task="task" isEnable="false" databaseType="oracle">
 		<sort-number>1</sort-number>

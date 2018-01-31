@@ -13,33 +13,112 @@ import org.dom4j.io.SAXReader;
 
 import com.bjhy.data.sync.db.domain.ConnectConfig;
 import com.bjhy.data.sync.db.log.LogCache;
+import com.bjhy.data.sync.db.util.FileUtil;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 
 @SuppressWarnings("unchecked")
 public class DataSourceLoaderXml {
 	
-	private String dbXml = "/config/db.xml";
+	/**
+	 * 根路径
+	 */
+	private final String ROOT_PATH = FileUtil.replaceSpritAndEnd(System.getProperty("user.dir"))+"config/";
+	
+	/**
+	 * 主配置文件
+	 */
+	private final String dbXml = "db.xml";
 	
 	/**
 	 * 加载xml文件
 	 */
 	public DataSources loadFileXml(){
 		DataSources dataSources = new DataSources();
+		//加载所有DataSource的配置文件
+		loadAllDataSourcesFile(dataSources);
+		//加载并解析所有import-data-source配置文件
+		for (String dataSourcePath : dataSources.getImportDataSources()) {
+			Element rootElement = loadRootElement(dataSourcePath, true);
+			parseDataSourcesElement(rootElement, dataSources);
+		}
+		
+		return dataSources;
+	}
+	
+	/**
+	 * 加载所有DataSource的配置文件
+	 * @param dataSources
+	 */
+	private void loadAllDataSourcesFile(DataSources dataSources){
+		
+		//加载根文件
+		String rootFile = ROOT_PATH+FileUtil.replaceSpritAndNotStart(dbXml);
+		dataSources.getImportDataSources().add(rootFile);
+		Element rootElement = loadRootElement(rootFile, false);
+		if(rootElement != null){
+			parseAndLoadImportDataSources(rootElement, dataSources);
+		}
+	}
+	
+	/**
+	 * 加载根元素
+	 * @param filePath
+	 * @param logFlag 是否打印成功的日志
+	 * @return
+	 */
+	private Element loadRootElement(String filePath,Boolean logFlag){
+		Element root = null;
+		
 		try {
-			File dbFile = new File(System.getProperty("user.dir")+dbXml);
+			File dbFile = new File(filePath);
 			SAXReader reader = new SAXReader();
 			Document document = reader.read(dbFile);
-			Element root = document.getRootElement();
-			
-			parseDataSourcesElement(root, dataSources);
-			LogCache.addDataSourceLog("通过xml的形式加载所有数据源成功!!");
-			LoggerUtils.info("通过xml的形式加载所有数据源成功!!");
-		} catch (DocumentException e) {
+			root = document.getRootElement();
+			if(logFlag){
+				LogCache.addDataSourceLog("通过xml的形式加载所有数据源成功!!,配置文件:"+filePath);
+				LoggerUtils.info("通过xml的形式加载所有数据源成功!!,配置文件:"+filePath);
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
-			LogCache.addDataSourceLog("通过xml的形式加载所有数据源失败!!");
-			LoggerUtils.error("通过xml的形式加载所有数据源失败!!");
+			LogCache.addDataSourceLog("通过xml的形式加载所有数据源失败!!,失败的配置文件:"+filePath);
+			LoggerUtils.error("通过xml的形式加载所有数据源失败!!,失败的配置文件:"+filePath);
 		}
-		return dataSources;
+		return root;
+	}
+	
+	/**
+	 * 解析并加载 import-data-sources 标签元素
+	 * @param parent
+	 * @param dataSources
+	 */
+	private void parseAndLoadImportDataSources(Element parent,DataSources dataSources){
+		//获取import-data-sources 元素
+		Element importsElement = parent.element("import-data-sources");
+		if(importsElement == null){
+			return;
+		}
+		//获取import-data-source 元素
+		List<Element> importElementList = importsElement.elements("import-data-source");
+		if(importElementList == null || importElementList.isEmpty()){
+			return;
+		}
+		
+		for (Element element : importElementList) {
+			String importPath = element.getText();
+			if(StringUtils.isNotBlank(importPath)){
+				importPath = importPath.trim();
+				importPath = ROOT_PATH+FileUtil.replaceSpritAndNotStart(importPath);
+				//判断该文件是否已经被加载过,防止死递归
+				if(!dataSources.getImportDataSources().contains(importPath)){
+					dataSources.getImportDataSources().add(importPath);
+					//这里是递归加载import-data-source文件
+					Element rootElement = loadRootElement(importPath, false);
+					if(rootElement != null){
+						parseAndLoadImportDataSources(rootElement, dataSources);
+					}
+				}
+			}
+		}
 	}
 	
 	/**
@@ -51,28 +130,33 @@ public class DataSourceLoaderXml {
 		
 		//解析本地template
 		Element nativeElement = parent.element("native-template");
-		ConnectConfig nativeTemplate = parseConnectConfigElement(nativeElement);
-		dataSources.setNativeTemplate(nativeTemplate);
+		if(nativeElement != null){
+			ConnectConfig nativeTemplate = parseConnectConfigElement(nativeElement);
+			dataSources.setNativeTemplate(nativeTemplate);
+		}
 		
 		//解析来源template
 		Element fromElement = parent.element("from-template");
-		List<Element> fromElements = fromElement.elements("data-source");
-		FromTemplate fromTemplate = new FromTemplate();
-		for (Element dataSourceElement : fromElements) {
-			ConnectConfig connectConfig = parseConnectConfigElement(dataSourceElement);
-			fromTemplate.getConnectConfigList().add(connectConfig);
+		if(fromElement != null){
+			List<Element> fromElements = fromElement.elements("data-source");
+			FromTemplate fromTemplate = dataSources.getFromTemplate();
+			for (Element dataSourceElement : fromElements) {
+				ConnectConfig connectConfig = parseConnectConfigElement(dataSourceElement);
+				fromTemplate.getConnectConfigList().add(connectConfig);
+			}
 		}
-		dataSources.setFromTemplate(fromTemplate);
+		
 		
 		//解析目标template
 		Element toElement = parent.element("to-template");
-		List<Element> toElements = toElement.elements("data-source");
-		ToTemplate toTemplate = new ToTemplate();
-		for (Element dataSourceElement : toElements) {
-			ConnectConfig connectConfig = parseConnectConfigElement(dataSourceElement);
-			toTemplate.getConnectConfigList().add(connectConfig);
+		if(toElement != null){
+			List<Element> toElements = toElement.elements("data-source");
+			ToTemplate toTemplate = dataSources.getToTemplate();
+			for (Element dataSourceElement : toElements) {
+				ConnectConfig connectConfig = parseConnectConfigElement(dataSourceElement);
+				toTemplate.getConnectConfigList().add(connectConfig);
+			}
 		}
-		dataSources.setToTemplate(toTemplate);
 	}
 	
 	private ConnectConfig parseConnectConfigElement(Element parent){
@@ -133,12 +217,17 @@ public class DataSourceLoaderXml {
 		/**
 		 * 来源Template
 		 */
-		private FromTemplate fromTemplate;
+		private FromTemplate fromTemplate = new FromTemplate();
 		
 		/**
 		 * 目标Template
 		 */
-		private ToTemplate toTemplate;
+		private ToTemplate toTemplate = new ToTemplate();
+		
+		/**
+		 * 导入dataSource文件
+		 */
+		private List<String> importDataSources = new ArrayList<String>();
 
 		public ConnectConfig getNativeTemplate() {
 			return nativeTemplate;
@@ -163,7 +252,14 @@ public class DataSourceLoaderXml {
 		public void setToTemplate(ToTemplate toTemplate) {
 			this.toTemplate = toTemplate;
 		}
-		
+
+		public List<String> getImportDataSources() {
+			return importDataSources;
+		}
+
+		public void setImportDataSources(List<String> importDataSources) {
+			this.importDataSources = importDataSources;
+		}
 	}
 	
 	/**
