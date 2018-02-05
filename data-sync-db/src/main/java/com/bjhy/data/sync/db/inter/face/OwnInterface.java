@@ -171,6 +171,25 @@ public interface OwnInterface {
 		public abstract Map<String,Object> rowCall(final SyncLogicEntity syncLogicEntity,final Map<String,Object> rowParam);
 	}
 	
+
+	/**
+	 * 单个步骤执行执行前监听
+	 * @author wubo
+	 *
+	 */
+	public abstract class SingleStepBeforeListener{
+		public abstract void stepBeforeCall(final SyncLogicEntity syncLogicEntity);
+	}
+	
+	/**
+	 * 单个步骤执行后监听
+	 * @author wubo
+	 *
+	 */
+	public abstract class SingleStepAfterListener{
+		public abstract void stepAfterCall(final SyncLogicEntity syncLogicEntity);
+	}
+	
 	/**
 	 * 版本检查接口
 	 * @author wubo

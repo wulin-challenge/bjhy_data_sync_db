@@ -120,9 +120,19 @@ public class SingleStepSyncConfig {
 	private SingleStepListener singleStepListener;
 	
 	/**
+	 * 单个步骤执行执行前监听
+	 */
+	private String singleStepBeforeListener;
+	
+	/**
 	 * 采用反射生成监听器的 监听器名称
 	 */
 	private String SingleStepListenerName;
+	
+	/**
+	 * 单个步骤执行后监听
+	 */
+	private String singleStepAfterListener;
 	
 	/**
 	 * 得到fromSql语句
@@ -301,5 +311,21 @@ public class SingleStepSyncConfig {
 
 	public void setSyncPageRowEntity(SyncPageRowEntity syncPageRowEntity) {
 		this.syncPageRowEntity = syncPageRowEntity;
+	}
+
+	public String getSingleStepBeforeListener() {
+		return singleStepBeforeListener;
+	}
+
+	public void setSingleStepBeforeListener(String singleStepBeforeListener) {
+		this.singleStepBeforeListener = singleStepBeforeListener;
+	}
+
+	public String getSingleStepAfterListener() {
+		return singleStepAfterListener;
+	}
+
+	public void setSingleStepAfterListener(String singleStepAfterListener) {
+		this.singleStepAfterListener = singleStepAfterListener;
 	}
 }

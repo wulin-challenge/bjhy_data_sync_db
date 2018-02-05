@@ -16,6 +16,8 @@ import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ForRunThread;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.MultiThreadPage;
+import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepAfterListener;
+import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepBeforeListener;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
 import com.bjhy.data.sync.db.multi.thread.page.DmMultiThreadPage;
 import com.bjhy.data.sync.db.multi.thread.page.MySqlMultiThreadPage;
@@ -57,6 +59,8 @@ public class BaseMultiThreadCore {
 				String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
 				String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
 				LoggerUtils.info("[开始同步..] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
+				//单个步骤执行执行前监听
+				singleStepBeforeListener(syncLogicEntity);
 			}
 
 			@Override
@@ -75,6 +79,8 @@ public class BaseMultiThreadCore {
 					//编辑修复同步标记
 					SyncStepValidationStore.getInstance().editIsRepirSyncFlag(syncLogicEntity.getSingleStepSyncConfig());
 				}
+				//单个步骤执行后监听
+				singleStepAfterListener(syncLogicEntity);
 				
 				String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
 				String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
@@ -83,6 +89,50 @@ public class BaseMultiThreadCore {
 			}
 			
 		});
+	}
+	
+	/**
+	 * 单个步骤执行执行前监听
+	 * @param syncLogicEntity
+	 */
+	private void singleStepBeforeListener(SyncLogicEntity syncLogicEntity){
+		String singleStepBeforeListener = syncLogicEntity.getSingleStepSyncConfig().getSingleStepBeforeListener();
+		if(StringUtils.isNotBlank(singleStepBeforeListener)){
+			SingleStepBeforeListener stepListener = getStepListener(syncLogicEntity, singleStepBeforeListener, SingleStepBeforeListener.class);
+			if(stepListener != null){
+				stepListener.stepBeforeCall(syncLogicEntity);
+			}
+		}
+	}
+	
+	/**
+	 * 单个步骤执行后监听
+	 * @param syncLogicEntity
+	 */
+	private void singleStepAfterListener(SyncLogicEntity syncLogicEntity){
+		String singleStepAfterListener = syncLogicEntity.getSingleStepSyncConfig().getSingleStepAfterListener();
+		if(StringUtils.isNotBlank(singleStepAfterListener)){
+			SingleStepAfterListener stepListener = getStepListener(syncLogicEntity, singleStepAfterListener, SingleStepAfterListener.class);
+			if(stepListener != null){
+				stepListener.stepAfterCall(syncLogicEntity);
+			}
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private <T> T getStepListener(SyncLogicEntity syncLogicEntity,String classString,Class<T> clazz){
+		T newInstance = null;
+		try {
+			Class<T> forName = (Class<T>) Class.forName(classString);
+			newInstance = forName.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+			String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+			String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+			String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+			LoggerUtils.error("执行监听异常,监听名称:"+classString+" 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+",异常信息:"+e.getLocalizedMessage());
+		}
+		return newInstance;
 	}
 	
 	/**
