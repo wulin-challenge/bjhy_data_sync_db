@@ -111,7 +111,7 @@ public class StepStoreDaoImpl implements StepStoreDao{
 
 	@Override
 	public List<StepStoreEntity> findAll() {
-		String selectSql = "select id,isRepairSync,fromDataSourceName, fromDataSourceNumber,toDataSourceName,toDataSourceNumber,fromTask,toTask,toTableName,stepUniquelyIdentifies,fromDataNumber,toDataNumber from step_store";
+		String selectSql = "select id,isRepairSync,fromDataSourceName, fromDataSourceNumber,toDataSourceName,toDataSourceNumber,fromTask,toTask,toTableName,stepUniquelyIdentifies,fromDataNumber,toDataNumber,singleStepByte from step_store";
 		
 		 List<StepStoreEntity> newStepStoreEntityList = null;
 		 try {

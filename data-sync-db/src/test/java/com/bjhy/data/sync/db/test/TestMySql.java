@@ -1,24 +1,11 @@
 package com.bjhy.data.sync.db.test;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import com.bjhy.data.sync.db.core.BaseCore;
 import com.bjhy.data.sync.db.core.BaseRun;
 import com.bjhy.data.sync.db.domain.BaseRunEntity;
 import com.bjhy.data.sync.db.domain.SingleRunEntity;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
-import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ForRunSync;
-import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
-import com.bjhy.data.sync.db.named.template.test.domain.SingleStepSyncConfig2;
-import com.bjhy.data.sync.db.util.StepObjectUtil;
-import com.bjhy.data.sync.db.validation.SyncStepValidationRepair;
-import com.bjhy.data.sync.db.validation.SyncStepValidationStore;
-import com.bjhy.platform.util.BeanUtils;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 
 public class TestMySql {
 	
