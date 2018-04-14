@@ -1,6 +1,7 @@
 package com.bjhy.data.sync.db.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,6 +134,13 @@ public class SingleStepSyncConfig {
 	 * 单个步骤执行后监听
 	 */
 	private String singleStepAfterListener;
+	
+	/**
+	 * 简单(字段名称)的映射(复杂字段的映衬可以使用监听实现) 该映射会在行回调监听之前执行
+	 * 例如: select o.column1,o.column2 from tablename o;
+	 * 将 newColumn1 替换 column1
+	 */
+	private Map<String,String> simpleColumnNameMapping = new HashMap<String,String>();
 	
 	/**
 	 * 得到fromSql语句
@@ -328,4 +336,9 @@ public class SingleStepSyncConfig {
 	public void setSingleStepAfterListener(String singleStepAfterListener) {
 		this.singleStepAfterListener = singleStepAfterListener;
 	}
+
+	public Map<String, String> getSimpleColumnNameMapping() {
+		return simpleColumnNameMapping;
+	}
+	
 }

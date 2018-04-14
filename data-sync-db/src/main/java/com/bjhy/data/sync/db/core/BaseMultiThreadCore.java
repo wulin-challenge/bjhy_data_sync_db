@@ -318,6 +318,9 @@ public class BaseMultiThreadCore {
 	private void pageRowLogicDealWith(SyncLogicEntity syncLogicEntity,Map<String, Object> rowParam){
 		SingleStepListener singleStepListener = syncLogicEntity.getSingleStepSyncConfig().getSingleStepListener();
 		
+		//处理简单字段映射
+		dealWithSimpleColumnMapping(syncLogicEntity, rowParam);
+		
 		//行回调
 		if(singleStepListener != null){
 			pageDealWithRowCall(syncLogicEntity, rowParam);
@@ -386,6 +389,26 @@ public class BaseMultiThreadCore {
 		Map<String, Object> rowCallParams = singleStepListener.rowCall(syncLogicEntity,rowParam);
 		rowCallParams = rowParamToUpperCase(syncLogicEntity, rowCallParams);
 		rowParam.putAll(rowCallParams);
+	}
+	
+	/**
+	 * 处理简单字段映射
+	 * @param syncLogicEntity
+	 * @param rowParam
+	 */
+	private void dealWithSimpleColumnMapping(SyncLogicEntity syncLogicEntity,Map<String, Object> rowParam){
+		Map<String, String> simpleColumnNameMapping = syncLogicEntity.getSingleStepSyncConfig().getSimpleColumnNameMapping();
+		
+		if(simpleColumnNameMapping != null){
+			Set<Entry<String, String>> entrySet = simpleColumnNameMapping.entrySet();
+			for (Entry<String, String> entry : entrySet) {
+				String upperCaseKey = entry.getKey().toUpperCase();
+				String upperCaseValue = entry.getValue().toUpperCase();
+				if(rowParam.containsKey(upperCaseKey)){
+					rowParam.put(upperCaseValue, rowParam.get(upperCaseKey));
+				}
+			}
+		}
 	}
 	
 	/**
