@@ -436,7 +436,7 @@ public class BaseMultiThreadCore {
 	@SuppressWarnings("deprecation")
 	private Boolean isExis(SyncLogicEntity syncLogicEntity,String checkSql,Map<String,Object> params){
 		NamedParameterJdbcTemplate namedToTemplate = syncLogicEntity.getNamedToTemplate();
-		int queryForInt = namedToTemplate.queryForInt(checkSql, params);
+		int queryForInt = namedToTemplate.queryForObject(checkSql, params,int.class);
 		if(queryForInt>0){
 			return true;
 		}

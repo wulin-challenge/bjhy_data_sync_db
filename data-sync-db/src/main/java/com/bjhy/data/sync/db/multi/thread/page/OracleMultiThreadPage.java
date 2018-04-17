@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
@@ -154,10 +155,11 @@ public class OracleMultiThreadPage implements MultiThreadPage{
 	
 	@Override
 	public Integer pageIterations() {
+		
 		NamedParameterJdbcTemplate namedFromTemplate = syncLogicEntity.getNamedFromTemplate();
 		
 		String fromCountSql = syncLogicEntity.getSingleStepSyncConfig().getFromCountSql();
-		int dataTotal = namedFromTemplate.queryForInt(fromCountSql, Collections.EMPTY_MAP);
+		int dataTotal = namedFromTemplate.queryForObject(fromCountSql, Collections.EMPTY_MAP, int.class);
 		int totalPages = getTotalPages(dataTotal);
 		return totalPages;
 	}

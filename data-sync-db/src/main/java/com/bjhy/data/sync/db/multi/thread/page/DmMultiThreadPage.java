@@ -157,7 +157,7 @@ public class DmMultiThreadPage implements MultiThreadPage{
 		NamedParameterJdbcTemplate namedFromTemplate = syncLogicEntity.getNamedFromTemplate();
 		
 		String fromCountSql = syncLogicEntity.getSingleStepSyncConfig().getFromCountSql();
-		int dataTotal = namedFromTemplate.queryForInt(fromCountSql, Collections.EMPTY_MAP);
+		int dataTotal = namedFromTemplate.queryForObject(fromCountSql, Collections.EMPTY_MAP,int.class);
 		int totalPages = getTotalPages(dataTotal);
 		return totalPages;
 	}
