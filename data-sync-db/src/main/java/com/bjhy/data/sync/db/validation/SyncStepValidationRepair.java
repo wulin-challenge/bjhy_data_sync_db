@@ -129,10 +129,10 @@ public class SyncStepValidationRepair {
 		}
 		
 		String fromCountSql = singleStepSyncConfig.getFromCountSql();
-		int fromDataNumber = fromTemplate.queryForObject(fromCountSql,validationParams,int.class);
+		Integer fromDataNumber = fromTemplate.queryForObject(fromCountSql,validationParams,Integer.class);
 		
 		String toSql = "select count(1) num from "+singleStepSyncConfig.getToTableName()+" "+toValidationWhere;
-		int toDataNumber = toTemplate.queryForObject(toSql,validationParams,int.class);
+		Integer toDataNumber = toTemplate.queryForObject(toSql,validationParams,Integer.class);
 		
 		stepStoreEntity.setFromDataNumber(fromDataNumber);
 		stepStoreEntity.setToDataNumber(toDataNumber);

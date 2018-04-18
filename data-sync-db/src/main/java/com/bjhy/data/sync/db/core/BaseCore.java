@@ -51,7 +51,7 @@ public class BaseCore {
 			String dataSourceName = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
 			String dataSourceNumber = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
 			String toTableName =singleStepSyncConfig.getToTableName();
-			
+			e.printStackTrace();
 			LoggerUtils.error("这是同步入口最外层  BaseCore ,最后向外抛出的 RuntimeException 异常. 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+" 第49 行 抛出的错误信息: "+e.getMessage());
 		}
 	}

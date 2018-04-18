@@ -171,7 +171,7 @@ public class MySqlMultiThreadPage implements MultiThreadPage{
 		NamedParameterJdbcTemplate namedFromTemplate = syncLogicEntity.getNamedFromTemplate();
 		
 		String fromCountSql = syncLogicEntity.getSingleStepSyncConfig().getFromCountSql();
-		int dataTotal = namedFromTemplate.queryForObject(fromCountSql, Collections.EMPTY_MAP,int.class);
+		Integer dataTotal = namedFromTemplate.queryForObject(fromCountSql, Collections.EMPTY_MAP,Integer.class);
 		int totalPages = getTotalPages(dataTotal);
 		return totalPages;
 	}
