@@ -121,17 +121,17 @@ public class SingleStepSyncConfig {
 	private SingleStepListener singleStepListener;
 	
 	/**
-	 * 单个步骤执行执行前监听
+	 * 单个步骤执行执行前监听(抽象类SingleStepBeforeListener)
 	 */
 	private String singleStepBeforeListener;
 	
 	/**
-	 * 采用反射生成监听器的 监听器名称
+	 * 采用反射生成监听器的 监听器名称(抽象类SingleStepListener)
 	 */
 	private String SingleStepListenerName;
 	
 	/**
-	 * 单个步骤执行后监听
+	 * 单个步骤执行后监听(抽象类SingleStepAfterListener)
 	 */
 	private String singleStepAfterListener;
 	
