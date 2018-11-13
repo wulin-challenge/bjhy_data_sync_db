@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jdt.internal.compiler.ast.SynchronizedStatement;
 
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
@@ -233,7 +234,9 @@ public class BaseCore {
 		
 		//开始
 		if((currentColumn%pageRowColumns) ==1){
+			
 			pageRowUpdateSql.delete(0, pageRowUpdateSql.length() ==0?0:(pageRowUpdateSql.length()));
+			
 			pageRowUpdateSql.append("UPDATE "+toTableName+" SET ");
 			pageRowUpdateSql.append(column+"=:"+column);
 		}else{

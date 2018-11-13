@@ -154,6 +154,7 @@ public class BaseHelper {
 		List<String> pageRowInsertColumns = new ArrayList<String>();
 		pageRowInsertColumns.add(updateAndPageColumn);
 		syncPageRowEntity.setPageRowInsertColumns(pageRowInsertColumns);
+		singleStepSyncConfig.setSyncPageRowEntity(syncPageRowEntity);
 		//开始同步
 		baseCore.syncEntry(singleStepSyncConfig);
 	}

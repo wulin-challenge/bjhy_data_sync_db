@@ -46,6 +46,7 @@ public class SyncConfigLoader {
 		syncConfig.setSyncFromMaxThreadNum(loadSyncFromMaxThreadNum());
 		syncConfig.setSyncTablePageMaxThreadNum(loadSyncTablePageMaxThreadNum());
 		syncConfig.setSyncInsertOrUpdateMaxThreadNum(loadSyncInsertOrUpdateMaxThreadNum());
+		syncConfig.setSyncPageRowThreadMaxThreadNum(loadSyncPageRowThreadMaxThreadNum());
 		return syncConfig;
 	}
 	
@@ -148,6 +149,20 @@ public class SyncConfigLoader {
 	 */
 	private Integer loadSyncInsertOrUpdateMaxThreadNum(){
 		String num = SyncPropertiesUtil.getProperty("sync.intert.or.update.max.thread.num");
+		Integer threadNum = null;
+		if(StringUtils.isNotEmpty(num)){
+			threadNum = Integer.parseInt(num);
+		}
+		
+		return threadNum;
+	}
+	
+	/**
+	 * 加载  sync.page.row.thread.max.thread.num
+	 * @return
+	 */
+	private Integer loadSyncPageRowThreadMaxThreadNum(){
+		String num = SyncPropertiesUtil.getProperty("sync.page.row.thread.max.thread.num");
 		Integer threadNum = null;
 		if(StringUtils.isNotEmpty(num)){
 			threadNum = Integer.parseInt(num);

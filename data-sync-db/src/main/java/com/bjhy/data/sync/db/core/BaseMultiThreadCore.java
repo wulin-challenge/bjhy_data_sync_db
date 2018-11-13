@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ForRunThread;
@@ -29,6 +31,7 @@ import com.bjhy.data.sync.db.thread.ThreadControl2;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 import com.bjhy.data.sync.db.validation.SyncStepValidationStore;
 import com.bjhy.data.sync.db.version.check.VersionCheckCore;
+import com.bjhy.platform.util.BeanUtils;
 
 /**
  * 线程安全的逻辑处理类,该类绝对不能出现任何操作成员变量的代码,任何变量操作都必须是方法内部的局部变量传递
@@ -40,7 +43,12 @@ public class BaseMultiThreadCore {
 	/**
 	 * 行拆分的线程数(必须是静态的,为了避开每次都实例化)
 	 */
-	private static final ThreadControl2 pageRowThreadControler = new ThreadControl2(15);//固定线程数为15
+	private static ThreadControl2 pageRowThreadControler;
+	
+	/**
+	 * 行拆分线程锁
+	 */
+	private ReentrantLock pageRowThreadLock = new ReentrantLock();
 	
 	/**
 	 * 利用 ThreadControl 的事件机制进行控制同步事件的触发,同时控制是否开启多线程
@@ -66,7 +74,8 @@ public class BaseMultiThreadCore {
 			@Override
 			public void currentThreadRunning(int iterations, int i) {
 				List<Map<String, Object>> pageFromData = multiThreadPage.pageData(i);
-				pageSyncLogic(syncLogicEntity,pageFromData);//分页同步逻辑
+				SyncLogicEntity newSyncLogicEntity = copyNewSyncLogicEntity(syncLogicEntity);
+				pageSyncLogic(newSyncLogicEntity,pageFromData);//分页同步逻辑
 			}
 
 			@Override
@@ -191,10 +200,9 @@ public class BaseMultiThreadCore {
 
 			@Override
 			public void currentThreadRunning(int iterations, int index) {
-				//refreshBuildDllSql
 				SyncLogicEntity newSyncLogicEntity = copyNewSyncLogicEntity(syncLogicEntity);
 				
-				Map<String, Object> rowParam = rowParamToUpperCase(syncLogicEntity, pageFromData.get(index));
+				Map<String, Object> rowParam = rowParamToUpperCase(newSyncLogicEntity, pageFromData.get(index));
 				//判断是否有改变列数量的操作
 				threadSafetyLogic(newSyncLogicEntity, rowParam);
 			}
@@ -211,16 +219,30 @@ public class BaseMultiThreadCore {
 	private SyncLogicEntity copyNewSyncLogicEntity(SyncLogicEntity syncLogicEntity){
 			
 		SyncLogicEntity newSyncLogicEntity = new SyncLogicEntity();
-	
 		newSyncLogicEntity.setCheckSql(syncLogicEntity.getCheckSql());
 		newSyncLogicEntity.setCheckVersion(syncLogicEntity.getCheckVersion());
 		newSyncLogicEntity.setDeleteSql(syncLogicEntity.getDeleteSql());
 		newSyncLogicEntity.setInsertSql(syncLogicEntity.getInsertSql());
-		newSyncLogicEntity.setSingleStepSyncConfig(syncLogicEntity.getSingleStepSyncConfig());
 		newSyncLogicEntity.setSyncColumns(new LinkedHashSet<String>(syncLogicEntity.getSyncColumns()));
 		newSyncLogicEntity.setUpdateSql(syncLogicEntity.getUpdateSql());
 		newSyncLogicEntity.setToColumns(syncLogicEntity.getToColumns());
 		
+		//复制单个步骤的数据
+		SingleStepSyncConfig singleStepSyncConfig = syncLogicEntity.getSingleStepSyncConfig();
+		SingleStepSyncConfig newSingleStepSyncConfig = new SingleStepSyncConfig();
+		BeanUtils.copyNotNullProperties(singleStepSyncConfig, newSingleStepSyncConfig);
+		newSyncLogicEntity.setSingleStepSyncConfig(newSingleStepSyncConfig);
+		
+		//复制行分页对象
+		SyncPageRowEntity syncPageRowEntity = syncLogicEntity.getSingleStepSyncConfig().getSyncPageRowEntity();
+		if(syncPageRowEntity != null){
+			SyncPageRowEntity newSyncPageRowEntity = new SyncPageRowEntity();
+			newSyncPageRowEntity.setPageRowColumns(syncPageRowEntity.getPageRowColumns());
+			newSyncPageRowEntity.setPageRowInsertColumns(new ArrayList<String>(syncPageRowEntity.getPageRowInsertColumns()));
+			newSyncPageRowEntity.setPageRowInsertColumnSql(syncPageRowEntity.getPageRowInsertColumnSql());
+			newSyncPageRowEntity.setPageRowUpdateColumnSqlList(new ArrayList<String>(syncPageRowEntity.getPageRowUpdateColumnSqlList()));
+			newSyncLogicEntity.getSingleStepSyncConfig().setSyncPageRowEntity(newSyncPageRowEntity);
+		}
 		return newSyncLogicEntity;
 	}
 	
@@ -230,11 +252,12 @@ public class BaseMultiThreadCore {
 	 * @param rowParam
 	 */
 	private void threadSafetyLogic(SyncLogicEntity syncLogicEntity,Map<String, Object> rowParam){
+		syncLogicEntity = copyNewSyncLogicEntity(syncLogicEntity);
 		///分页中每一行的逻辑处理的方法
 		pageRowLogicDealWith(syncLogicEntity, rowParam);
 		SyncPageRowEntity syncPageRowEntity = syncLogicEntity.getSingleStepSyncConfig().getSyncPageRowEntity();
-		
 		if(syncPageRowEntity != null){
+			
 			pageRowInsertOrUpdate(syncLogicEntity, syncPageRowEntity, syncPageRowEntity.getPageRowInsertColumnSql(), rowParam);
 		}else{
 			insertOrUpdate(syncLogicEntity, syncLogicEntity.getInsertSql(), syncLogicEntity.getUpdateSql(), rowParam);
@@ -249,8 +272,8 @@ public class BaseMultiThreadCore {
 	 * @param rowParam
 	 */
 	private void pageRowInsertOrUpdate(SyncLogicEntity syncLogicEntity,SyncPageRowEntity syncPageRowEntity,String insertSql,final Map<String, Object> rowParam){
+		final List<String> pageRowUpdateColumnSqlList = syncPageRowEntity.getPageRowUpdateColumnSqlList();
 		final NamedParameterJdbcTemplate namedToTemplate = syncLogicEntity.getNamedToTemplate();
-		
 		//数据检查操作
 		String checkSql = syncLogicEntity.getCheckSql();
 		Boolean exis = isExis(syncLogicEntity,checkSql, rowParam);
@@ -259,12 +282,15 @@ public class BaseMultiThreadCore {
 			if(!exis){
 				namedToTemplate.update(insertSql, rowParam);
 			}
-			final List<String> pageRowUpdateColumnSqlList = syncPageRowEntity.getPageRowUpdateColumnSqlList();
 			//这个方式谨慎使用,因为最后线程池是没有被关闭的
-			pageRowThreadControler.forRunStart2(pageRowUpdateColumnSqlList.size(), new ForRunThread(){
+			ThreadControl2 createPageRowThreadControler2 = createPageRowThreadControler2(syncLogicEntity);
+			createPageRowThreadControler2.forRunStart2(pageRowUpdateColumnSqlList.size(), new ForRunThread(){
 				@Override
 				public void currentThreadRunning(int iterations, int i) {
-					namedToTemplate.update(pageRowUpdateColumnSqlList.get(i), rowParam);
+					String sql = pageRowUpdateColumnSqlList.get(i);
+					if(StringUtils.isNotEmpty(sql)){
+						namedToTemplate.update(sql, rowParam);
+					}
 				}
 			});
 		} catch (DataAccessException e) {
@@ -273,9 +299,7 @@ public class BaseMultiThreadCore {
 			if(!isThisOnlyOneSync){
 				LoggerUtils.error("当前这条数据已经存在或sql有错误,具体的错误信息:"+e.getMessage());
 			}
-			
 		}
-		
 	}
 
 	/**
@@ -456,6 +480,28 @@ public class BaseMultiThreadCore {
 			rowColumns.add(entry.getKey());
 		}
 		return rowColumns;
+	}
+	
+	/**
+	 * 创建行拆分线程控制对象
+	 * @param syncLogicEntity
+	 * @return
+	 */
+	private ThreadControl2 createPageRowThreadControler2(SyncLogicEntity syncLogicEntity){
+		if(pageRowThreadControler == null){
+			try {
+				pageRowThreadLock.lock();
+				if(pageRowThreadControler == null){
+					Integer syncPageRowThreadMaxThreadNum = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getBaseRunEntity().getSyncConfig().getSyncPageRowThreadMaxThreadNum();
+					pageRowThreadControler = new ThreadControl2(syncPageRowThreadMaxThreadNum);
+				}
+			} finally {
+				if(pageRowThreadLock.isLocked()){
+					pageRowThreadLock.unlock();
+				}
+			}
+		}
+		return pageRowThreadControler;
 	}
 
 }

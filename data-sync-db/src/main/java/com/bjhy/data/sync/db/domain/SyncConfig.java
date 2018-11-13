@@ -52,6 +52,11 @@ public class SyncConfig {
 	 * 插入或者更新线程
 	 */
 	private Integer syncInsertOrUpdateMaxThreadNum;
+	
+	/**
+	 * 行拆分最大线程数
+	 */
+	private Integer syncPageRowThreadMaxThreadNum;
 
 	public List<String> getSyncDataSourceLoaderModel() {
 		return syncDataSourceLoaderModel;
@@ -117,4 +122,11 @@ public class SyncConfig {
 		this.syncIsAutoRepair = syncIsAutoRepair;
 	}
 
+	public Integer getSyncPageRowThreadMaxThreadNum() {
+		return syncPageRowThreadMaxThreadNum;
+	}
+
+	public void setSyncPageRowThreadMaxThreadNum(Integer syncPageRowThreadMaxThreadNum) {
+		this.syncPageRowThreadMaxThreadNum = syncPageRowThreadMaxThreadNum;
+	}
 }

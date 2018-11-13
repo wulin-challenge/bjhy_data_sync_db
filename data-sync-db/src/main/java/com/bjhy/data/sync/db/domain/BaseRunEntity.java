@@ -61,6 +61,11 @@ public class BaseRunEntity {
 	private Integer insertOrUpdateMaxThreadNum=1;
 	
 	/**
+	 * 行拆分最大线程数
+	 */
+	private Integer pageRowThreadMaxThreadNum=1;
+	
+	/**
 	 * 目标任务
 	 */
 	private String toTask;
@@ -158,6 +163,18 @@ public class BaseRunEntity {
 
 	public void setInsertOrUpdateMaxThreadNum(Integer insertOrUpdateMaxThreadNum) {
 		this.insertOrUpdateMaxThreadNum = insertOrUpdateMaxThreadNum;
+	}
+	
+	public Integer getPageRowThreadMaxThreadNum() {
+		Integer syncPageRowThreadMaxThreadNum = syncConfig.getSyncPageRowThreadMaxThreadNum();
+		if(syncPageRowThreadMaxThreadNum != null){
+			return syncPageRowThreadMaxThreadNum;
+		}
+		return pageRowThreadMaxThreadNum;
+	}
+
+	public void setPageRowThreadMaxThreadNum(Integer pageRowThreadMaxThreadNum) {
+		this.pageRowThreadMaxThreadNum = pageRowThreadMaxThreadNum;
 	}
 
 	public Boolean getIsThisOnlyOne() {
