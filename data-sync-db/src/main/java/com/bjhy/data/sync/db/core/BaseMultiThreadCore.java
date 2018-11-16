@@ -48,7 +48,7 @@ public class BaseMultiThreadCore {
 	/**
 	 * 行拆分线程锁
 	 */
-	private ReentrantLock pageRowThreadLock = new ReentrantLock();
+	private static ReentrantLock pageRowThreadLock = new ReentrantLock();
 	
 	/**
 	 * 利用 ThreadControl 的事件机制进行控制同步事件的触发,同时控制是否开启多线程
