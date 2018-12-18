@@ -91,9 +91,23 @@ public class BaseCore {
 		if(isSyncNullValue){
 			singleStepSyncConfig.setIsSyncNullValue(true);
 		}
+		//设置行拆分最大列数量值
+		setSyncPageRowMaxColumnNum(singleStepSyncConfig);
 		
 		reflectGenerationListener(singleStepSyncConfig);//反射生成监听器
 		assembleStepParamsLogic(singleStepSyncConfig);
+	}
+	
+	/**
+	 * 设置行拆分最大列数量值
+	 * @param singleStepSyncConfig
+	 */
+	private void setSyncPageRowMaxColumnNum(SingleStepSyncConfig singleStepSyncConfig){
+		SyncPageRowEntity syncPageRowEntity = singleStepSyncConfig.getSyncPageRowEntity();
+		Integer syncPageRowMaxColumnNum = singleStepSyncConfig.getSingleRunEntity().getBaseRunEntity().getSyncConfig().getSyncPageRowMaxColumnNum();
+		if(syncPageRowEntity != null && syncPageRowMaxColumnNum != null && syncPageRowMaxColumnNum > 0){
+			syncPageRowEntity.setPageRowColumns(syncPageRowMaxColumnNum);
+		}
 	}
 	
 	/**
@@ -364,12 +378,23 @@ public class BaseCore {
 	 */
 	void addStaticColumns(SyncLogicEntity syncLogicEntity,Map<String, Object> rowParam){
 		Map<String, Object> addStaticFromColumns = syncLogicEntity.getSingleStepSyncConfig().getAddStaticFromColumns();
+		Boolean isForceAddStaticFromColumns = syncLogicEntity.getSingleStepSyncConfig().getIsForceAddStaticFromColumns();
 		Set<Entry<String, Object>> entrySet = addStaticFromColumns.entrySet();
 		for (Entry<String, Object> entry : entrySet) {
 			
 			syncLogicEntity.getSyncColumns().add(entry.getKey().toUpperCase());
 			
-			if(rowParam != null && !rowParam.isEmpty() && !rowParam.containsKey(entry.getKey().toUpperCase())){
+			Boolean isForceAddStaticsColumns = false;
+			if(rowParam != null && !rowParam.isEmpty() && rowParam.containsKey(entry.getKey().toUpperCase())){
+				//true:表示当来源(fromSql)中包含与静态列相同的列名称时,则进行强制覆盖
+				if(isForceAddStaticFromColumns){
+					isForceAddStaticsColumns = true;
+				}
+			}else{
+				isForceAddStaticsColumns = true;
+			}
+			
+			if(rowParam != null && !rowParam.isEmpty() && isForceAddStaticsColumns){
 				rowParam.put(entry.getKey().toUpperCase(), entry.getValue());
 			}
 		}

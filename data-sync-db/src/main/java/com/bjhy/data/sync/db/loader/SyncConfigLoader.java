@@ -47,6 +47,7 @@ public class SyncConfigLoader {
 		syncConfig.setSyncTablePageMaxThreadNum(loadSyncTablePageMaxThreadNum());
 		syncConfig.setSyncInsertOrUpdateMaxThreadNum(loadSyncInsertOrUpdateMaxThreadNum());
 		syncConfig.setSyncPageRowThreadMaxThreadNum(loadSyncPageRowThreadMaxThreadNum());
+		syncConfig.setSyncPageRowMaxColumnNum(loadSyncPageRowMaxColumnNum());
 		return syncConfig;
 	}
 	
@@ -169,6 +170,20 @@ public class SyncConfigLoader {
 		}
 		
 		return threadNum;
+	}
+	
+	/**
+	 * 加载 sync.page.row.max.column.num
+	 * @return
+	 */
+	private Integer loadSyncPageRowMaxColumnNum(){
+		String num = SyncPropertiesUtil.getProperty("sync.page.row.max.column.num");
+		Integer columnNum = null;
+		if(StringUtils.isNotEmpty(num)){
+			columnNum = Integer.parseInt(num);
+		}
+		
+		return columnNum;
 	}
 	
 }

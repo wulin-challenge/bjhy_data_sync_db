@@ -61,6 +61,13 @@ public class SingleStepSyncConfig {
 	 */
 	private Map<String,Object> addStaticFromColumns = new LinkedHashMap<String,Object>();
 	
+	/**
+	 * 是否强制添加静态 (列-值)
+	 * true:表示当来源(fromSql)中包含与静态列相同的列名称时,则进行强制覆盖
+	 * false:表示当来源(fromSql)中包含与静态列相同的列名称时,不进行覆盖
+	 */
+	private Boolean isForceAddStaticFromColumns = true;
+	
 	
 	/**
 	 * 剔除(来源)不需要的字段
@@ -215,6 +222,14 @@ public class SingleStepSyncConfig {
 
 	public void setAddStaticFromColumns(Map<String, Object> addStaticFromColumns) {
 		this.addStaticFromColumns = addStaticFromColumns;
+	}
+
+	public Boolean getIsForceAddStaticFromColumns() {
+		return isForceAddStaticFromColumns;
+	}
+
+	public void setIsForceAddStaticFromColumns(Boolean isForceAddStaticFromColumns) {
+		this.isForceAddStaticFromColumns = isForceAddStaticFromColumns;
 	}
 
 	public Boolean getIsMultiThreadPage() {

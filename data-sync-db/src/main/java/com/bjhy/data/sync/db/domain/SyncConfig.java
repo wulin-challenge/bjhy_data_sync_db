@@ -57,6 +57,11 @@ public class SyncConfig {
 	 * 行拆分最大线程数
 	 */
 	private Integer syncPageRowThreadMaxThreadNum;
+	
+	/**
+	 * 拆分行最大列数量
+	 */
+	private Integer syncPageRowMaxColumnNum;
 
 	public List<String> getSyncDataSourceLoaderModel() {
 		return syncDataSourceLoaderModel;
@@ -129,4 +134,13 @@ public class SyncConfig {
 	public void setSyncPageRowThreadMaxThreadNum(Integer syncPageRowThreadMaxThreadNum) {
 		this.syncPageRowThreadMaxThreadNum = syncPageRowThreadMaxThreadNum;
 	}
+
+	public Integer getSyncPageRowMaxColumnNum() {
+		return syncPageRowMaxColumnNum;
+	}
+
+	public void setSyncPageRowMaxColumnNum(Integer syncPageRowMaxColumnNum) {
+		this.syncPageRowMaxColumnNum = syncPageRowMaxColumnNum;
+	}
+	
 }
