@@ -130,12 +130,8 @@ public class DataSourceLoader {
 			dataSource.setPassword(connect.getConnectPassword());
 //			dataSource.setDriverClassName(connect.getConnectDriver());
 			
-			//设置这个Name是为了防止 DruidDataSource 抛出 
-			if("true".equals(getPropertyOfStr("druidName", "false"))){
-				dataSource.setName(DataSourceLoader.getUUID());
-			}
-			dataSource.setMinIdle(getPropertyOfInt("minIdle", 0));
-			dataSource.setMaxActive(getPropertyOfInt("maxActive", 200));
+			//设置 DruidDataSource 的参数
+			setDruidDataSourceParams(dataSource);
 			
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -143,6 +139,30 @@ public class DataSourceLoader {
 			LoggerUtils.error("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:"+e.getMessage());
 		}
 		return dataSource;
+	}
+	
+	/**
+	 * 设置 DruidDataSource 的参数
+	 * @param dataSource 
+	 */
+	private void setDruidDataSourceParams(DruidDataSource dataSource){
+		//设置这个Name是为了防止 DruidDataSource 抛出 
+		if(getPropertyOfBoolean("druidName", false)){
+			dataSource.setName(DataSourceLoader.getUUID());
+		}
+		dataSource.setMinIdle(getPropertyOfInt("minIdle", 1));
+		dataSource.setMaxActive(getPropertyOfInt("maxActive", 200));
+		dataSource.setInitialSize(getPropertyOfInt("initialSize", 1));
+		dataSource.setMaxWait(getPropertyOfLong("maxWait", 600000L)); //默认10分钟
+		dataSource.setPoolPreparedStatements(getPropertyOfBoolean("poolPreparedStatements", false));
+		dataSource.setMaxPoolPreparedStatementPerConnectionSize(getPropertyOfInt("maxPoolPreparedStatementPerConnectionSize", -1));
+		dataSource.setValidationQuery(getPropertyOfStr("validationQuery", null));
+		dataSource.setValidationQueryTimeout(getPropertyOfInt("validationQueryTimeout", -1));
+		dataSource.setTestOnBorrow(getPropertyOfBoolean("testOnBorrow", true));
+		dataSource.setTestOnReturn(getPropertyOfBoolean("testOnReturn", false));
+		dataSource.setTestWhileIdle(getPropertyOfBoolean("testWhileIdle", true));
+		dataSource.setTimeBetweenEvictionRunsMillis(getPropertyOfLong("timeBetweenEvictionRunsMillis", 60000L));
+		dataSource.setMinEvictableIdleTimeMillis(getPropertyOfLong("minEvictableIdleTimeMillis", 600000L));
 	}
 	
 	/**
@@ -160,12 +180,40 @@ public class DataSourceLoader {
 	}
 	
 	/**
+	 * 
+	 * 得到propertyOfBoolean
+	 * @return
+	 */
+	private Boolean getPropertyOfBoolean(String fieldName,Boolean defaultValue){
+		String checkoutTimeoutString = SyncPropertiesUtil.getProperty(fieldName);
+		Boolean value = defaultValue;
+		if(StringUtils.isNotEmpty(checkoutTimeoutString)){
+			value = Boolean.parseBoolean(checkoutTimeoutString);
+		}
+		return value;
+	}
+	
+	/**
+	 * 
+	 * 得到propertyOfLong
+	 * @return
+	 */
+	private Long getPropertyOfLong(String fieldName,Long defaultValue){
+		String checkoutTimeoutString = SyncPropertiesUtil.getProperty(fieldName);
+		Long value = defaultValue;
+		if(StringUtils.isNotEmpty(checkoutTimeoutString)){
+			value = Long.parseLong(checkoutTimeoutString);
+		}
+		return value;
+	}
+	
+	/**
 	 * 得到propertyOfInt
 	 * @return
 	 */
-	private int getPropertyOfInt(String fieldName,int defaultValue){
+	private Integer getPropertyOfInt(String fieldName,Integer defaultValue){
 		String checkoutTimeoutString = SyncPropertiesUtil.getProperty(fieldName);
-		int value = defaultValue;
+		Integer value = defaultValue;
 		if(StringUtils.isNotEmpty(checkoutTimeoutString)){
 			value = Integer.parseInt(checkoutTimeoutString);
 		}
