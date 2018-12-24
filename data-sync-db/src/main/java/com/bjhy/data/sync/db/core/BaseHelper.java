@@ -8,6 +8,7 @@ import com.bjhy.data.sync.db.domain.SingleRunEntity;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
+import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 
 /**
  * 提供各种快捷的同步封装及同步实现
@@ -153,6 +154,7 @@ public class BaseHelper {
 		SyncPageRowEntity syncPageRowEntity =new SyncPageRowEntity();
 		List<String> pageRowInsertColumns = new ArrayList<String>();
 		pageRowInsertColumns.add(updateAndPageColumn);
+		pageRowInsertColumns.add(VersionCheckCore.SYNC_VERSION_CHECK);
 		syncPageRowEntity.setPageRowInsertColumns(pageRowInsertColumns);
 		singleStepSyncConfig.setSyncPageRowEntity(syncPageRowEntity);
 		//开始同步
