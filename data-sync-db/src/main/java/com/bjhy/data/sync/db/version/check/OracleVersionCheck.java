@@ -1,5 +1,9 @@
 package com.bjhy.data.sync.db.version.check;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.bjhy.data.sync.db.domain.AddColumnAttribute;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.VersionCheck;
 
@@ -18,11 +22,13 @@ public class OracleVersionCheck implements VersionCheck{
 	}
 
 	@Override
-	public String getAddVersionCheckColumnSql() {
-		String syncVersionCheck = VersionCheckCore.SYNC_VERSION_CHECK;
-		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
-		String alterSql = "alter table "+toTableName+" add ("+syncVersionCheck+" varchar2(255))";
-		return alterSql;
+	public List<String> getAddVersionCheckColumnSql(List<AddColumnAttribute> addToTableColumns) {
+		List<String> alterSqlList = new ArrayList<String>();
+		for (AddColumnAttribute addColumnAttribute : addToTableColumns) {
+			String alterSql = "alter table "+addColumnAttribute.getTableName()+" add ("+addColumnAttribute.getColumnName()+" varchar2("+addColumnAttribute.getLength()+"))";
+			alterSqlList.add(alterSql);
+		}
+		return alterSqlList;
 	}
 
 	@Override
@@ -32,6 +38,6 @@ public class OracleVersionCheck implements VersionCheck{
 		String toDeleteSql = "DELETE FROM "+toTableName+" WHERE "+syncVersionCheck+" in(:"+syncVersionCheck+") or "+syncVersionCheck+" is null or "+syncVersionCheck+"=''";
 		return toDeleteSql;
 	}
-
+	
 }
 

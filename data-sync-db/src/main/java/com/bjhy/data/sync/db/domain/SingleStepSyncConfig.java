@@ -75,6 +75,11 @@ public class SingleStepSyncConfig {
 	private List<String> removeFromColumns = new ArrayList<String>();
 	
 	/**
+	 * 添加目标表的列
+	 */
+	private List<AddColumnAttribute> addToTableColumns = new ArrayList<AddColumnAttribute>();
+	
+	/**
 	 * 是否多线程分页
 	 */
 	private Boolean isMultiThreadPage = true;
@@ -355,5 +360,8 @@ public class SingleStepSyncConfig {
 	public Map<String, String> getSimpleColumnNameMapping() {
 		return simpleColumnNameMapping;
 	}
-	
+
+	public List<AddColumnAttribute> getAddToTableColumns() {
+		return addToTableColumns;
+	}
 }

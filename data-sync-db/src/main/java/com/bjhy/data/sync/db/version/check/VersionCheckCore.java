@@ -10,14 +10,17 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.bjhy.data.sync.db.domain.AddColumnAttribute;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.VersionCheck;
 import com.bjhy.data.sync.db.loader.DataSourceLoader;
 import com.bjhy.data.sync.db.natived.dao.VersionCheckDao;
 import com.bjhy.data.sync.db.natived.dao.impl.VersionCheckDaoFactory;
 import com.bjhy.data.sync.db.natived.domain.VersionCheckEntity;
+import com.bjhy.data.sync.db.util.LoggerUtils;
 
 /**
  * 版本检测逻辑类
@@ -44,10 +47,11 @@ public class VersionCheckCore {
 	private VersionCheckDao versionCheckDao;
 
 	public VersionCheckCore(SyncLogicEntity syncLogicEntity) {
+		List<AddColumnAttribute> addToTableColumns = syncLogicEntity.getSingleStepSyncConfig().getAddToTableColumns();
 		this.syncLogicEntity = syncLogicEntity;
 		this.versionCheckDao = new VersionCheckDaoFactory(syncLogicEntity).getVersionCheckDao();
 		initVersionCheck(); //初始化VersionCheck的实现对象
-		addVersionCheckColumn(); //添加versionCheckColumn
+		addVersionCheckColumn(addToTableColumns); //添加versionCheckColumn
 		storeOrUpdateVersionCheck();//保存或者更新 VersionCheck值
 	}
 	
@@ -75,17 +79,39 @@ public class VersionCheckCore {
 	/**
 	 * 添加versionCheckColumn
 	 */
-	private void addVersionCheckColumn(){
-		Set<String> toColumns = syncLogicEntity.getToColumns();
+	private void addVersionCheckColumn(List<AddColumnAttribute> addToTableColumns){
+		addToTableColumns = addSyncVersionCheck(addToTableColumns);
+		List<AddColumnAttribute> addColumnAttributeList = getAddColumnAttributeList(addToTableColumns);
 		
-		String syncVersionCheck = VersionCheckCore.SYNC_VERSION_CHECK;
-		
-		if(!toColumns.contains(syncVersionCheck)){
+		if(addColumnAttributeList.size()>0){
 			NamedParameterJdbcTemplate namedToTemplate = syncLogicEntity.getNamedToTemplate();
-			String addVersionCheckColumnSql = versionCheck.getAddVersionCheckColumnSql();
-			namedToTemplate.getJdbcOperations().execute(addVersionCheckColumnSql);
+			List<String> addVersionCheckColumnSqlList = versionCheck.getAddVersionCheckColumnSql(addColumnAttributeList);
+			for (String addVersionCheckColumnSql : addVersionCheckColumnSqlList) {
+				try {
+					namedToTemplate.getJdbcOperations().execute(addVersionCheckColumnSql);
+				} catch (Exception e) {
+					LoggerUtils.warn("列添加失败! 执行的sql: "+addVersionCheckColumnSql+",具体错误异常:"+e.getMessage());
+				}
+			}
 		}
+	}
 	
+	/**
+	 * 得到要添加的属性列
+	 * @param addToTableColumns
+	 * @return
+	 */
+	private List<AddColumnAttribute> getAddColumnAttributeList(List<AddColumnAttribute> addToTableColumns){
+		Set<String> toColumns = syncLogicEntity.getToColumns();
+		List<AddColumnAttribute> newAddToTableColumns = new ArrayList<AddColumnAttribute>();
+		
+		for (AddColumnAttribute addColumnAttribute : addToTableColumns) {
+			String columnName = addColumnAttribute.getColumnName().toUpperCase();
+			if(!toColumns.contains(columnName)){
+				newAddToTableColumns.add(addColumnAttribute);
+			}
+		}
+		return newAddToTableColumns;
 	}
 	
 	/**
@@ -196,7 +222,14 @@ public class VersionCheckCore {
 		return versionCheckEntity;
 	}
 	
-	
+	private List<AddColumnAttribute> addSyncVersionCheck(List<AddColumnAttribute> addToTableColumns){
+		String syncVersionCheck = VersionCheckCore.SYNC_VERSION_CHECK;
+		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+		
+		List<AddColumnAttribute> newAddToTableColumns = new ArrayList<AddColumnAttribute>(addToTableColumns);
+		newAddToTableColumns.add(new AddColumnAttribute(syncVersionCheck, toTableName, 55));
+		return newAddToTableColumns;
+	}
 	
 	
 

@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.bjhy.data.sync.db.domain.AddColumnAttribute;
 import com.bjhy.data.sync.db.domain.SingleRunEntity;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.domain.SyncTemplate;
@@ -201,7 +202,7 @@ public interface OwnInterface {
 		 * 得到添加VersionCheck列的sql语句
 		 * @return
 		 */
-		public String getAddVersionCheckColumnSql();
+		public List<String> getAddVersionCheckColumnSql(List<AddColumnAttribute> addToTableColumns);
 		
 		/**
 		 * 得到通过versionCheck清楚数据的deletesql

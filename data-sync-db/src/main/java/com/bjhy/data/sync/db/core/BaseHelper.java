@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.bjhy.data.sync.db.domain.AddColumnAttribute;
 import com.bjhy.data.sync.db.domain.SingleRunEntity;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
@@ -46,6 +47,8 @@ public class BaseHelper {
 		singleStepSyncConfig.setIsSyncNullValue(false);
 		singleStepSyncConfig.getAddStaticFromColumns().put("jymc", dataSourceName);
 		singleStepSyncConfig.getAddStaticFromColumns().put("jybh", dataSourceNumber);
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jymc", toTableName));
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
 		
 		baseCore.syncEntry(singleStepSyncConfig);
@@ -80,6 +83,8 @@ public class BaseHelper {
 		singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 		singleStepSyncConfig.getAddStaticFromColumns().put("jymc", dataSourceName);
 		singleStepSyncConfig.getAddStaticFromColumns().put("jybh", dataSourceNumber);
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jymc", toTableName));
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
 		singleStepSyncConfig.setSingleStepListener(singleStepListener);
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
 		
@@ -117,6 +122,8 @@ public class BaseHelper {
 		singleStepSyncConfig.getAddStaticFromColumns().put("jymc", dataSourceName);
 		singleStepSyncConfig.getAddStaticFromColumns().put("jybh", dataSourceNumber);
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jymc", toTableName));
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
 		
 		baseCore.syncEntry(singleStepSyncConfig);
 	}
@@ -150,6 +157,8 @@ public class BaseHelper {
 		singleStepSyncConfig.getAddStaticFromColumns().put("jymc", dataSourceName);
 		singleStepSyncConfig.getAddStaticFromColumns().put("jybh", dataSourceNumber);
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jymc", toTableName));
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
 		//拆分行配置
 		SyncPageRowEntity syncPageRowEntity =new SyncPageRowEntity();
 		List<String> pageRowInsertColumns = new ArrayList<String>();
@@ -193,6 +202,8 @@ public class BaseHelper {
 		singleStepSyncConfig.getAddStaticFromColumns().put("jybh", dataSourceNumber);
 		singleStepSyncConfig.setSingleStepListener(singleStepListener);
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jymc", toTableName));
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
 		
 		baseCore.syncEntry(singleStepSyncConfig);
 	}
@@ -228,6 +239,8 @@ public class BaseHelper {
 		singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 		singleStepSyncConfig.getAddStaticFromColumns().put("jymc", dataSourceName);
 		singleStepSyncConfig.getAddStaticFromColumns().put("jybh", dataSourceNumber);
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jymc", toTableName));
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
 		singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
 		
@@ -263,6 +276,8 @@ public class BaseHelper {
 		singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 		singleStepSyncConfig.getAddStaticFromColumns().put("jymc", dataSourceName);
 		singleStepSyncConfig.getAddStaticFromColumns().put("jybh", dataSourceNumber);
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jymc", toTableName));
+		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
 		
 		baseCore.syncEntry(singleStepSyncConfig);
