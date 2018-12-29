@@ -212,4 +212,22 @@ public interface OwnInterface {
 		
 	}
 	
+	/**
+	 * 对象值比较接口
+	 * @author wubo
+	 *
+	 */
+	public interface ValueCompare{
+		
+		/**
+		 * 
+		 * 比较相同数据类型的两个值是否相等
+		 * @param dataClass 数据类型
+		 * @param lessRowValue 较少行比较列的值
+		 * @param moreRowValue 较多行比较列的值
+		 * @return 相等返回true,否则返回false
+		 */
+		public boolean doEqualsCompare(Class<? extends Object> dataClass,Object lessRowValue,Object moreRowValue);
+	}
+	
 }

@@ -231,6 +231,7 @@ public class BaseMultiThreadCore {
 		SingleStepSyncConfig singleStepSyncConfig = syncLogicEntity.getSingleStepSyncConfig();
 		SingleStepSyncConfig newSingleStepSyncConfig = new SingleStepSyncConfig();
 		BeanUtils.copyNotNullProperties(singleStepSyncConfig, newSingleStepSyncConfig);
+		newSingleStepSyncConfig.getSimpleColumnNameMapping().putAll(singleStepSyncConfig.getSimpleColumnNameMapping());
 		newSyncLogicEntity.setSingleStepSyncConfig(newSingleStepSyncConfig);
 		
 		//复制行分页对象

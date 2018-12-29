@@ -1,0 +1,261 @@
+package com.bjhy.data.sync.db.util;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.apache.poi.ss.formula.functions.T;
+import org.springframework.util.Assert;
+
+import com.bjhy.data.sync.db.domain.RowCompareParam;
+import com.bjhy.data.sync.db.domain.RowCompareParamSet;
+import com.bjhy.data.sync.db.inter.face.OwnInterface.ValueCompare;
+
+/**
+ * map工具类
+ * @author wubo
+ */
+public class MapUtil {
+	
+	public <T> Set<T> compareSet(RowCompareParamSet rowCompareParamSet,Class<T> returnType){
+		Set<T> result = new HashSet<T>();
+		
+		String uniqueValueKey = rowCompareParamSet.getUniqueValueKey();
+		Collection<Map<String, Object>> lessRowSet = rowCompareParamSet.getLessRowSet();
+		Collection<Map<String, Object>> moreRowSet = rowCompareParamSet.getMoreRowSet();
+		
+		Assert.hasLength(uniqueValueKey,"uniqueValueKey 不能为空");
+		Assert.notNull(lessRowSet,"lessRowSet 较少行 数据集合 不能为 空");
+		Assert.notNull(moreRowSet,"moreRowSet 较多行 数据集合 不能为 空");
+		
+		//将数据较多的一行进行hash
+		Map<T,Map<String,Object>> hashMoreRowSet = hashMoreRowSet(uniqueValueKey, moreRowSet);
+		
+		for (Map<String, Object> lessRow : lessRowSet) {
+			T uniqueValue = (T)lessRow.get(uniqueValueKey);
+			Map<String, Object> moreRow = (Map<String, Object>)hashMoreRowSet.get(uniqueValue);
+			
+			if(moreRow == null || moreRow.size() ==0){
+				result.add(uniqueValue);
+				continue;
+			}
+			
+			RowCompareParam rowCompareParam = new RowCompareParam();
+			rowCompareParam.getSpecifyCompareColumn().addAll(rowCompareParamSet.getSpecifyCompareColumn());
+			rowCompareParam.getExcludeColumn().addAll(rowCompareParamSet.getExcludeColumn());
+			rowCompareParam.setValueCompare(rowCompareParamSet.getValueCompare());
+			rowCompareParam.getLessRow().putAll(lessRow);
+			rowCompareParam.getMoreRow().putAll(moreRow);
+			
+			//行数据比较
+			boolean compare = compare(rowCompareParam);
+			if(!compare){
+				result.add(uniqueValue);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 行数据比较
+	 * @param rowCompareParam 行比较参数,内部使用
+	 * @return
+	 */
+	public boolean compare(RowCompareParam rowCompareParam){
+		// 验证参数
+		if(!validationParams(rowCompareParam)){
+			return false;
+		}
+		
+		boolean result = true;
+		Set<Entry<String, Object>> lessRowEntrySet = rowCompareParam.getLessRow().entrySet();
+		Map<String, Object> moreRow = rowCompareParam.getMoreRow();
+		
+		//处理指定的比较列
+		Set<String> specifyCompareColumn = rowCompareParam.getSpecifyCompareColumn();
+		if(specifyCompareColumn.size()>0){
+			result = doCompareColumns(rowCompareParam, moreRow, specifyCompareColumn);
+			return result;
+		}
+		
+		//循环较少行,并进行比较
+		result = forLessRowDoCompare(rowCompareParam, lessRowEntrySet, moreRow);
+		return result;
+	}
+
+	/**
+	 * 循环较少行,并进行比较
+	 * @param rowCompareParam 行比较参数
+	 * @param lessRowEntrySet 较少的行参数
+	 * @param moreRow 较多参数的行
+	 * @return 返回比较成功与否,成功返回true,否则返回false
+	 */
+	private boolean forLessRowDoCompare(RowCompareParam rowCompareParam,Set<Entry<String, Object>> lessRowEntrySet, Map<String, Object> moreRow) {
+		boolean result = true;
+		for (Entry<String, Object> lessRowEntry : lessRowEntrySet) {
+			String compareColumn = lessRowEntry.getKey();
+			
+			//若排除列不为空且 包含 lessRowKey 列,则跳过比较
+			if(rowCompareParam.getExcludeColumn().size()>0 && rowCompareParam.getExcludeColumn().contains(compareColumn)){
+				continue;
+			}
+			
+			//这代表验证失败
+			if(!moreRow.containsKey(compareColumn)){
+				result = false;
+				break;
+			}
+			
+			Object lessRowValue = lessRowEntry.getValue();
+			Object moreRowValue = moreRow.get(compareColumn);
+			if(!doCompare(compareColumn,rowCompareParam, lessRowValue, moreRowValue)){
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 处理指定的比较列
+	 * @param rowCompareParam 行比较参数
+	 * @param moreRow 较多参数的行
+	 * @param compareColumns 要比较的行参数列 ,这里的列都是 lessRow 中的列
+	 * @return 返回比较成功与否,成功返回true,否则返回false
+	 */
+	private boolean doCompareColumns(RowCompareParam rowCompareParam, Map<String, Object> moreRow,Set<String> compareColumns) {
+		for (String compareColumn : compareColumns) {
+			Object lessRowValue = rowCompareParam.getLessRow().get(compareColumn);
+			Object moreRowValue = moreRow.get(compareColumn);
+			
+			if(!doCompare(compareColumn,rowCompareParam, lessRowValue, moreRowValue)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @param compareColumn 行比较参数
+	 * @param rowCompareParam 行比较参数
+	 * @param lessRowValue
+	 * @param moreRowValue
+	 * @return
+	 */
+	private boolean doCompare(String compareColumn,RowCompareParam rowCompareParam,Object lessRowValue,Object moreRowValue){
+
+		//若比较的值都为空,则表示比较成功
+		if(lessRowValue == null && moreRowValue == null){
+			return true;
+		}
+
+		if(lessRowValue == null && moreRowValue != null ){
+			return false;
+		}
+		if(moreRowValue == null && lessRowValue != null ){
+			return false;
+		}
+		
+		Class<? extends Object> lessRowClass = lessRowValue.getClass();
+		Class<? extends Object> moreRowClass = moreRowValue.getClass();
+		
+		//若比较的值得类型不同这表示比较失败
+		if(lessRowClass != moreRowClass){
+			return false;
+		}
+		return doCompare(lessRowClass,lessRowValue, moreRowValue,rowCompareParam);
+	}
+	
+	/**
+	 * 比较相同数据库类型的两个值是否相等
+	 * @param dataClass 数据类型
+	 * @param lessRowValue 较少行比较列的值
+	 * @param moreRowValue 较多行比较列的值
+	 * @return 
+	 */
+	private boolean doCompare(Class<? extends Object> dataClass,Object lessRowValue,Object moreRowValue,RowCompareParam rowCompareParam){
+		if(dataClass == String.class){
+			if(!lessRowValue.equals(moreRowValue)){
+				return false;
+			}
+		}else if(dataClass == Date.class){
+			if(((Date)lessRowValue).getTime() != ((Date)moreRowValue).getTime()){
+				return false;
+			}
+		}else if(dataClass == java.sql.Timestamp.class){
+			if(((java.sql.Timestamp)lessRowValue).getTime() != ((java.sql.Timestamp)moreRowValue).getTime()){
+				return false;
+			}
+		}else if(dataClass == int.class || dataClass == Integer.class){
+			if(lessRowValue != moreRowValue){
+				return false;
+			}
+		}else if(dataClass == java.math.BigDecimal.class){
+			BigDecimal data1 = (BigDecimal) lessRowValue;
+			BigDecimal data2 = (BigDecimal) moreRowValue;
+			if(data1.compareTo(data2) != 0){
+				return false;
+			}
+		}else if(dataClass == long.class || dataClass == Long.class){
+			if(lessRowValue != moreRowValue){
+				return false;
+			}
+		}else if(dataClass == double.class || dataClass == Double.class){
+			BigDecimal data1 = new BigDecimal((double)lessRowValue);
+			BigDecimal data2 = new BigDecimal((double)moreRowValue);
+			if(data1.compareTo(data2) != 0){
+				return false;
+			}
+		}else if(dataClass == float.class || dataClass == Float.class){
+			BigDecimal data1 = new BigDecimal((float)lessRowValue);
+			BigDecimal data2 = new BigDecimal((float)moreRowValue);
+			if(data1.compareTo(data2) != 0){
+				return false;
+			}
+		}else if(dataClass == boolean.class || dataClass == Boolean.class){
+			if(lessRowValue != moreRowValue){
+				return false;
+			}
+		}else{
+			// 此处增加回调接口,让用户自行实现其他类型值的判断...
+			ValueCompare valueCompare = rowCompareParam.getValueCompare();
+			if(valueCompare != null){
+				return valueCompare.doEqualsCompare(dataClass, lessRowValue, moreRowValue);
+			}
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * 将数据较多的一行进行hash
+	 * @param uniqueValueKey 唯一值key
+	 * @param moreRowSet 较多行数据集合
+	 * @return 返回hash后的较多行数据
+	 */
+	private <T> Map<T,Map<String,Object>> hashMoreRowSet(String uniqueValueKey,Collection<Map<String, Object>> moreRowSet){
+		Map<T,Map<String,Object>> hashMoreRowSet = new HashMap<T,Map<String,Object>>(32);
+		for (Map<String, Object> moreRow : moreRowSet) {
+			hashMoreRowSet.put((T)moreRow.get(uniqueValueKey), moreRow);
+		}
+		return hashMoreRowSet;
+	}
+	
+	/**
+	 * 验证参数
+	 * @param rowCompareParam 行比较参数
+	 * @return
+	 */
+	private boolean validationParams(RowCompareParam rowCompareParam){
+		if(rowCompareParam.getLessRow().size()==0 || rowCompareParam.getMoreRow().size()==0){
+			return false;
+		}
+		return true;
+	}
+}
