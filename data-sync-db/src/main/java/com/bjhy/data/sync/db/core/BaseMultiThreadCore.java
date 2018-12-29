@@ -28,10 +28,10 @@ import com.bjhy.data.sync.db.multi.thread.page.OracleMultiThreadPage;
 import com.bjhy.data.sync.db.multi.thread.page.SqlServerMultiThreadPage;
 import com.bjhy.data.sync.db.thread.ThreadControl;
 import com.bjhy.data.sync.db.thread.ThreadControl2;
+import com.bjhy.data.sync.db.util.BeanUtils;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 import com.bjhy.data.sync.db.validation.SyncStepValidationStore;
 import com.bjhy.data.sync.db.version.check.VersionCheckCore;
-import com.bjhy.platform.util.BeanUtils;
 
 /**
  * 线程安全的逻辑处理类,该类绝对不能出现任何操作成员变量的代码,任何变量操作都必须是方法内部的局部变量传递
