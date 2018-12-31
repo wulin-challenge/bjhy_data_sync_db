@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<import-data-sources>
+		<import-data-source>yz/db-1.xml</import-data-source>
+		<import-data-source>yz/db-2.xml</import-data-source>
+	</import-data-sources>
+	<!-- 
+	<native-template task="task" isEnable="false" databaseType="oracle">
+		<sort-number>1</sort-number>
+		<data-source-name>数据库名称</data-source-name>
+		<data-source-number>11111</data-source-number>
+		<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+		<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url>
+		<connect-username>wulin</connect-username>
+		<connect-password>wulin</connect-password>
+		<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+	</native-template>
+	 -->
+	 <!-- 
+	 <native-template task="task" isEnable="false" databaseType="oracle">
+		<sort-number>1</sort-number>
+		<data-source-name>数据库名称</data-source-name>
+		<data-source-number>11111</data-source-number>
+		<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+		<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url>
+		<connect-username>OASYS</connect-username>
+		<connect-password>OASYS</connect-password>
+		<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+	</native-template>
+	 -->
+	 
+	<native-template task="task" isEnable="true" databaseType="mySql">
+		<sort-number>1</sort-number>
+		<data-source-name>home_mysql_slave</data-source-name>
+		<data-source-number>home_mysql_slave</data-source-number>
+		<connect-driver>com.mysql.jdbc.Driver</connect-driver>
+		<connect-url>jdbc:mysql://zxq:3306/test_copy_slave</connect-url>
+		<connect-username>root</connect-username>
+		<connect-password>root</connect-password>
+		<connect-dialect>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</connect-dialect>
+	</native-template>
+	
+<!-- 
+	<native-template task="task" isEnable="false" databaseType="mySql">
+		<sort-number>1</sort-number>
+		<data-source-name>省局数据库</data-source-name>
+		<data-source-number>5100_root_native</data-source-number>
+		<connect-driver>com.mysql.jdbc.Driver</connect-driver>
+		<connect-url>jdbc:mysql://localhost:3306/eas</connect-url>
+		<connect-username>root</connect-username>
+		<connect-password>888</connect-password>
+		<connect-dialect>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</connect-dialect>
+	</native-template>
+	 -->
+	
+	 
+	<!-- 
+	<native-template task="task_native" isEnable="false" databaseType="Sqlserver">
+		<sort-number>1</sort-number>
+		<data-source-name>数据库名称</data-source-name>
+		<data-source-number>11111_sqlServer</data-source-number>
+		<connect-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</connect-driver>
+		<connect-url>jdbc:sqlserver://192.168.0.236:1433;DatabaseName=zkteco_database</connect-url>
+		<connect-username>sql</connect-username>
+		<connect-password>12345678</connect-password>
+		<connect-dialect>org.hibernate.dialect.SQLServerDialect</connect-dialect>
+	</native-template>
+	 -->
+	<!-- 
+	<native-template task="task_native_dm" isEnable="false" databaseType="dm">
+		<sort-number>1</sort-number>
+		<data-source-name>数据库名称</data-source-name>
+		<data-source-number>11111_dm</data-source-number>
+		<connect-driver>dm.jdbc.driver.DmDriver</connect-driver>
+		<connect-url>jdbc:dm://192.168.0.49:5236</connect-url>
+		<connect-username>HJXT</connect-username>
+		<connect-password>123456789</connect-password>
+		<connect-dialect>dm.jdbc.xa.DmdbXADataSource</connect-dialect>
+	</native-template>
+	
+ -->
+
+	<from-template>
+		<data-source task="task1" isEnable="true" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>省局数据库</data-source-name>
+			<data-source-number>5100_sjzfjc</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url>
+			<connect-username>sjzfjc</connect-username>
+			<connect-password>123456789</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+		<data-source task="task_mySql_from" isEnable="false" databaseType="mySql">
+			<sort-number>1</sort-number>
+			<data-source-name>省局数据库</data-source-name>
+			<data-source-number>5100_root_from</data-source-number>
+			<connect-driver>com.mysql.jdbc.Driver</connect-driver>
+			<connect-url>jdbc:mysql://localhost:3306/eas</connect-url>
+			<connect-username>root</connect-username>
+			<connect-password>888</connect-password>
+			<connect-dialect>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</connect-dialect>
+		</data-source>
+		<data-source task="task_dm_from" isEnable="false" databaseType="dm">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111_dm</data-source-number>
+			<connect-driver>dm.jdbc.driver.DmDriver</connect-driver>
+			<connect-url>jdbc:dm://192.168.0.49:5236</connect-url>
+			<connect-username>HJXT</connect-username>
+			<connect-password>123456789</connect-password>
+			<connect-dialect>dm.jdbc.xa.DmdbXADataSource</connect-dialect>
+		</data-source>
+		<data-source task="task2" isEnable="false" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url>
+			<connect-username>sjzfjc_sjhjxt</connect-username>
+			<connect-password>123456789</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+		<data-source task="task_sqlServer_from" isEnable="false" databaseType="SQLServer">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111_sqlServer</data-source-number>
+			<connect-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</connect-driver>
+			<connect-url>jdbc:sqlserver://192.168.0.236:1433;DatabaseName=zkteco_database</connect-url>
+			<connect-username>sql</connect-username>
+			<connect-password>12345678</connect-password>
+			<connect-dialect>org.hibernate.dialect.SQLServerDialect</connect-dialect>
+			
+		</data-source>
+		
+		
+		<data-source task="task2" isEnable="false" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url>
+			<connect-username>wulin</connect-username>
+			<connect-password>wulin</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+		<data-source task="task2" isEnable="false" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url>
+			<connect-username>wulin</connect-username>
+			<connect-password>wulin</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+		<data-source task="task1" isEnable="false" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url>
+			<connect-username>wulin</connect-username>
+			<connect-password>wulin</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+		<data-source task="task1" isEnable="false" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url>
+			<connect-username>wulin</connect-username>
+			<connect-password>wulin</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+		<data-source task="task2,task1" isEnable="false" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url>
+			<connect-username>wulin</connect-username>
+			<connect-password>wulin</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+		<data-source task="task2" isEnable="false" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url>
+			<connect-username>wulin</connect-username>
+			<connect-password>wulin</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+	</from-template>
+	
+	
+	
+	
+	
+	<to-template>
+		<data-source task="task3" isEnable="false" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url>
+			<connect-username>wulin</connect-username>
+			<connect-password>wulin</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+		<data-source task="task4" isEnable="false" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@localhost:1521:orcl</connect-url>
+			<connect-username>wulin</connect-username>
+			<connect-password>wulin</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+		<data-source task="task5" isEnable="true" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>省局数据库</data-source-name>
+			<data-source-number>5100_sjzfjc_back</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url>
+			<connect-username>sjzfjc_back</connect-username>
+			<connect-password>123456789</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+		
+		<data-source task="task_sqlServer_to" isEnable="false" databaseType="SQLServer">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111_sqlServer</data-source-number>
+			<connect-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</connect-driver>
+			<connect-url>jdbc:sqlserver://192.168.0.236:1433;DatabaseName=zkteco_database</connect-url>
+			<connect-username>sql</connect-username>
+			<connect-password>12345678</connect-password>
+			<connect-dialect>org.hibernate.dialect.SQLServerDialect</connect-dialect>
+			
+		</data-source>
+		
+		<data-source task="task_mySql_to" isEnable="false" databaseType="mySql">
+			<sort-number>1</sort-number>
+			<data-source-name>省局数据库</data-source-name>
+			<data-source-number>5100_root_to</data-source-number>
+			<connect-driver>com.mysql.jdbc.Driver</connect-driver>
+			<connect-url>jdbc:mysql://localhost:3306/eas</connect-url>
+			<connect-username>root</connect-username>
+			<connect-password>888</connect-password>
+			<connect-dialect>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</connect-dialect>
+		</data-source>
+		
+		<data-source task="task_dm_to" isEnable="false" databaseType="dm">
+			<sort-number>1</sort-number>
+			<data-source-name>数据库名称</data-source-name>
+			<data-source-number>11111_dm</data-source-number>
+			<connect-driver>dm.jdbc.driver.DmDriver</connect-driver>
+			<connect-url>jdbc:dm://192.168.0.49:5236</connect-url>
+			<connect-username>HJXT</connect-username>
+			<connect-password>123456789</connect-password>
+			<connect-dialect>dm.jdbc.xa.DmdbXADataSource</connect-dialect>
+		</data-source>
+	</to-template>
+</data-sources>

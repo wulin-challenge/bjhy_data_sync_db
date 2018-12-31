@@ -1,6 +1,8 @@
 package com.bjhy.data.sync.db.domain;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -32,6 +34,10 @@ public class SyncLogicEntity {
 	 */
 	private Set<String> toColumns = new LinkedHashSet<String>();
 	
+	/**
+	 * 增量数据同步hash
+	 */
+	private Map<String,Map<String,Object>> incrementalSyncDataHash = new HashMap<String,Map<String,Object>>();
 	
 	/**
 	 * 插入的sql
@@ -158,5 +164,9 @@ public class SyncLogicEntity {
 
 	public void setVersionCheckCore(VersionCheckCore versionCheckCore) {
 		this.versionCheckCore = versionCheckCore;
+	}
+
+	public Map<String, Map<String, Object>> getIncrementalSyncDataHash() {
+		return incrementalSyncDataHash;
 	}
 }

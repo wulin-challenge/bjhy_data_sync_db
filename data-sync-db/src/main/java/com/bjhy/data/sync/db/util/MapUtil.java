@@ -12,6 +12,7 @@ import java.util.Set;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.util.Assert;
 
+import com.bjhy.data.sync.db.domain.OneAndMultipleDataCompare;
 import com.bjhy.data.sync.db.domain.RowCompareParam;
 import com.bjhy.data.sync.db.domain.RowCompareParamSet;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ValueCompare;
@@ -22,6 +23,48 @@ import com.bjhy.data.sync.db.inter.face.OwnInterface.ValueCompare;
  */
 public class MapUtil {
 	
+	/**
+	 * 一行数据与多行hash数据中的一条比较
+	 * @param oneAndMultipleDataCompare 一行数据与多行数据比较
+	 * @return 返回的Map长度为0代表比较成功,若等于1代表比较失败
+	 */
+	public Map<String,Object> oneAndMultipleDataCompare(OneAndMultipleDataCompare oneAndMultipleDataCompare){
+		Map<String,Object> row = new HashMap<String,Object>();
+		
+		Assert.notNull(oneAndMultipleDataCompare,"oneAndMultipleDataCompare 不能为空");
+		Assert.hasLength(oneAndMultipleDataCompare.getUniqueValueKey(),"uniqueValueKey 不能为空");
+		Assert.notNull(oneAndMultipleDataCompare.getLessRow(),"lessRow 行数据集合 不能为 空");
+		
+		String uniqueValueKey = oneAndMultipleDataCompare.getUniqueValueKey();
+		Map<String, Object> lessRow = oneAndMultipleDataCompare.getLessRow();
+		Map<String, Map<String, Object>> moreRowHash = oneAndMultipleDataCompare.getMoreRowHash();
+		
+		if(lessRow.size()==0 || moreRowHash == null || moreRowHash.size()==0 || lessRow.get(uniqueValueKey) == null){
+			row.putAll(lessRow);
+			return row;
+		}
+		
+		RowCompareParam rowCompareParam = new RowCompareParam();
+		rowCompareParam.getSpecifyCompareColumn().addAll(oneAndMultipleDataCompare.getSpecifyCompareColumn());
+		rowCompareParam.getExcludeColumn().addAll(oneAndMultipleDataCompare.getExcludeColumn());
+		rowCompareParam.setValueCompare(oneAndMultipleDataCompare.getValueCompare());
+		rowCompareParam.getLessRow().putAll(lessRow);
+		rowCompareParam.getMoreRow().putAll(moreRowHash.get(lessRow.get(uniqueValueKey)));
+		
+		//行数据比较
+		boolean compare = compare(rowCompareParam);
+		if(!compare){
+			row.putAll(lessRow);
+		}
+		return row;
+	}
+	
+	/**
+	 * 两个集合数据进行对比,找出数据相同的 唯一key的值
+	 * @param rowCompareParamSet 多个行参数比较set
+	 * @param returnType 返回类型
+	 * @return
+	 */
 	public <T> Set<T> compareSet(RowCompareParamSet rowCompareParamSet,Class<T> returnType){
 		Set<T> result = new HashSet<T>();
 		
@@ -79,6 +122,11 @@ public class MapUtil {
 		//处理指定的比较列
 		Set<String> specifyCompareColumn = rowCompareParam.getSpecifyCompareColumn();
 		if(specifyCompareColumn.size()>0){
+			//删除排除字段
+			specifyCompareColumn.removeAll(rowCompareParam.getExcludeColumn());
+			if(specifyCompareColumn.size() == 0){
+				return false;
+			}
 			result = doCompareColumns(rowCompareParam, moreRow, specifyCompareColumn);
 			return result;
 		}
@@ -239,7 +287,7 @@ public class MapUtil {
 	 * @param moreRowSet 较多行数据集合
 	 * @return 返回hash后的较多行数据
 	 */
-	private <T> Map<T,Map<String,Object>> hashMoreRowSet(String uniqueValueKey,Collection<Map<String, Object>> moreRowSet){
+	public <T> Map<T,Map<String,Object>> hashMoreRowSet(String uniqueValueKey,Collection<Map<String, Object>> moreRowSet){
 		Map<T,Map<String,Object>> hashMoreRowSet = new HashMap<T,Map<String,Object>>(32);
 		for (Map<String, Object> moreRow : moreRowSet) {
 			hashMoreRowSet.put((T)moreRow.get(uniqueValueKey), moreRow);

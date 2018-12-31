@@ -25,7 +25,7 @@ public class MysqlVersionCheck implements VersionCheck{
 	public List<String> getAddVersionCheckColumnSql(List<AddColumnAttribute> addToTableColumns) {
 		List<String> alterSqlList = new ArrayList<String>();
 		for (AddColumnAttribute addColumnAttribute : addToTableColumns) {
-			String alterSql = "alter table "+addColumnAttribute.getTableName()+" add ("+addColumnAttribute.getColumnName()+" varchar2("+addColumnAttribute.getLength()+"))";
+			String alterSql = "alter table "+addColumnAttribute.getTableName()+" add ("+addColumnAttribute.getColumnName()+" varchar("+addColumnAttribute.getLength()+"))";
 			alterSqlList.add(alterSql);
 		}
 		return alterSqlList;

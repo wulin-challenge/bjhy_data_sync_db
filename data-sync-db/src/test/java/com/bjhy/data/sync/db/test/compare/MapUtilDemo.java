@@ -58,11 +58,13 @@ public class MapUtilDemo {
 	}
 	
 	public static List<Map<String,Object>> toData(){
-		return toTemplate().queryForList("select * from criminal_base_info where id in('4bb9086f0cbf45d4b17a29efc14d343b','1c26107fb7b74b58ace453f618b22f02','4ba883426dd74c1ea4d40973ef1e20a7')");
+//		return toTemplate().queryForList("select * from criminal_base_info where id in('4bb9086f0cbf45d4b17a29efc14d343b','1c26107fb7b74b58ace453f618b22f02','4ba883426dd74c1ea4d40973ef1e20a7')");
+		return toTemplate().queryForList("select * from criminal_base_info where jybh='5114'");
 	}
 	
 	public static List<Map<String,Object>> fromData(){
-		 List<Map<String, Object>> queryForList = fromTemplate().queryForList("select * from criminal_base_info where id in('4bb9086f0cbf45d4b17a29efc14d343b','1c26107fb7b74b58ace453f618b22f02','4ba883426dd74c1ea4d40973ef1e20a7')");
+//		 List<Map<String, Object>> queryForList = fromTemplate().queryForList("select * from criminal_base_info where id in('4bb9086f0cbf45d4b17a29efc14d343b','1c26107fb7b74b58ace453f618b22f02','4ba883426dd74c1ea4d40973ef1e20a7')");
+		 List<Map<String, Object>> queryForList = fromTemplate().queryForList("select * from criminal_base_info");
 //		 for (Map<String, Object> map : queryForList) {
 //			 map.remove("DANGKAID");
 //			 map.remove("DKJYBH");

@@ -8,11 +8,15 @@ import java.util.Set;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ValueCompare;
 
 /**
- * 行比较参数,内部使用
+ * 一行数据与多行数据比较,内部使用
  * @author wubo
- *
  */
-public class RowCompareParam{
+public class OneAndMultipleDataCompare {
+	
+	/**
+	 * 行唯一值key
+	 */
+	private String uniqueValueKey;
 	
 	/**
 	 * 判断两个值是否相等的回调接口
@@ -35,24 +39,16 @@ public class RowCompareParam{
 	private Map<String,Object> lessRow = new HashMap<String,Object>(32);
 	
 	/**
-	 * 较多的行数据
+	 * 较多的行数据的hash
 	 */
-	private Map<String,Object> moreRow = new HashMap<String,Object>(32);
-	
-	public RowCompareParam() {}
-	
-	/**
-	 * @param excludeColumn 排除的列
-	 * @param specifyCompareColumn 指定比较的列
-	 * @param lessRow 较少的行数据
-	 * @param moreRow 较多的行数据
-	 */
-	public RowCompareParam(Set<String> excludeColumn, Set<String> specifyCompareColumn, Map<String, Object> lessRow,Map<String, Object> moreRow,ValueCompare valueCompare) {
-		this.excludeColumn.addAll(excludeColumn);
-		this.specifyCompareColumn.addAll(specifyCompareColumn);
-		this.lessRow.putAll(lessRow);
-		this.moreRow.putAll(moreRow);
-		this.valueCompare = valueCompare;
+	private Map<String,Map<String,Object>> moreRowHash = new HashMap<String,Map<String,Object>>(32);
+
+	public String getUniqueValueKey() {
+		return uniqueValueKey;
+	}
+
+	public void setUniqueValueKey(String uniqueValueKey) {
+		this.uniqueValueKey = uniqueValueKey;
 	}
 
 	public ValueCompare getValueCompare() {
@@ -67,10 +63,6 @@ public class RowCompareParam{
 		return excludeColumn;
 	}
 
-	public void setExcludeColumn(Set<String> excludeColumn) {
-		this.excludeColumn = excludeColumn;
-	}
-	
 	public Set<String> getSpecifyCompareColumn() {
 		return specifyCompareColumn;
 	}
@@ -79,7 +71,7 @@ public class RowCompareParam{
 		return lessRow;
 	}
 
-	public Map<String, Object> getMoreRow() {
-		return moreRow;
+	public Map<String, Map<String, Object>> getMoreRowHash() {
+		return moreRowHash;
 	}
 }

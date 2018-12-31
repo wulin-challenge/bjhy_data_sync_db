@@ -155,6 +155,11 @@ public class SingleStepSyncConfig {
 	private Map<String,String> simpleColumnNameMapping = new HashMap<String,String>();
 	
 	/**
+	 * 增量同步数据
+	 */
+	private IncrementalSync incrementalSync;
+	
+	/**
 	 * 得到fromSql语句
 	 * @return
 	 */
@@ -363,5 +368,13 @@ public class SingleStepSyncConfig {
 
 	public List<AddColumnAttribute> getAddToTableColumns() {
 		return addToTableColumns;
+	}
+
+	public IncrementalSync getIncrementalSync() {
+		return incrementalSync;
+	}
+
+	public void setIncrementalSync(IncrementalSync incrementalSync) {
+		this.incrementalSync = incrementalSync;
 	}
 }
