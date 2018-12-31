@@ -871,3 +871,594 @@
 2018-12-31 11:09:17[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
 2018-12-31 11:09:17[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
 2018-12-31 11:09:45[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 11:50:35[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 11:50:35[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 11:50:35[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 11:50:35[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 11:50:35[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 11:50:35[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 11:50:35[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 11:50:36[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 11:50:36[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 11:50:36[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 11:50:36[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 11:50:36[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 11:50:36[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 11:50:37[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 11:50:37[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 11:50:37[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 11:50:37[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 11:50:37[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 11:50:37[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2018-12-31 11:50:38[platform] WARN [pool-2-thread-1] LoggerUtils.warn(39) | 当前查出的数据库位空! 错误信息:Incorrect result size: expected 1, actual 0
+2018-12-31 11:50:47[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 11:51:03[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 11:51:03[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 11:51:03[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 11:51:03[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 11:51:03[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 11:51:03[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 11:51:03[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 11:51:03[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 11:51:03[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 11:51:03[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 11:51:04[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 11:51:04[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 11:51:04[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 11:51:04[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 11:51:04[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 11:51:04[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 11:51:05[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 11:51:05[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 11:51:12[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 11:53:28[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 11:53:28[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 11:53:28[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 11:53:28[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 11:53:28[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 11:53:28[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 11:53:28[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 11:53:28[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 11:53:29[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 11:53:29[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 11:53:29[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 11:53:29[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 11:53:29[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 11:53:29[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 11:53:29[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 11:53:30[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 11:53:30[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 11:53:30[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 11:53:37[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:04[platform] ERROR [pool-235-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:05[platform] ERROR [pool-238-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:07[platform] ERROR [pool-239-thread-4] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:08[platform] ERROR [pool-244-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-2] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-242-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 11:56:09[platform] ERROR [pool-240-thread-1] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 12:08:17[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:08:17[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:08:18[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:08:18[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:08:18[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:08:18[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:08:18[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:08:19[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:08:19[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:08:19[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:08:19[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:08:19[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:08:20[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:08:20[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:08:20[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:08:20[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:10:14[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:10:14[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:10:15[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:10:15[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:10:15[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:10:15[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:10:15[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:10:15[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:10:15[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:10:15[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:10:16[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:10:16[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:10:16[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:10:16[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:10:16[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:10:16[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:10:16[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:10:16[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:10:17[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:10:59[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:10:59[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:10:59[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:10:59[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:10:59[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:10:59[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:10:59[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:11:00[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:11:00[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:11:00[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:11:00[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:11:00[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:11:00[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:11:00[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:11:00[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:11:01[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:11:09[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:11:09[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:11:10[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:11:45[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:11:45[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:11:45[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:11:45[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:11:45[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:11:45[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:11:45[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:11:45[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:11:45[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:11:45[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:11:46[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:11:46[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:11:46[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:11:46[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:11:46[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:11:46[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:13:35[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:13:35[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:13:35[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:20:53[platform] ERROR [pool-6-thread-4] LoggerUtils.error(32) | 错误信息: java.lang.Long cannot be cast to java.lang.Double
+2018-12-31 12:23:49[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:23:49[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:23:49[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:23:49[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:23:49[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:23:49[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:23:49[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:23:49[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:23:49[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:23:49[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:23:50[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:23:50[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:23:50[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:23:50[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:23:50[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:23:51[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:23:51[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:23:51[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:23:52[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:24:30[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:24:30[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:24:30[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:24:30[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:24:30[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:24:30[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:24:30[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:24:30[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:24:30[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:24:30[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:24:31[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:24:31[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:24:31[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:24:31[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:24:31[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:24:32[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:25:20[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:25:20[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:25:21[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:29:55[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:29:55[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:29:56[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:29:56[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:29:56[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:29:56[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:29:56[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:29:56[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:29:56[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:29:56[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:29:57[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:29:57[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:29:57[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:29:57[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:29:57[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:29:57[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:30:03[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:30:03[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:30:03[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:30:03[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:30:03[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:30:03[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:30:03[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:30:04[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:30:04[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:30:04[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:30:04[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:30:05[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:30:05[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:30:05[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:30:05[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:30:05[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:30:05[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:30:05[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:30:06[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:31:02[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:32:35[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:32:35[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:32:35[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:32:35[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:32:35[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:32:35[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:32:35[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:32:39[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:32:39[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:32:39[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:32:40[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:32:40[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:32:40[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:32:40[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:32:40[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:32:40[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:32:41[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:32:41[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:32:41[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:33:41[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:34:42[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:34:42[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:34:42[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:34:42[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:34:42[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:34:42[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:34:42[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:34:43[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:34:43[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:34:43[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:34:44[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:34:44[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:34:44[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:34:44[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:34:44[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:34:44[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:34:45[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:34:45[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:34:45[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:35:01[platform] INFO [Thread-1] LoggerUtils.info(18) | [开始修复数据] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:35:01[platform] INFO [Thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3455
+2018-12-31 12:35:02[platform] INFO [Thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:35:28[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:35:28[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:35:28[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:35:28[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:35:28[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:35:28[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:35:28[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:35:28[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:35:28[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:35:28[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:35:29[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:35:29[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:35:29[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:35:29[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:35:29[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:35:30[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:35:59[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:35:59[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:35:59[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:35:59[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:35:59[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:35:59[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:35:59[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:35:59[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:35:59[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:35:59[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:36:00[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:36:00[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:36:00[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:36:00[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:36:00[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:36:00[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:38:49[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:38:49[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:38:49[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:38:49[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:38:49[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:38:49[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:38:49[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:38:50[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:38:50[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:38:50[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:38:50[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:38:50[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:38:50[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:38:50[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:38:51[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:38:51[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:38:51[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:38:51[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:38:52[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:39:49[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:41:20[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:41:20[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:41:20[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:41:20[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:41:20[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:41:20[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:41:20[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:41:21[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:41:21[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:41:21[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:41:21[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:41:21[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:41:21[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:41:21[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:41:22[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:41:22[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:41:22[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:41:22[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:41:23[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:42:18[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:43:09[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:43:09[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:43:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:43:09[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:43:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:43:09[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:43:09[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:43:10[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:43:10[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:43:10[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:43:10[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:43:10[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:43:10[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:43:10[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:43:11[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:43:11[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:43:11[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:43:11[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:43:12[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:50:47[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:53:04[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:53:04[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:53:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:53:04[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:53:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:53:04[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:53:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:53:05[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:53:05[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:53:05[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:53:05[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:53:05[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:53:05[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:53:05[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:53:06[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 12:53:06[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:53:06[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:53:06[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 12:53:07[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:54:13[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:55:31[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:55:31[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:55:31[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:55:31[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:55:31[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:55:31[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:55:31[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:55:32[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:55:32[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:55:32[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:55:32[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:55:32[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:55:33[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:55:33[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:55:33[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3419
+2018-12-31 12:55:33[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:55:33[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:55:33[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3403
+2018-12-31 12:55:34[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:56:41[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 12:56:41[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:56:41[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:56:41[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:56:41[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:56:41[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 12:56:41[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 12:56:41[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 12:56:41[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 12:56:41[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 12:56:42[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 12:56:42[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 12:56:42[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 12:56:42[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 12:56:42[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3419
+2018-12-31 12:56:42[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:56:43[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 12:56:43[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3403
+2018-12-31 12:56:44[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:09:27[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:18:45[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 13:18:45[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:18:45[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:18:45[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:18:45[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:18:45[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:18:45[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:18:46[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 13:18:46[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 13:18:46[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 13:18:46[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 13:18:46[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 13:18:46[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 13:18:46[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 13:18:46[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 13:18:47[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:18:47[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:18:47[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 13:18:48[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:19:44[platform] ERROR [pool-826-thread-3] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 13:19:44[platform] ERROR [pool-826-thread-5] LoggerUtils.error(32) | 错误信息: null
+2018-12-31 13:19:46[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:21:57[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 13:21:57[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:21:57[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:21:57[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:21:57[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:21:57[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:21:57[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:21:58[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 13:21:58[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 13:21:58[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 13:21:59[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 13:21:59[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 13:21:59[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 13:21:59[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 13:21:59[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 13:21:59[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:21:59[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:21:59[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 13:22:00[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:31:42[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 13:31:42[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:31:43[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:31:43[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:31:43[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:31:43[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:31:43[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:31:46[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 13:31:46[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 13:31:46[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 13:31:47[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 13:31:47[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 13:31:47[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 13:31:47[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 13:31:47[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 13:31:48[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:31:48[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:31:48[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 13:31:48[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:32:58[platform] INFO [main] LoggerUtils.info(18) | sync.data.source.loader.model 加载成功
+2018-12-31 13:32:58[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:32:58[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:32:58[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:32:58[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:32:58[platform] INFO [main] LoggerUtils.info(18) | 通过xml的形式加载所有数据源成功!!,配置文件:D:/software/helpProgramming/git_client/git/workspace_directory/job_directory/sync_data_db_workspace/bjhy_data_sync_db/data-sync-db/config/db.xml
+2018-12-31 13:32:58[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: com.mysql.jdbc.Driver
+2018-12-31 13:32:58[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2018-12-31 13:32:58[platform] INFO [main] LoggerUtils.info(18) | version_check 表已经存在!Table 'version_check' already exists
+2018-12-31 13:32:58[platform] INFO [main] LoggerUtils.info(18) | step_store 表已经存在!Table 'step_store' already exists
+2018-12-31 13:32:59[platform] INFO [pool-2-thread-1] XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2018-12-31 13:32:59[platform] INFO [pool-2-thread-1] SQLErrorCodesFactory.<init>(126) | SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2018-12-31 13:32:59[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-2} inited
+2018-12-31 13:32:59[platform] INFO [pool-2-thread-1] DruidDataSource.init(947) | {dataSource-3} inited
+2018-12-31 13:32:59[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3448
+2018-12-31 13:32:59[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:33:00[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:33:00[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3432
+2018-12-31 13:33:01[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master
+2018-12-31 13:34:01[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:sys_region,数据源名称:home_mysql_master,数据源编号:home_mysql_master

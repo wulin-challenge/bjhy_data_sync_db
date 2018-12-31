@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.util.Assert;
 
 import com.bjhy.data.sync.db.domain.OneAndMultipleDataCompare;
@@ -39,7 +38,8 @@ public class MapUtil {
 		Map<String, Object> lessRow = oneAndMultipleDataCompare.getLessRow();
 		Map<String, Map<String, Object>> moreRowHash = oneAndMultipleDataCompare.getMoreRowHash();
 		
-		if(lessRow.size()==0 || moreRowHash == null || moreRowHash.size()==0 || lessRow.get(uniqueValueKey) == null){
+		if(lessRow.size()==0 || moreRowHash == null || moreRowHash.size()==0 || 
+		   lessRow.get(uniqueValueKey) == null || moreRowHash.get(lessRow.get(uniqueValueKey)) == null){
 			row.putAll(lessRow);
 			return row;
 		}
@@ -241,7 +241,7 @@ public class MapUtil {
 				return false;
 			}
 		}else if(dataClass == int.class || dataClass == Integer.class){
-			if(lessRowValue != moreRowValue){
+			if((int)lessRowValue != (int)moreRowValue){
 				return false;
 			}
 		}else if(dataClass == java.math.BigDecimal.class){
@@ -251,7 +251,9 @@ public class MapUtil {
 				return false;
 			}
 		}else if(dataClass == long.class || dataClass == Long.class){
-			if(lessRowValue != moreRowValue){
+			BigDecimal data1 = new BigDecimal((long)lessRowValue);
+			BigDecimal data2 = new BigDecimal((long)moreRowValue);
+			if(data1.compareTo(data2) != 0){
 				return false;
 			}
 		}else if(dataClass == double.class || dataClass == Double.class){
@@ -267,7 +269,7 @@ public class MapUtil {
 				return false;
 			}
 		}else if(dataClass == boolean.class || dataClass == Boolean.class){
-			if(lessRowValue != moreRowValue){
+			if((boolean)lessRowValue != (boolean)moreRowValue){
 				return false;
 			}
 		}else{
