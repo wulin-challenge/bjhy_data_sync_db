@@ -17,7 +17,7 @@ public class TestCompareETL {
 			public void singleRun(SingleRunEntity singleRunEntity) {
 				long start = System.currentTimeMillis();
 				CompareHelper.incrementalSync(singleRunEntity, "test_copy_user", "test_copy_user", "id", null);
-				CompareHelper.incrementalSync(singleRunEntity, "sys_region", "sys_region", "id", null);
+//				CompareHelper.incrementalSync(singleRunEntity, "sys_region", "sys_region", "id", null);
 				long end = System.currentTimeMillis();
 				System.out.println("同步时间:"+(end-start));
 			}

@@ -41,7 +41,7 @@ public class OneAndMultipleDataCompare {
 	/**
 	 * 较多的行数据的hash
 	 */
-	private Map<String,Map<String,Object>> moreRowHash = new HashMap<String,Map<String,Object>>(32);
+	private Map<Object,Map<String,Object>> moreRowHash = new HashMap<Object,Map<String,Object>>(32);
 
 	public String getUniqueValueKey() {
 		return uniqueValueKey;
@@ -71,7 +71,7 @@ public class OneAndMultipleDataCompare {
 		return lessRow;
 	}
 
-	public Map<String, Map<String, Object>> getMoreRowHash() {
+	public Map<Object, Map<String, Object>> getMoreRowHash() {
 		return moreRowHash;
 	}
 }

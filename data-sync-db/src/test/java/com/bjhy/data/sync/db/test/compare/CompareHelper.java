@@ -3,6 +3,7 @@ package com.bjhy.data.sync.db.test.compare;
 import com.bjhy.data.sync.db.core.BaseCore;
 import com.bjhy.data.sync.db.domain.AddColumnAttribute;
 import com.bjhy.data.sync.db.domain.IncrementalSync;
+import com.bjhy.data.sync.db.domain.IncrementalSync.AlarmColumnPrintLevel;
 import com.bjhy.data.sync.db.domain.SingleRunEntity;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
@@ -50,6 +51,15 @@ public class CompareHelper {
 		IncrementalSync incrementalSync = new IncrementalSync();
 		incrementalSync.setUniqueValueKey(updateAndPageColumn);
 		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		//排除age,和create_date字段来测试强制更新字段
+		incrementalSync.getExcludeColumn().add("age");
+		incrementalSync.getExcludeColumn().add("create_date");
+		//添加强制更新字段
+		incrementalSync.getForceUpdateColumn().add("age");
+		incrementalSync.getForceUpdateColumn().add("create_date");
+		//添加警告字段
+		incrementalSync.getAlarmColumn().add("jybh");
+		incrementalSync.setAlarmColumnPrintLevel(AlarmColumnPrintLevel.EXCEPTION);
 		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		baseCore.syncEntry(singleStepSyncConfig);

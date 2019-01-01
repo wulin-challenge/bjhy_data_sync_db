@@ -37,7 +37,7 @@ public class SyncLogicEntity {
 	/**
 	 * 增量数据同步hash
 	 */
-	private Map<String,Map<String,Object>> incrementalSyncDataHash = new HashMap<String,Map<String,Object>>();
+	private Map<Object,Map<String,Object>> incrementalSyncDataHash = new HashMap<Object,Map<String,Object>>();
 	
 	/**
 	 * 插入的sql
@@ -166,7 +166,7 @@ public class SyncLogicEntity {
 		this.versionCheckCore = versionCheckCore;
 	}
 
-	public Map<String, Map<String, Object>> getIncrementalSyncDataHash() {
+	public Map<Object, Map<String, Object>> getIncrementalSyncDataHash() {
 		return incrementalSyncDataHash;
 	}
 }

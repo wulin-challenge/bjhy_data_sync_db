@@ -16,7 +16,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.bjhy.data.sync.db.domain.IncrementalSync;
+import com.bjhy.data.sync.db.domain.IncrementalSync.AlarmColumnPrintLevel;
 import com.bjhy.data.sync.db.domain.OneAndMultipleDataCompare;
+import com.bjhy.data.sync.db.domain.RowCompareParam;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
@@ -33,6 +35,7 @@ import com.bjhy.data.sync.db.multi.thread.page.SqlServerMultiThreadPage;
 import com.bjhy.data.sync.db.thread.ThreadControl;
 import com.bjhy.data.sync.db.thread.ThreadControl2;
 import com.bjhy.data.sync.db.util.BeanUtils;
+import com.bjhy.data.sync.db.util.CollectionUtil;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 import com.bjhy.data.sync.db.util.MapUtil;
 import com.bjhy.data.sync.db.validation.SyncStepValidationStore;
@@ -229,7 +232,7 @@ public class BaseMultiThreadCore {
 			List<Map<String, Object>> incrementalSyncQueryToData = incrementalSyncQueryToData(syncLogicEntity, pageFromData);
 			
 			MapUtil mapUtil = new MapUtil();
-			Map<String, Map<String, Object>> hashMoreRowSet = mapUtil.hashMoreRowSet(incrementalSync.getUniqueValueKey(), incrementalSyncQueryToData);
+			Map<Object, Map<String, Object>> hashMoreRowSet = mapUtil.hashMoreRowSet(incrementalSync.getUniqueValueKey(), incrementalSyncQueryToData);
 			if(hashMoreRowSet != null && hashMoreRowSet.size()>0){
 				syncLogicEntity.getIncrementalSyncDataHash().clear();
 				syncLogicEntity.getIncrementalSyncDataHash().putAll(hashMoreRowSet);
@@ -349,6 +352,9 @@ public class BaseMultiThreadCore {
 		
 		//增量同步hash对比
 		if(incrementalSyncHashCompare(syncLogicEntity, rowParam)){
+			//TODO 待测试...
+			//增量同步强制更新字段
+			incrementalSyncForceUpdateColumn(syncLogicEntity, rowParam);
 			return;
 		}
 		SyncPageRowEntity syncPageRowEntity = syncLogicEntity.getSingleStepSyncConfig().getSyncPageRowEntity();
@@ -361,6 +367,49 @@ public class BaseMultiThreadCore {
 	}
 	
 	/**
+	 * 增量同步强制更新字段
+	 * @param syncLogicEntity
+	 * @param rowParam 正在同步的行数据
+	 */
+	private void incrementalSyncForceUpdateColumn(SyncLogicEntity syncLogicEntity,Map<String, Object> rowParam){
+		IncrementalSync incrementalSync = syncLogicEntity.getSingleStepSyncConfig().getIncrementalSync();
+		
+		if(incrementalSync == null || incrementalSync.getForceUpdateColumn().size()==0){
+			return;
+		}
+		
+		String forceUpdateSql = getIncrementalSyncForceUpdateSql(syncLogicEntity, incrementalSync);
+		syncLogicEntity.getNamedToTemplate().update(forceUpdateSql, rowParam);
+	}
+	
+	/**
+	 * 得到增量同步强制更新sql
+	 * @param syncLogicEntity
+	 * @param incrementalSync 增量同步实例
+	 * @return
+	 */
+	private String getIncrementalSyncForceUpdateSql(SyncLogicEntity syncLogicEntity,IncrementalSync incrementalSync){
+		List<String> forceUpdateColumn = incrementalSync.getForceUpdateColumn();
+		String uniqueValueKey = incrementalSync.getUniqueValueKey();
+		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+		
+		StringBuilder forceUpdateSql = new StringBuilder("UPDATE "+toTableName+" SET ");
+		
+		int i=0;
+		for (String updateColumn : forceUpdateColumn) {
+			updateColumn = updateColumn.trim().toUpperCase();
+			if(i == 0){
+				forceUpdateSql.append(updateColumn+"=:"+updateColumn);
+			}else{
+				forceUpdateSql.append(","+updateColumn+"=:"+updateColumn);
+			}
+			i++;
+		}
+		forceUpdateSql.append(" WHERE "+uniqueValueKey+"=:"+uniqueValueKey);
+		return forceUpdateSql.toString();
+	}
+	
+	/**
 	 * 增量同步hash对比
 	 * @param syncLogicEntity
 	 * @param rowParam
@@ -369,15 +418,17 @@ public class BaseMultiThreadCore {
 	private boolean incrementalSyncHashCompare(SyncLogicEntity syncLogicEntity,Map<String, Object> rowParam){
 		
 		IncrementalSync incrementalSync = syncLogicEntity.getSingleStepSyncConfig().getIncrementalSync();
-		Map<String, Map<String, Object>> incrementalSyncDataHash = syncLogicEntity.getIncrementalSyncDataHash();
+		Map<Object, Map<String, Object>> incrementalSyncDataHash = syncLogicEntity.getIncrementalSyncDataHash();
 		
 		if(incrementalSync == null || incrementalSyncDataHash.size()==0){
 			return false;
 		}
+		//增量同步检测警告字段
+		incrementalSyncCheckAlarmColumn(syncLogicEntity, rowParam, incrementalSyncDataHash);
 		
 		OneAndMultipleDataCompare oneAndMultipleDataCompare = new OneAndMultipleDataCompare();
-		oneAndMultipleDataCompare.getExcludeColumn().addAll(incrementalSync.getExcludeColumn());
-		oneAndMultipleDataCompare.getSpecifyCompareColumn().addAll(incrementalSync.getSpecifyCompareColumn());
+		oneAndMultipleDataCompare.getExcludeColumn().addAll(CollectionUtil.collectionToUpperCase(incrementalSync.getExcludeColumn()));
+		oneAndMultipleDataCompare.getSpecifyCompareColumn().addAll(CollectionUtil.collectionToUpperCase(incrementalSync.getSpecifyCompareColumn()));
 		oneAndMultipleDataCompare.setValueCompare(incrementalSync.getValueCompare());
 		oneAndMultipleDataCompare.setUniqueValueKey(incrementalSync.getUniqueValueKey());
 		oneAndMultipleDataCompare.getMoreRowHash().putAll(incrementalSyncDataHash);
@@ -389,6 +440,75 @@ public class BaseMultiThreadCore {
 			return false;
 		}
 		return true;
+	}
+	
+	
+	/**
+	 * 增量同步检测经过字段
+	 * @param syncLogicEntity 同步逻辑实体
+	 * @param rowParam 当前同步行参数
+	 * @param incrementalSyncDataHash 增量同步数据的hash
+	 */
+	private void incrementalSyncCheckAlarmColumn(SyncLogicEntity syncLogicEntity,Map<String, Object> fromRowParam,Map<Object, Map<String, Object>> incrementalSyncDataHash){
+		IncrementalSync incrementalSync = syncLogicEntity.getSingleStepSyncConfig().getIncrementalSync();
+		
+		if(incrementalSync == null || incrementalSync.getAlarmColumn().size()==0 ||
+		   incrementalSyncDataHash == null || incrementalSyncDataHash.size()==0  ||
+				   fromRowParam == null || fromRowParam.size()==0){
+			return;
+		}
+		String uniqueValueKey = incrementalSync.getUniqueValueKey();
+		Object uniqueValue = fromRowParam.get(uniqueValueKey);
+		
+		if(uniqueValue == null){
+			return;
+		}
+		Map<String, Object> toRowParam = incrementalSyncDataHash.get(uniqueValue);
+		if(toRowParam == null || toRowParam.size() ==0){
+			return;
+		}
+		RowCompareParam rowCompareParam = new RowCompareParam();
+		rowCompareParam.getLessRow().putAll(fromRowParam);
+		rowCompareParam.getMoreRow().putAll(toRowParam);
+		rowCompareParam.getSpecifyCompareColumn().addAll(CollectionUtil.collectionToUpperCase(incrementalSync.getAlarmColumn()));
+		MapUtil mapUtil = new MapUtil();
+		boolean compare = mapUtil.compare(rowCompareParam);
+		if(!compare){
+			String alarmColumnString = getAlarmColumnString(incrementalSync);
+			String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+			String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+			String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+			
+			String alarmInfo = "[警告字段] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+",警告字段:"+alarmColumnString+" 正在修改已经存在的数据,唯一标识key : "+uniqueValueKey+",唯一标识值:"+uniqueValue;
+			
+			AlarmColumnPrintLevel alarmColumnPrintLevel = incrementalSync.getAlarmColumnPrintLevel();
+			if(AlarmColumnPrintLevel.LOGGING == alarmColumnPrintLevel){
+				LoggerUtils.warn(alarmInfo);
+				
+			}else if(AlarmColumnPrintLevel.EXCEPTION == alarmColumnPrintLevel){
+				throw new IllegalStateException(alarmInfo);
+			}
+		}
+	}
+
+	/**
+	 * 得到警告字段字符串
+	 * @param incrementalSync
+	 * @return
+	 */
+	private String getAlarmColumnString(IncrementalSync incrementalSync) {
+		StringBuilder alarmString = new StringBuilder();
+		List<String> alarmColumn = incrementalSync.getAlarmColumn();
+		int i=0;
+		for (String column : alarmColumn) {
+			if(i==0){
+				alarmString.append(column);
+			}else{
+				alarmString.append(","+column);
+			}
+			i++;
+		}
+		return alarmString.toString();
 	}
 	
 	/**

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bjhy.data.sync.db.domain.AddColumnAttribute;
+import com.bjhy.data.sync.db.domain.IncrementalSync;
 import com.bjhy.data.sync.db.domain.SingleRunEntity;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
@@ -51,6 +52,12 @@ public class BaseHelper {
 		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
 		
+		//增量同步配置
+		IncrementalSync incrementalSync = new IncrementalSync();
+		incrementalSync.setUniqueValueKey(updateAndPageColumn);
+		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		singleStepSyncConfig.setIncrementalSync(incrementalSync);
+		
 		baseCore.syncEntry(singleStepSyncConfig);
 	}
 	
@@ -88,6 +95,12 @@ public class BaseHelper {
 		singleStepSyncConfig.setSingleStepListener(singleStepListener);
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
 		
+		//增量同步配置
+		IncrementalSync incrementalSync = new IncrementalSync();
+		incrementalSync.setUniqueValueKey(updateAndPageColumn);
+		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		singleStepSyncConfig.setIncrementalSync(incrementalSync);
+		
 		baseCore.syncEntry(singleStepSyncConfig);
 	}
 	
@@ -124,6 +137,12 @@ public class BaseHelper {
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
 		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jymc", toTableName));
 		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
+		
+		//增量同步配置
+		IncrementalSync incrementalSync = new IncrementalSync();
+		incrementalSync.setUniqueValueKey(updateAndPageColumn);
+		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		baseCore.syncEntry(singleStepSyncConfig);
 	}
@@ -166,6 +185,13 @@ public class BaseHelper {
 		pageRowInsertColumns.add(VersionCheckCore.SYNC_VERSION_CHECK);
 		syncPageRowEntity.setPageRowInsertColumns(pageRowInsertColumns);
 		singleStepSyncConfig.setSyncPageRowEntity(syncPageRowEntity);
+		
+		//增量同步配置
+		IncrementalSync incrementalSync = new IncrementalSync();
+		incrementalSync.setUniqueValueKey(updateAndPageColumn);
+		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		singleStepSyncConfig.setIncrementalSync(incrementalSync);
+		
 		//开始同步
 		baseCore.syncEntry(singleStepSyncConfig);
 	}
@@ -204,6 +230,12 @@ public class BaseHelper {
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
 		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jymc", toTableName));
 		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
+		
+		//增量同步配置
+		IncrementalSync incrementalSync = new IncrementalSync();
+		incrementalSync.setUniqueValueKey(updateAndPageColumn);
+		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		baseCore.syncEntry(singleStepSyncConfig);
 	}
@@ -244,6 +276,12 @@ public class BaseHelper {
 		singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
 		
+		//增量同步配置
+		IncrementalSync incrementalSync = new IncrementalSync();
+		incrementalSync.setUniqueValueKey(updateAndPageColumn);
+		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		singleStepSyncConfig.setIncrementalSync(incrementalSync);
+		
 		baseCore.syncEntry(singleStepSyncConfig);
 	}
 	
@@ -279,6 +317,12 @@ public class BaseHelper {
 		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jymc", toTableName));
 		singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("jybh", toTableName));
 		singleStepSyncConfig.setToValidationWhere(" where jybh=:jybh ");
+		
+		//增量同步配置
+		IncrementalSync incrementalSync = new IncrementalSync();
+		incrementalSync.setUniqueValueKey(updateAndPageColumn);
+		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		baseCore.syncEntry(singleStepSyncConfig);
 	}

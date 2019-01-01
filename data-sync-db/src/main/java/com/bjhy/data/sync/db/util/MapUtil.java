@@ -36,7 +36,7 @@ public class MapUtil {
 		
 		String uniqueValueKey = oneAndMultipleDataCompare.getUniqueValueKey();
 		Map<String, Object> lessRow = oneAndMultipleDataCompare.getLessRow();
-		Map<String, Map<String, Object>> moreRowHash = oneAndMultipleDataCompare.getMoreRowHash();
+		Map<Object, Map<String, Object>> moreRowHash = oneAndMultipleDataCompare.getMoreRowHash();
 		
 		if(lessRow.size()==0 || moreRowHash == null || moreRowHash.size()==0 || 
 		   lessRow.get(uniqueValueKey) == null || moreRowHash.get(lessRow.get(uniqueValueKey)) == null){

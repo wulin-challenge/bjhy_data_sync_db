@@ -14,7 +14,7 @@
 		<data-source task="from_task" isEnable="true" databaseType="mySql">
 			<sort-number>1</sort-number>
 			<data-source-name>home_mysql_master</data-source-name>
-			<data-source-number>home_mysql_master</data-source-number>
+			<data-source-number>home_mysql_master1</data-source-number>
 			<connect-driver>com.mysql.jdbc.Driver</connect-driver>
 			<connect-url>jdbc:mysql://zxq:3306/test_copy_master</connect-url>
 			<connect-username>root</connect-username>
