@@ -503,40 +503,55 @@ public class BaseMultiThreadCore {
 		MapUtil mapUtil = new MapUtil();
 		boolean compare = mapUtil.compare(rowCompareParam);
 		if(!compare){
-			String alarmColumnString = getAlarmColumnString(incrementalSync);
-			String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
-			String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
-			String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
-			
-			String alarmInfo = "[警告字段] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+",警告字段:"+alarmColumnString+" 正在修改已经存在的数据,唯一标识key : "+uniqueValueKey+",唯一标识值:"+uniqueValue;
+			//得到警告详细信息
+			String alarmColumnMessage = getAlarmColumnMessage(syncLogicEntity, rowCompareParam, incrementalSync);
 			
 			AlarmColumnPrintLevel alarmColumnPrintLevel = incrementalSync.getAlarmColumnPrintLevel();
 			if(AlarmColumnPrintLevel.LOGGING == alarmColumnPrintLevel){
-				LoggerUtils.warn(alarmInfo);
+				LoggerUtils.warn(alarmColumnMessage);
 				
 			}else if(AlarmColumnPrintLevel.EXCEPTION == alarmColumnPrintLevel){
-				throw new IllegalStateException(alarmInfo);
+				IllegalStateException ex = new IllegalStateException(alarmColumnMessage);
+				LoggerUtils.error(ex);
+				throw ex;
 			}
 		}
 	}
 
 	/**
-	 * 得到警告字段字符串
-	 * @param incrementalSync
-	 * @return
+	 * 得到警告详细信息
+	 * @param syncLogicEntity 同步逻辑实体
+	 * @param rowCompareParam 行比较参数
+	 * @param incrementalSync 增量同步实体
+	 * @return 得到警告信息
 	 */
-	private String getAlarmColumnString(IncrementalSync incrementalSync) {
-		StringBuilder alarmString = new StringBuilder();
+	private String getAlarmColumnMessage(SyncLogicEntity syncLogicEntity,RowCompareParam rowCompareParam,IncrementalSync incrementalSync){
+		String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+		String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+		
+		Map<String, Object> fromRowData = rowCompareParam.getLessRow();
+		Map<String, Object> toRowData = rowCompareParam.getMoreRow();
+		
+		//得到唯一key对应的值
+		String uniqueValueKey = incrementalSync.getUniqueValueKey();
+		Object fromUniqueValue = fromRowData == null?"":fromRowData.get(uniqueValueKey);
+		Object toUniqueValue = toRowData == null?"":toRowData.get(uniqueValueKey);
+		
+		StringBuilder alarmString = new StringBuilder("[警告字段] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+",(唯一key:"+uniqueValueKey+",来源唯一key值:"+fromUniqueValue+",原本唯一key值:"+toUniqueValue+"),详细信息:[");
 		List<String> alarmColumn = incrementalSync.getAlarmColumn();
 		int i=0;
 		for (String column : alarmColumn) {
+			Object fromValue = fromRowData == null?"":fromRowData.get(column);
+			Object toValue = toRowData == null?"":toRowData.get(column);
 			if(i==0){
-				alarmString.append(column);
+				alarmString.append("(字段:"+column+",来源值:"+fromValue+",原本值:"+toValue+")");
 			}else{
-				alarmString.append(","+column);
+				alarmString.append(",(字段:"+column+",来源值:"+fromValue+",原本值:"+toValue+")");
 			}
 			i++;
 		}
+		alarmString.append("]");
 		return alarmString.toString();
 	}
 	
