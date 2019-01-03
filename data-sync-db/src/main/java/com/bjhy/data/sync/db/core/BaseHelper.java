@@ -56,6 +56,8 @@ public class BaseHelper {
 		IncrementalSync incrementalSync = new IncrementalSync();
 		incrementalSync.setUniqueValueKey(updateAndPageColumn);
 		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		incrementalSync.getAlarmColumn().add("JYBH");
+		incrementalSync.getAlarmColumn().add("JYMC");
 		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		baseCore.syncEntry(singleStepSyncConfig);
@@ -99,6 +101,8 @@ public class BaseHelper {
 		IncrementalSync incrementalSync = new IncrementalSync();
 		incrementalSync.setUniqueValueKey(updateAndPageColumn);
 		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		incrementalSync.getAlarmColumn().add("JYBH");
+		incrementalSync.getAlarmColumn().add("JYMC");
 		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		baseCore.syncEntry(singleStepSyncConfig);
@@ -142,6 +146,8 @@ public class BaseHelper {
 		IncrementalSync incrementalSync = new IncrementalSync();
 		incrementalSync.setUniqueValueKey(updateAndPageColumn);
 		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		incrementalSync.getAlarmColumn().add("JYBH");
+		incrementalSync.getAlarmColumn().add("JYMC");
 		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		baseCore.syncEntry(singleStepSyncConfig);
@@ -190,6 +196,8 @@ public class BaseHelper {
 		IncrementalSync incrementalSync = new IncrementalSync();
 		incrementalSync.setUniqueValueKey(updateAndPageColumn);
 		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		incrementalSync.getAlarmColumn().add("JYBH");
+		incrementalSync.getAlarmColumn().add("JYMC");
 		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		//开始同步
@@ -235,6 +243,8 @@ public class BaseHelper {
 		IncrementalSync incrementalSync = new IncrementalSync();
 		incrementalSync.setUniqueValueKey(updateAndPageColumn);
 		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		incrementalSync.getAlarmColumn().add("JYBH");
+		incrementalSync.getAlarmColumn().add("JYMC");
 		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		baseCore.syncEntry(singleStepSyncConfig);
@@ -280,6 +290,8 @@ public class BaseHelper {
 		IncrementalSync incrementalSync = new IncrementalSync();
 		incrementalSync.setUniqueValueKey(updateAndPageColumn);
 		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		incrementalSync.getAlarmColumn().add("JYBH");
+		incrementalSync.getAlarmColumn().add("JYMC");
 		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		baseCore.syncEntry(singleStepSyncConfig);
@@ -322,6 +334,8 @@ public class BaseHelper {
 		IncrementalSync incrementalSync = new IncrementalSync();
 		incrementalSync.setUniqueValueKey(updateAndPageColumn);
 		incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+		incrementalSync.getAlarmColumn().add("JYBH");
+		incrementalSync.getAlarmColumn().add("JYMC");
 		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		
 		baseCore.syncEntry(singleStepSyncConfig);
