@@ -353,7 +353,6 @@ public class BaseMultiThreadCore {
 		
 		//增量同步hash对比
 		if(incrementalSyncHashCompare(syncLogicEntity, rowParam)){
-			//TODO 待测试...
 			//增量同步强制更新字段
 			incrementalSyncForceUpdateColumn(syncLogicEntity, rowParam);
 			return;
