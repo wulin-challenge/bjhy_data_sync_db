@@ -25,6 +25,11 @@ public class IncrementalSync {
 	private ValueCompare valueCompare;
 	
 	/**
+	 * 增量同步方式
+	 */
+	private IncrementalSyncMode incrementalSyncMode = IncrementalSyncMode.INTERSECTION_COLUMN;
+	
+	/**
 	 * 排除的列,这里的列都是 lessRow 中的列
 	 */
 	private Set<String> excludeColumn = new HashSet<String>(16);
@@ -90,6 +95,41 @@ public class IncrementalSync {
 
 	public List<String> getAlarmColumn() {
 		return alarmColumn;
+	}
+	
+	public IncrementalSyncMode getIncrementalSyncMode() {
+		return incrementalSyncMode;
+	}
+
+	public void setIncrementalSyncMode(IncrementalSyncMode incrementalSyncMode) {
+		this.incrementalSyncMode = incrementalSyncMode;
+	}
+
+	/**
+	 * 增量同步方式
+	 * @author wubo
+	 */
+	public static enum IncrementalSyncMode{
+		INTERSECTION_COLUMN("intersectionColumn","来源表与目标表字段的交集"),TO_CONTAIN_FROM("toContainFrom","要同步的来源表字段必须被目标表的字段包含");
+		
+		private String code;
+		private String name;
+		private IncrementalSyncMode(String code, String name) {
+			this.code = code;
+			this.name = name;
+		}
+		public String getCode() {
+			return code;
+		}
+		public void setCode(String code) {
+			this.code = code;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
 	}
 
 	/**

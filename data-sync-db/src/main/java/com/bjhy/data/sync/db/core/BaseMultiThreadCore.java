@@ -1,6 +1,7 @@
 package com.bjhy.data.sync.db.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -425,10 +426,12 @@ public class BaseMultiThreadCore {
 		}
 		//增量同步检测警告字段
 		incrementalSyncCheckAlarmColumn(syncLogicEntity, rowParam, incrementalSyncDataHash);
+		//得到最终的指定的同步比较列
+		Collection<String> specifyCompareColumn = getSpecifyCompareColumnFinally(syncLogicEntity, incrementalSync);
 		
 		OneAndMultipleDataCompare oneAndMultipleDataCompare = new OneAndMultipleDataCompare();
 		oneAndMultipleDataCompare.getExcludeColumn().addAll(CollectionUtil.collectionToUpperCase(incrementalSync.getExcludeColumn()));
-		oneAndMultipleDataCompare.getSpecifyCompareColumn().addAll(CollectionUtil.collectionToUpperCase(incrementalSync.getSpecifyCompareColumn()));
+		oneAndMultipleDataCompare.getSpecifyCompareColumn().addAll(specifyCompareColumn);
 		oneAndMultipleDataCompare.setValueCompare(incrementalSync.getValueCompare());
 		oneAndMultipleDataCompare.setUniqueValueKey(incrementalSync.getUniqueValueKey());
 		oneAndMultipleDataCompare.getMoreRowHash().putAll(incrementalSyncDataHash);
@@ -440,6 +443,33 @@ public class BaseMultiThreadCore {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * 得到最终的指定的同步比较列
+	 * @param syncLogicEntity
+	 * @param incrementalSync 增量同步配置
+	 * @return
+	 */
+	private Collection<String> getSpecifyCompareColumnFinally(SyncLogicEntity syncLogicEntity,IncrementalSync incrementalSync) {
+		//最终的同步自定列
+		List<String> specifyCompareColumnFinally = new ArrayList<String>();
+		//同步比较列
+		Collection<String> specifyCompareColumn = CollectionUtil.collectionToUpperCase(incrementalSync.getSpecifyCompareColumn());
+		
+		switch (incrementalSync.getIncrementalSyncMode()) {
+		case INTERSECTION_COLUMN:
+			Set<String> syncColumnList = new HashSet<String>(syncLogicEntity.getSyncColumns());
+			syncColumnList.addAll(specifyCompareColumn);
+			specifyCompareColumnFinally.addAll(syncColumnList);
+			break;
+		case TO_CONTAIN_FROM:
+			specifyCompareColumnFinally.addAll(specifyCompareColumn);
+			break;
+		default:
+			break;
+		}
+		return specifyCompareColumnFinally;
 	}
 	
 	
