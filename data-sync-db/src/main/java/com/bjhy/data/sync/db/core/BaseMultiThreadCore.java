@@ -435,6 +435,7 @@ public class BaseMultiThreadCore {
 		oneAndMultipleDataCompare.setUniqueValueKey(incrementalSync.getUniqueValueKey());
 		oneAndMultipleDataCompare.getMoreRowHash().putAll(incrementalSyncDataHash);
 		oneAndMultipleDataCompare.getLessRow().putAll(rowParam);
+		oneAndMultipleDataCompare.getLessRowTypeConvert().putAll(incrementalSync.getSpecifyColumnValueTypeConvert());
 		
 		MapUtil mapUtil = new MapUtil();
 		Map<String, Object> oneAndMultipleDataCompare2 = mapUtil.oneAndMultipleDataCompare(oneAndMultipleDataCompare);

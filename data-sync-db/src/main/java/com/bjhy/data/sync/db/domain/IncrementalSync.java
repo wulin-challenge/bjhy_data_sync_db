@@ -1,11 +1,14 @@
 package com.bjhy.data.sync.db.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ValueCompare;
+import com.bjhy.data.sync.db.value.convert.ValueTypeConvert;
 
 /**
  * 增量同步数据
@@ -38,6 +41,16 @@ public class IncrementalSync {
 	 * 指定比较的列,这里的列都是 lessRow 中的列,如果指定了比较列,那么将只对比较例进行处理
 	 */
 	private Set<String> specifyCompareColumn = new HashSet<String>(16);
+	
+	/**
+	 * 指定比较的列数据类型转换
+	 */
+	private Map<String,ValueTypeConvert> specifyColumnValueTypeConvert = new HashMap<String,ValueTypeConvert>(5);
+	
+	/**
+	 * 自动转换值类型,默认值为true
+	 */
+	private Boolean autoConvertValueType = true;
 	
 	/**
 	 * 强制更新字段
@@ -103,6 +116,18 @@ public class IncrementalSync {
 
 	public void setIncrementalSyncMode(IncrementalSyncMode incrementalSyncMode) {
 		this.incrementalSyncMode = incrementalSyncMode;
+	}
+
+	public Map<String, ValueTypeConvert> getSpecifyColumnValueTypeConvert() {
+		return specifyColumnValueTypeConvert;
+	}
+
+	public Boolean getAutoConvertValueType() {
+		return autoConvertValueType;
+	}
+
+	public void setAutoConvertValueType(Boolean autoConvertValueType) {
+		this.autoConvertValueType = autoConvertValueType;
 	}
 
 	/**

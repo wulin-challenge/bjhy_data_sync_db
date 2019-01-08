@@ -15,6 +15,10 @@ import com.bjhy.data.sync.db.domain.OneAndMultipleDataCompare;
 import com.bjhy.data.sync.db.domain.RowCompareParam;
 import com.bjhy.data.sync.db.domain.RowCompareParamSet;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ValueCompare;
+import com.bjhy.data.sync.db.value.convert.Null;
+import com.bjhy.data.sync.db.value.convert.StringBlank;
+import com.bjhy.data.sync.db.value.convert.ValueTypeConvert;
+import com.bjhy.data.sync.db.value.convert.ValueTypeConvertRegistry;
 
 /**
  * map工具类
@@ -50,6 +54,8 @@ public class MapUtil {
 		rowCompareParam.setValueCompare(oneAndMultipleDataCompare.getValueCompare());
 		rowCompareParam.getLessRow().putAll(lessRow);
 		rowCompareParam.getMoreRow().putAll(moreRowHash.get(lessRow.get(uniqueValueKey)));
+		rowCompareParam.getLessRowTypeConvert().putAll(oneAndMultipleDataCompare.getLessRowTypeConvert());
+		rowCompareParam.getMoreRowTypeConvert().putAll(oneAndMultipleDataCompare.getMoreRowTypeConvert());
 		
 		//行数据比较
 		boolean compare = compare(rowCompareParam);
@@ -94,6 +100,8 @@ public class MapUtil {
 			rowCompareParam.setValueCompare(rowCompareParamSet.getValueCompare());
 			rowCompareParam.getLessRow().putAll(lessRow);
 			rowCompareParam.getMoreRow().putAll(moreRow);
+			rowCompareParam.getLessRowTypeConvert().putAll(rowCompareParamSet.getLessRowTypeConvert());
+			rowCompareParam.getMoreRowTypeConvert().putAll(rowCompareParamSet.getMoreRowTypeConvert());
 			
 			//行数据比较
 			boolean compare = compare(rowCompareParam);
@@ -192,13 +200,28 @@ public class MapUtil {
 	 * 
 	 * @param compareColumn 行比较参数
 	 * @param rowCompareParam 行比较参数
-	 * @param lessRowValue
-	 * @param moreRowValue
+	 * @param lessRowValue 较少行的值
+	 * @param moreRowValue 较多行的值
 	 * @return
 	 */
 	private boolean doCompare(String compareColumn,RowCompareParam rowCompareParam,Object lessRowValue,Object moreRowValue){
-
 		//若比较的值都为空,则表示比较成功
+		if(lessRowValue == null && moreRowValue == null){
+			return true;
+		}
+		
+		//指定列做值的类型转换
+		lessRowValue = doValueTypeConvert(compareColumn, rowCompareParam.getLessRowTypeConvert(), lessRowValue);
+		moreRowValue = doValueTypeConvert(compareColumn, rowCompareParam.getMoreRowTypeConvert(), moreRowValue);
+
+		//在满足一下条件下进行值的自动类型转换,自动转换只将 lessRowValue 
+		ValueTypeConvert lessRowTypeConvert = rowCompareParam.getLessRowTypeConvert().get(compareColumn);
+		ValueTypeConvert moreRowTypeConvert = rowCompareParam.getMoreRowTypeConvert().get(compareColumn);
+		if(lessRowTypeConvert == null && moreRowTypeConvert == null && rowCompareParam.getAutoConvertValueType()){
+			lessRowValue = doLessRowValueAutoValueTypeConvert(lessRowValue, moreRowValue);
+		}
+		
+		//值类型转换后,第二次判断,若比较的值都为空,则表示比较成功
 		if(lessRowValue == null && moreRowValue == null){
 			return true;
 		}
@@ -218,6 +241,61 @@ public class MapUtil {
 			return false;
 		}
 		return doCompare(lessRowClass,lessRowValue, moreRowValue,rowCompareParam);
+	}
+	
+	/**
+	 * 将  lessRowValue 值的类型转换为 moreRowValue 值的类型
+	 * @param lessRowValue 较少行的值
+	 * @param moreRowValue 较多行的值
+	 * @return 
+	 */
+	private Object doLessRowValueAutoValueTypeConvert(Object lessRowValue,Object moreRowValue){
+		Class<? extends Object> lessRowClass = getAutoConvertValueClass(lessRowValue);
+		Class<? extends Object> moreRowClass = getAutoConvertValueClass(moreRowValue);
+		
+		if(lessRowClass == moreRowClass){
+			return lessRowValue;
+		}
+		
+		ValueTypeConvertRegistry valueTypeConvertRegistry = RegisterConvertUtil.getInstance().getValueTypeConvertRegistry();
+		ValueTypeConvert valueTypeConvert = valueTypeConvertRegistry.getValueTypeConvert(lessRowClass, moreRowClass);
+		
+		if(valueTypeConvert != null){
+			return valueTypeConvert.convertValue(lessRowValue);
+		}else{
+			LoggerUtils.warn("没有找到 "+lessRowClass+"->"+moreRowClass+" 值类型转换器!");
+		}
+		return lessRowValue;
+	}
+	
+	/**
+	 * 自动转换值的class
+	 * @param value
+	 * @return
+	 */
+	private Class<?> getAutoConvertValueClass(Object value){
+		if(value == null){
+			return Null.class;
+		}
+		if(value.getClass() == String.class && "".equals(((String)value).trim())){
+			return StringBlank.class;
+		}
+		return value.getClass();
+	}
+	
+	/**
+	 * 做值的类型转换
+	 * @param compareColumn 比较列
+	 * @param convertMap 转换集合
+	 * @param value 要转换的值
+	 * @return 转换后的值
+	 */
+	private Object doValueTypeConvert(String compareColumn,Map<String,ValueTypeConvert> convertMap,Object value){
+		ValueTypeConvert valueTypeConvert = convertMap.get(compareColumn);
+		if(valueTypeConvert != null){
+			return valueTypeConvert.convertValue(value);
+		}
+		return value;
 	}
 	
 	/**

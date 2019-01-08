@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ValueCompare;
+import com.bjhy.data.sync.db.value.convert.ValueTypeConvert;
 
 /**
  * 行比较参数,内部使用
@@ -38,6 +39,21 @@ public class RowCompareParam{
 	 * 较多的行数据
 	 */
 	private Map<String,Object> moreRow = new HashMap<String,Object>(32);
+	
+	/**
+	 * 较少的行数据类型转换
+	 */
+	private Map<String,ValueTypeConvert> lessRowTypeConvert = new HashMap<String,ValueTypeConvert>(5);
+	
+	/**
+	 * 较多的行数据类型转换
+	 */
+	private Map<String,ValueTypeConvert> moreRowTypeConvert = new HashMap<String,ValueTypeConvert>(5);
+	
+	/**
+	 * 自动转换值类型
+	 */
+	private Boolean autoConvertValueType = true;
 	
 	public RowCompareParam() {}
 	
@@ -82,4 +98,21 @@ public class RowCompareParam{
 	public Map<String, Object> getMoreRow() {
 		return moreRow;
 	}
+
+	public Map<String, ValueTypeConvert> getLessRowTypeConvert() {
+		return lessRowTypeConvert;
+	}
+
+	public Map<String, ValueTypeConvert> getMoreRowTypeConvert() {
+		return moreRowTypeConvert;
+	}
+
+	public Boolean getAutoConvertValueType() {
+		return autoConvertValueType;
+	}
+
+	public void setAutoConvertValueType(Boolean autoConvertValueType) {
+		this.autoConvertValueType = autoConvertValueType;
+	}
+	
 }

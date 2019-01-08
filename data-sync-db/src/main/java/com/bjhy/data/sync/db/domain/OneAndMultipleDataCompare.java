@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ValueCompare;
+import com.bjhy.data.sync.db.value.convert.ValueTypeConvert;
 
 /**
  * 一行数据与多行数据比较,内部使用
@@ -42,7 +43,22 @@ public class OneAndMultipleDataCompare {
 	 * 较多的行数据的hash
 	 */
 	private Map<Object,Map<String,Object>> moreRowHash = new HashMap<Object,Map<String,Object>>(32);
-
+	
+	/**
+	 * 较少的行数据类型转换
+	 */
+	private Map<String,ValueTypeConvert> lessRowTypeConvert = new HashMap<String,ValueTypeConvert>(5);
+	
+	/**
+	 * 较多的行数据类型转换
+	 */
+	private Map<String,ValueTypeConvert> moreRowTypeConvert = new HashMap<String,ValueTypeConvert>(5);
+	
+	/**
+	 * 自动转换值类型
+	 */
+	private Boolean autoConvertValueType = true;
+	
 	public String getUniqueValueKey() {
 		return uniqueValueKey;
 	}
@@ -74,4 +90,21 @@ public class OneAndMultipleDataCompare {
 	public Map<Object, Map<String, Object>> getMoreRowHash() {
 		return moreRowHash;
 	}
+
+	public Map<String, ValueTypeConvert> getLessRowTypeConvert() {
+		return lessRowTypeConvert;
+	}
+
+	public Map<String, ValueTypeConvert> getMoreRowTypeConvert() {
+		return moreRowTypeConvert;
+	}
+
+	public Boolean getAutoConvertValueType() {
+		return autoConvertValueType;
+	}
+
+	public void setAutoConvertValueType(Boolean autoConvertValueType) {
+		this.autoConvertValueType = autoConvertValueType;
+	}
+
 }

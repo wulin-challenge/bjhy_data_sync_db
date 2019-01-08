@@ -1,11 +1,13 @@
 package com.bjhy.data.sync.db.domain;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ValueCompare;
+import com.bjhy.data.sync.db.value.convert.ValueTypeConvert;
 
 /**
  * 多个行参数比较set
@@ -43,7 +45,22 @@ public class RowCompareParamSet {
 	 * 较多行数据 的集合
 	 */
 	private Collection<Map<String,Object>> moreRowSet = new HashSet<Map<String,Object>>(50);
-
+	
+	/**
+	 * 较少的行数据类型转换
+	 */
+	private Map<String,ValueTypeConvert> lessRowTypeConvert = new HashMap<String,ValueTypeConvert>(5);
+	
+	/**
+	 * 较多的行数据类型转换
+	 */
+	private Map<String,ValueTypeConvert> moreRowTypeConvert = new HashMap<String,ValueTypeConvert>(5);
+	
+	/**
+	 * 自动转换值类型
+	 */
+	private Boolean autoConvertValueType = true;
+	
 	public String getUniqueValueKey() {
 		return uniqueValueKey;
 	}
@@ -76,4 +93,19 @@ public class RowCompareParamSet {
 		return specifyCompareColumn;
 	}
 
+	public Map<String, ValueTypeConvert> getLessRowTypeConvert() {
+		return lessRowTypeConvert;
+	}
+
+	public Map<String, ValueTypeConvert> getMoreRowTypeConvert() {
+		return moreRowTypeConvert;
+	}
+
+	public Boolean getAutoConvertValueType() {
+		return autoConvertValueType;
+	}
+
+	public void setAutoConvertValueType(Boolean autoConvertValueType) {
+		this.autoConvertValueType = autoConvertValueType;
+	}
 }
