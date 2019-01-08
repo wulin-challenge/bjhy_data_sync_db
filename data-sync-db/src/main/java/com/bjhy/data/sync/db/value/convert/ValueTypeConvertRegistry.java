@@ -61,10 +61,10 @@ public class ValueTypeConvertRegistry {
 				return;
 			}
 			Set<String> nameMappingSet = getValueTypeConvertFactory().getConvertNameMapping().get(converter.getClass());
-			if(nameMappingSet != null && nameMappingSet.contains(nameMappingSet)){
-				nameMappingSet.remove(nameMappingSet);
+			if(nameMappingSet != null && nameMappingSet.contains(mappingNameKey)){
+				nameMappingSet.remove(mappingNameKey);
 			}
-			getValueTypeConvertFactory().getConvertFactory().remove(nameMappingSet);
+			getValueTypeConvertFactory().getConvertFactory().remove(mappingNameKey);
 		} finally {
 			if(lock.isLocked()){
 				lock.unlock();
