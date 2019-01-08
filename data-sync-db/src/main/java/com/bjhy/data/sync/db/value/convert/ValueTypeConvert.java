@@ -1,8 +1,8 @@
 package com.bjhy.data.sync.db.value.convert;
 
 /**
- * 
- * @author ThinkPad
+ * 值类型转换接口
+ * @author wubo
  *
  * @param <O> original 要转换值得原始类型
  * @param <R> return 返回值得类型
