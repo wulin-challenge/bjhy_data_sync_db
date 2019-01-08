@@ -33,6 +33,46 @@ public class ValueTypeConvertRegistry {
 	}
 	
 	/**
+	 * 是否存在指定的转换器
+	 * @param originalClass 原来的class
+	 * @param returnClass 转换后返回的class
+	 * @return 存在返回true,否则返回false
+	 */
+	public boolean existRegisterConverter(Class<?> originalClass,Class<?> returnClass){
+		String mappingNameKey = getValueTypeConvertFactory().getMappingNameKey(originalClass, returnClass);
+		ValueTypeConvert converter = getValueTypeConvertFactory().getConvertFactory().get(mappingNameKey);
+		if(converter == null){
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * 卸载已经注册的指定转换器
+	 * @param originalClass 原来的class
+	 * @param returnClass 转换后返回的class
+	 */
+	public void uninstallRegisterConverter(Class<?> originalClass,Class<?> returnClass){
+		String mappingNameKey = getValueTypeConvertFactory().getMappingNameKey(originalClass, returnClass);
+		try {
+			lock.lock();
+			ValueTypeConvert converter = getValueTypeConvertFactory().getConvertFactory().get(mappingNameKey);
+			if(converter == null){
+				return;
+			}
+			Set<String> nameMappingSet = getValueTypeConvertFactory().getConvertNameMapping().get(converter.getClass());
+			if(nameMappingSet != null && nameMappingSet.contains(nameMappingSet)){
+				nameMappingSet.remove(nameMappingSet);
+			}
+			getValueTypeConvertFactory().getConvertFactory().remove(nameMappingSet);
+		} finally {
+			if(lock.isLocked()){
+				lock.unlock();
+			}
+		}
+	}
+	
+	/**
 	 * 注册转换器
 	 * @param originalClass 原来的class
 	 * @param returnClass 转换后返回的class
