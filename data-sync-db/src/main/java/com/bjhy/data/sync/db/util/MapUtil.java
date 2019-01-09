@@ -271,7 +271,7 @@ public class MapUtil {
 			String logInfo = "没有找到 "+lessRowClass+"->"+moreRowClass+" 值类型转换器!";
 			if(!logCache.contains(logInfo)){
 				logCache.add(logInfo);
-				LoggerUtils.warn("没有找到 "+lessRowClass+"->"+moreRowClass+" 值类型转换器!");
+				LoggerUtils.warn(logInfo);
 			}
 		}
 		return lessRowValue;
