@@ -27,6 +27,11 @@ import com.bjhy.data.sync.db.value.convert.ValueTypeConvertRegistry;
 public class MapUtil {
 	
 	/**
+	 * 去重日志打印
+	 */
+	private Set<String> logCache = new HashSet<String>();
+	
+	/**
 	 * 一行数据与多行hash数据中的一条比较
 	 * @param oneAndMultipleDataCompare 一行数据与多行数据比较
 	 * @return 返回的Map长度为0代表比较成功,若等于1代表比较失败
@@ -263,7 +268,11 @@ public class MapUtil {
 		if(valueTypeConvert != null){
 			return valueTypeConvert.convertValue(lessRowValue);
 		}else{
-			LoggerUtils.warn("没有找到 "+lessRowClass+"->"+moreRowClass+" 值类型转换器!");
+			String logInfo = "没有找到 "+lessRowClass+"->"+moreRowClass+" 值类型转换器!";
+			if(!logCache.contains(logInfo)){
+				logCache.add(logInfo);
+				LoggerUtils.warn("没有找到 "+lessRowClass+"->"+moreRowClass+" 值类型转换器!");
+			}
 		}
 		return lessRowValue;
 	}
