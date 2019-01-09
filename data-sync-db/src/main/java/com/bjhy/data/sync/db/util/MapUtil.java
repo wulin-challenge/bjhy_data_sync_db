@@ -29,7 +29,7 @@ public class MapUtil {
 	/**
 	 * 去重日志打印
 	 */
-	private Set<String> logCache = new HashSet<String>();
+	private static Set<String> logCache = new HashSet<String>();
 	
 	/**
 	 * 一行数据与多行hash数据中的一条比较
