@@ -114,6 +114,9 @@ public class DataSourceLoader {
 		syncTemplate.setConnectConfig(connectConfig);
 		syncTemplate.setDataSource(dataSource);
 		syncTemplate.setDriverManagerDataSource(driverManagerDataSource);
+		
+		Integer validationQueryTimeout = getPropertyOfInt("validationQueryTimeout", -1);
+		syncTemplate.setQueryTimeout(validationQueryTimeout);
 		return syncTemplate;
 	}
 	
