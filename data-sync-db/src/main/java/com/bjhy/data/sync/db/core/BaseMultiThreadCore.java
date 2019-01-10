@@ -119,6 +119,7 @@ public class BaseMultiThreadCore {
 		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
 		
 		SyncStepLogInfoEntity syncStepLogInfoEntity = syncLogicEntity.getSyncStepLogInfoEntity();
+		syncStepLogInfoEntity.setSyncStepEndTime(System.currentTimeMillis());
 		
 		StringBuilder failInfo = new StringBuilder("[同步结束] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
 		
@@ -128,11 +129,15 @@ public class BaseMultiThreadCore {
 		int noUpdateCount = syncStepLogInfoEntity.getNoUpdateCount().get();
 		int failCount = syncStepLogInfoEntity.getFailCount().get();
 		
+		Long startTime = syncStepLogInfoEntity.getSyncStepStartTime();
+		Long endTime = syncStepLogInfoEntity.getSyncStepEndTime();
+		
 		failInfo.append("\n\t "+(insertCount>0?"<定位标记>":"")+"insertCount:"+insertCount);
 		failInfo.append("\n\t "+(updateCount>0?"<定位标记>":"")+"updateCount:"+updateCount);
 		failInfo.append("\n\t "+(deleteCount>0?"<定位标记>":"")+"deleteCount:"+deleteCount);
 		failInfo.append("\n\t "+(noUpdateCount>0?"<定位标记>":"")+"noUpdateCount:"+noUpdateCount);
 		failInfo.append("\n\t "+(failCount>0?"<定位标记>":"")+"failCount:"+failCount);
+		failInfo.append("\n\t 该步骤的同步时间:"+((endTime-startTime)/1000)+" 秒钟   <==> "+((endTime-startTime)/60000)+" 分钟");
 		
 		ConcurrentHashSet<String> failMessageSet = syncStepLogInfoEntity.getFailInfo();
 		for (String failMessage : failMessageSet) {

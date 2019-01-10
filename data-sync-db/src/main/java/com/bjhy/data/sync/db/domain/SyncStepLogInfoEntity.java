@@ -40,6 +40,16 @@ public class SyncStepLogInfoEntity {
 	 * 一个步骤中失败的具体信息
 	 */
 	private ConcurrentHashSet<String> failInfo = new ConcurrentHashSet<String>();
+	
+	/**
+	 * 同步步骤开始时间
+	 */
+	private Long syncStepStartTime = System.currentTimeMillis();
+	
+	/**
+	 * 同步步骤结束时间
+	 */
+	private Long syncStepEndTime = 0L;
 
 	public AtomicInteger getInsertCount() {
 		return insertCount;
@@ -87,5 +97,21 @@ public class SyncStepLogInfoEntity {
 
 	public void setDeleteCount(AtomicInteger deleteCount) {
 		this.deleteCount = deleteCount;
+	}
+
+	public Long getSyncStepStartTime() {
+		return syncStepStartTime;
+	}
+
+	public void setSyncStepStartTime(Long syncStepStartTime) {
+		this.syncStepStartTime = syncStepStartTime;
+	}
+
+	public Long getSyncStepEndTime() {
+		return syncStepEndTime;
+	}
+
+	public void setSyncStepEndTime(Long syncStepEndTime) {
+		this.syncStepEndTime = syncStepEndTime;
 	}
 }
