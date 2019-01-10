@@ -65,6 +65,11 @@ public class SyncLogicEntity {
 	private String checkVersion;
 	
 	/**
+	 * 同步步骤日志信息实体 
+	 */
+	private SyncStepLogInfoEntity syncStepLogInfoEntity;
+	
+	/**
 	 * 得到Named式的fromTemplate
 	 * @return
 	 */
@@ -168,5 +173,13 @@ public class SyncLogicEntity {
 
 	public Map<Object, Map<String, Object>> getIncrementalSyncDataHash() {
 		return incrementalSyncDataHash;
+	}
+
+	public SyncStepLogInfoEntity getSyncStepLogInfoEntity() {
+		return syncStepLogInfoEntity;
+	}
+
+	public void setSyncStepLogInfoEntity(SyncStepLogInfoEntity syncStepLogInfoEntity) {
+		this.syncStepLogInfoEntity = syncStepLogInfoEntity;
 	}
 }

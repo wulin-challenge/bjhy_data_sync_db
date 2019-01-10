@@ -202,7 +202,10 @@ public class VersionCheckCore {
 		}
 		
 		String toDeleteSql = versionCheck.getToDeleteByVersionCheck();
-		namedToTemplate.update(toDeleteSql, deleteParams);
+		int deleteCount = namedToTemplate.update(toDeleteSql, deleteParams);
+		//一个步骤中进行了多少次成功的delete操作
+		//记录删除条数
+		syncLogicEntity.getSyncStepLogInfoEntity().getDeleteCount().addAndGet(deleteCount);
 	}
 	
 	/**

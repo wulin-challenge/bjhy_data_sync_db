@@ -20,6 +20,7 @@ import org.eclipse.jdt.internal.compiler.ast.SynchronizedStatement;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
+import com.bjhy.data.sync.db.domain.SyncStepLogInfoEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
 import com.bjhy.data.sync.db.loader.DataSourceLoader;
 import com.bjhy.data.sync.db.util.LoggerUtils;
@@ -136,6 +137,10 @@ public class BaseCore {
 		SyncLogicEntity syncLogicEntity = new SyncLogicEntity();
 		syncLogicEntity.setSingleStepSyncConfig(singleStepSyncConfig);
 		syncLogicEntity.setCheckVersion(DataSourceLoader.getUUID());
+		//同步步骤日志信息实体 
+		SyncStepLogInfoEntity syncStepLogInfoEntity = new SyncStepLogInfoEntity();
+		syncLogicEntity.setSyncStepLogInfoEntity(syncStepLogInfoEntity);
+		
 		parseStepSyncConfig(syncLogicEntity);//解析步骤同步参数,封装 SyncLogicEntity bean
 		
 		//baseMultiThreadCore

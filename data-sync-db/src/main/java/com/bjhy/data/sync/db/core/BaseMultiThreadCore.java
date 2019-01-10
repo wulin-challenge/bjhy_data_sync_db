@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jetty.util.ConcurrentHashSet;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -23,6 +25,7 @@ import com.bjhy.data.sync.db.domain.RowCompareParam;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
+import com.bjhy.data.sync.db.domain.SyncStepLogInfoEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ForRunThread;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.MultiThreadPage;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepAfterListener;
@@ -99,14 +102,43 @@ public class BaseMultiThreadCore {
 				}
 				//单个步骤执行后监听
 				singleStepAfterListener(syncLogicEntity);
-				
-				String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
-				String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
-				String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
-				LoggerUtils.info("[同步结束] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
+				//打印同步步骤日志信息
+				printSyncStepLogInfo(syncLogicEntity);
 			}
 			
 		});
+	}
+	
+	/**
+	 * 打印同步步骤日志信息
+	 * @param syncLogicEntity 同步逻辑实体
+	 */
+	private void printSyncStepLogInfo(final SyncLogicEntity syncLogicEntity){
+		String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+		String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+		
+		SyncStepLogInfoEntity syncStepLogInfoEntity = syncLogicEntity.getSyncStepLogInfoEntity();
+		
+		StringBuilder failInfo = new StringBuilder("[同步结束] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
+		
+		int insertCount = syncStepLogInfoEntity.getInsertCount().get();
+		int updateCount = syncStepLogInfoEntity.getUpdateCount().get();
+		int deleteCount = syncStepLogInfoEntity.getDeleteCount().get();
+		int noUpdateCount = syncStepLogInfoEntity.getNoUpdateCount().get();
+		int failCount = syncStepLogInfoEntity.getFailCount().get();
+		
+		failInfo.append("\n\t "+(insertCount>0?"<定位标记>":"")+"insertCount:"+insertCount);
+		failInfo.append("\n\t "+(updateCount>0?"<定位标记>":"")+"updateCount:"+updateCount);
+		failInfo.append("\n\t "+(deleteCount>0?"<定位标记>":"")+"deleteCount:"+deleteCount);
+		failInfo.append("\n\t "+(noUpdateCount>0?"<定位标记>":"")+"noUpdateCount:"+noUpdateCount);
+		failInfo.append("\n\t "+(failCount>0?"<定位标记>":"")+"failCount:"+failCount);
+		
+		ConcurrentHashSet<String> failMessageSet = syncStepLogInfoEntity.getFailInfo();
+		for (String failMessage : failMessageSet) {
+			failInfo.append("\n\t <定位标记>失败具体信息:"+failMessage);
+		}
+		LoggerUtils.info(failInfo.toString());
 	}
 	
 	/**
@@ -284,7 +316,6 @@ public class BaseMultiThreadCore {
 		//更新检测版本参数
 		Map<String,Object> updateCheckVersionParam = new HashMap<String,Object>(incrementalSyncParam);
 		updateCheckVersionParam.put(VersionCheckCore.SYNC_VERSION_CHECK, syncLogicEntity.getCheckVersion());
-		
 		syncLogicEntity.getNamedToTemplate().update(updateCheckVersionSql, updateCheckVersionParam);
 	}
 	
@@ -321,6 +352,10 @@ public class BaseMultiThreadCore {
 		newSyncLogicEntity.setToColumns(syncLogicEntity.getToColumns());
 		newSyncLogicEntity.getIncrementalSyncDataHash().putAll(syncLogicEntity.getIncrementalSyncDataHash());
 		
+		//将最原始的 同步步骤日志信息实例(SyncStepLogInfoEntity) 赋予给  新的同步逻辑实例,
+		//保证  同步步骤日志信息实例(SyncStepLogInfoEntity) 在一个步骤中始终只有一个实例
+		newSyncLogicEntity.setSyncStepLogInfoEntity(syncLogicEntity.getSyncStepLogInfoEntity());
+		
 		//复制单个步骤的数据
 		SingleStepSyncConfig singleStepSyncConfig = syncLogicEntity.getSingleStepSyncConfig();
 		SingleStepSyncConfig newSingleStepSyncConfig = new SingleStepSyncConfig();
@@ -355,6 +390,10 @@ public class BaseMultiThreadCore {
 		if(incrementalSyncHashCompare(syncLogicEntity, rowParam)){
 			//增量同步强制更新字段
 			incrementalSyncForceUpdateColumn(syncLogicEntity, rowParam);
+			
+			//一个步骤中进行了多少次成功的no update操作,(即来源数据与目标数据是一致的,没有进行任何的insert或者update语句操作)
+			//将 noUpdateCount 加1
+			syncLogicEntity.getSyncStepLogInfoEntity().getNoUpdateCount().incrementAndGet();
 			return;
 		}
 		SyncPageRowEntity syncPageRowEntity = syncLogicEntity.getSingleStepSyncConfig().getSyncPageRowEntity();
@@ -569,10 +608,21 @@ public class BaseMultiThreadCore {
 		//数据检查操作
 		String checkSql = syncLogicEntity.getCheckSql();
 		Boolean exis = isExis(syncLogicEntity,checkSql, rowParam);
+		//操作标记,insert/update
+		String operationMark = null;
 		//数据保存或者更新
 		try {
 			if(!exis){
+				operationMark = "insert";
+				//一个步骤中进行了多少次成功的insert操作
+				//insertCount 加1
+				syncLogicEntity.getSyncStepLogInfoEntity().getInsertCount().incrementAndGet();
 				namedToTemplate.update(insertSql, rowParam);
+			}else{
+				operationMark = "update";
+				//一个步骤中进行了多少次成功的update操作
+				//updateCount 加1
+				syncLogicEntity.getSyncStepLogInfoEntity().getUpdateCount().incrementAndGet();
 			}
 			//这个方式谨慎使用,因为最后线程池是没有被关闭的
 			ThreadControl2 createPageRowThreadControler2 = createPageRowThreadControler2(syncLogicEntity);
@@ -589,7 +639,8 @@ public class BaseMultiThreadCore {
 			Boolean isThisOnlyOneSync = syncLogicEntity.getSingleStepSyncConfig().getIsThisOnlyOneSync();
 			//只同步一次的步骤,重复就不打印出来
 			if(!isThisOnlyOneSync){
-				LoggerUtils.error("当前这条数据已经存在或sql有错误,具体的错误信息:"+e.getMessage());
+				////得到insert或者update的错误信息
+				getInsertOrUpdateFailInfo(syncLogicEntity, operationMark, e);
 			}
 		}
 	}
@@ -608,23 +659,66 @@ public class BaseMultiThreadCore {
 		String checkSql = syncLogicEntity.getCheckSql();
 		Boolean exis = isExis(syncLogicEntity,checkSql, rowParam);
 		
+		//操作标记,insert/update
+		String operationMark = null;
+				
 		//数据保存或者更新
 		try {
 			if(exis){
+				operationMark = "update";
+				//一个步骤中进行了多少次成功的update操作
+				//updateCount 加1
+				syncLogicEntity.getSyncStepLogInfoEntity().getUpdateCount().incrementAndGet();
 				namedToTemplate.update(updateSql, rowParam);
 				
 			}else{
+				operationMark = "insert";
+				//一个步骤中进行了多少次成功的insert操作
+				//insertCount 加1
+				syncLogicEntity.getSyncStepLogInfoEntity().getInsertCount().incrementAndGet();
 				namedToTemplate.update(insertSql, rowParam);
 			}
 		} catch (DataAccessException e) {
 			Boolean isThisOnlyOneSync = syncLogicEntity.getSingleStepSyncConfig().getIsThisOnlyOneSync();
 			//只同步一次的步骤,重复就不打印出来
 			if(!isThisOnlyOneSync){
-				LoggerUtils.error("当前这条数据已经存在或sql有错误,具体的错误信息:"+e.getMessage());
+				//得到insert或者update的错误信息
+				getInsertOrUpdateFailInfo(syncLogicEntity, operationMark, e);
 			}
 			
 		}
 	}
+	
+	/**
+	 * 得到insert或者update的错误信息
+	 * @param syncLogicEntity 同步逻辑实例
+	 * @param operationMark insert/update标记
+	 * @param e 具体异常
+	 */
+	private void getInsertOrUpdateFailInfo(SyncLogicEntity syncLogicEntity, String operationMark,Exception e) {
+		//得到必要的数据源等信息
+		String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+		String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+		
+		//拼装错误信息
+		StringBuilder failInfo = new StringBuilder("表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
+		failInfo.append(",当前这条数据已经存在或sql有错误,具体的错误信息:"+e.getMessage());
+		
+		//打印错误信息
+		LoggerUtils.error(failInfo.toString());
+		syncLogicEntity.getSyncStepLogInfoEntity().getFailCount().incrementAndGet();
+		syncLogicEntity.getSyncStepLogInfoEntity().getFailInfo().add(failInfo.toString());
+		
+		//将 insertCount 或者 updateCount 减1
+		if("insert".equals(operationMark)){
+			syncLogicEntity.getSyncStepLogInfoEntity().getInsertCount().decrementAndGet();
+		}
+		if("update".equals(operationMark)){
+			syncLogicEntity.getSyncStepLogInfoEntity().getUpdateCount().decrementAndGet();
+		}
+	}
+
 	
 	/**
 	 * 分页中每一行的逻辑处理的方法
