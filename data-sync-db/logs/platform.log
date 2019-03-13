@@ -2721,3 +2721,9 @@
 2019-01-01 16:47:06[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | 序列化后的字节大小  : 3488
 2019-01-01 16:47:06[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [开始同步..] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master1
 2019-01-01 16:47:41[platform] INFO [pool-2-thread-1] LoggerUtils.info(18) | [同步结束] 表名:test_copy_user,数据源名称:home_mysql_master,数据源编号:home_mysql_master1
+2019-01-14 13:10:04[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2019-01-14 13:10:04[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2019-01-14 13:10:08[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2019-01-14 13:10:09[platform] INFO [main] DruidDataSource.init(947) | {dataSource-1} inited
+2019-01-14 13:10:11[platform] INFO [main] DriverManagerDataSource.setDriverClassName(133) | Loaded JDBC driver: oracle.jdbc.driver.OracleDriver
+2019-01-14 13:10:11[platform] INFO [main] DruidDataSource.init(947) | {dataSource-2} inited
