@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 这是罪犯基础数据同步的配置文件 -->
+<data-sources>
+	<from-template>
+		<data-source task="from_old_yz_task" isEnable="true" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>省局罪犯基础数据库</data-source-name>
+			<data-source-number>sjhj</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url>
+			<connect-username>sjhj</connect-username>
+			<connect-password>123456789</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+	</from-template>
+	
+	<to-template>
+		
+		<data-source task="to_new_yz_task" isEnable="true" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>新狱政数据库</data-source-name>
+			<data-source-number>5100</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url>
+			<connect-username>newyz</connect-username>
+			<connect-password>123456789</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+	</to-template>
+</data-sources>

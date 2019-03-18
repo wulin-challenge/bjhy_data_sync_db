@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<import-data-sources>
+		<import-data-source>sync/criminal-base/criminal-base-db.xml</import-data-source>
+	</import-data-sources>
+	
+	<native-template task="notive_store_task" isEnable="true" databaseType="oracle">
+		<sort-number>1</sort-number>
+		<data-source-name>新狱政数据库</data-source-name>
+		<data-source-number>5100</data-source-number>
+		<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+		<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url>
+		<connect-username>newyz</connect-username>
+		<connect-password>123456789</connect-password>
+		<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+	</native-template>
+</data-sources>

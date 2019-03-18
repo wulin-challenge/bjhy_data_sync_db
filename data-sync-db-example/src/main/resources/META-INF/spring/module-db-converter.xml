@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+		   http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+           http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<context:component-scan base-package="com.bjhy.db.converter" />
+	
+	<!-- 同步入口Bean -->
+	<bean id="syncEntry" class="com.bjhy.db.converter.core.SyncEntryContext">
+		<property name="onlyBeforeAndAfter" value="${sync.only-before-after:true}" />
+	</bean>
+	
+	<!-- 启动就同步一次的初始化类 -->
+	<bean id="syncInit" class="com.bjhy.db.converter.SyncInit">
+		<property name="syncEntry" ref="syncEntry"/>
+		<property name="syncInitEnable" value="${sync.init:true}"/>
+	</bean>
+	
+	<!-- 定时器bean -->
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
+	<bean id="syncScheduledJob" class="com.bjhy.db.converter.schedule.SyncScheduledJob">
+		<property name="cronExpression" value="${sync.cron}"/>
+		<property name="concurrent" value="${sync.concurrent:false}"/>
+		<property name="syncEntry" ref="syncEntry"/>
+	</bean>
+	 
+	<bean id="syncScheduledFactoryBean" class="com.bjhy.db.converter.schedule.ScheduledFactory"
+          init-method="init">
+        <property name="scheduledJob" ref="syncScheduledJob"/>
+        <property name="scheduler" ref="scheduler"/>
+    </bean>
+	
+</beans>
