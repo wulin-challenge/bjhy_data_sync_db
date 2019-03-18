@@ -188,7 +188,7 @@ public class SyncConfigLoader {
 	}
 	
 	/**
-	 * 同步警告列日志打印开关,true:打印所有日志,false:相同日志只打印一次
+	 * 同步警告列日志打印开关,true:打印所有日志,false:同类型日志只打印一次
 	 * @return
 	 */
 	private Boolean loadSyncAlarmColumnLoggingPrint(){
