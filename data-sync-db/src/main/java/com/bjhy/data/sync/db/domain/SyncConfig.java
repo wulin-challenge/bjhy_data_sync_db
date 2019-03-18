@@ -62,6 +62,11 @@ public class SyncConfig {
 	 * 拆分行最大列数量
 	 */
 	private Integer syncPageRowMaxColumnNum;
+	
+	/**
+	 * 同步警告列日志打印开关,true:打印所有日志,false:相同日志只打印一次
+	 */
+	private Boolean syncAlarmColumnLoggingPrint;
 
 	public List<String> getSyncDataSourceLoaderModel() {
 		return syncDataSourceLoaderModel;
@@ -142,5 +147,12 @@ public class SyncConfig {
 	public void setSyncPageRowMaxColumnNum(Integer syncPageRowMaxColumnNum) {
 		this.syncPageRowMaxColumnNum = syncPageRowMaxColumnNum;
 	}
-	
+
+	public Boolean getSyncAlarmColumnLoggingPrint() {
+		return syncAlarmColumnLoggingPrint;
+	}
+
+	public void setSyncAlarmColumnLoggingPrint(Boolean syncAlarmColumnLoggingPrint) {
+		this.syncAlarmColumnLoggingPrint = syncAlarmColumnLoggingPrint;
+	}
 }

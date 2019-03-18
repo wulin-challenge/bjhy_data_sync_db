@@ -48,6 +48,7 @@ public class SyncConfigLoader {
 		syncConfig.setSyncInsertOrUpdateMaxThreadNum(loadSyncInsertOrUpdateMaxThreadNum());
 		syncConfig.setSyncPageRowThreadMaxThreadNum(loadSyncPageRowThreadMaxThreadNum());
 		syncConfig.setSyncPageRowMaxColumnNum(loadSyncPageRowMaxColumnNum());
+		syncConfig.setSyncAlarmColumnLoggingPrint(loadSyncAlarmColumnLoggingPrint());
 		return syncConfig;
 	}
 	
@@ -184,6 +185,21 @@ public class SyncConfigLoader {
 		}
 		
 		return columnNum;
+	}
+	
+	/**
+	 * 同步警告列日志打印开关,true:打印所有日志,false:相同日志只打印一次
+	 * @return
+	 */
+	private Boolean loadSyncAlarmColumnLoggingPrint(){
+		String value = SyncPropertiesUtil.getProperty("sync.alarm.column.logging.print");
+		Boolean nullValue = null;
+		if(StringUtils.isNotEmpty(value)){
+			if("true".equals(value)){
+				nullValue = true;
+			}
+		}
+		return nullValue;
 	}
 	
 }

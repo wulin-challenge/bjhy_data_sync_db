@@ -66,6 +66,11 @@ public class BaseRunEntity {
 	private Integer pageRowThreadMaxThreadNum=1;
 	
 	/**
+	 * 同步警告列日志打印开关,true:打印所有日志,false:相同日志只打印一次
+	 */
+	private Boolean syncAlarmColumnLoggingPrint=false;
+	
+	/**
 	 * 目标任务
 	 */
 	private String toTask;
@@ -213,6 +218,18 @@ public class BaseRunEntity {
 	public void setIsSyncNullValue(Boolean isSyncNullValue) {
 		this.isSyncNullValue = isSyncNullValue;
 	}
+	
+	public Boolean getSyncAlarmColumnLoggingPrint() {
+		Boolean alarmColumn = syncConfig.getSyncAlarmColumnLoggingPrint();
+		if(alarmColumn != null){
+			return alarmColumn;
+		}
+		return syncAlarmColumnLoggingPrint;
+	}
+
+	public void setSyncAlarmColumnLoggingPrint(Boolean syncAlarmColumnLoggingPrint) {
+		this.syncAlarmColumnLoggingPrint = syncAlarmColumnLoggingPrint;
+	}
 
 	public SyncConfig getSyncConfig() {
 		return syncConfig;
@@ -221,5 +238,4 @@ public class BaseRunEntity {
 	public void setSyncConfig(SyncConfig syncConfig) {
 		this.syncConfig = syncConfig;
 	}
-	
 }

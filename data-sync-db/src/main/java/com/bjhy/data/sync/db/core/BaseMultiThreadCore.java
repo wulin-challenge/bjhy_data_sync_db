@@ -63,6 +63,11 @@ public class BaseMultiThreadCore {
 	private static ReentrantLock pageRowThreadLock = new ReentrantLock();
 	
 	/**
+	 * 去重警告日志日志打印
+	 */
+	private static Set<String> alarmLogCache = new HashSet<String>();
+	
+	/**
 	 * 利用 ThreadControl 的事件机制进行控制同步事件的触发,同时控制是否开启多线程
 	 * @param syncLogicEntity
 	 */
@@ -516,7 +521,6 @@ public class BaseMultiThreadCore {
 		return specifyCompareColumnFinally;
 	}
 	
-	
 	/**
 	 * 增量同步检测经过字段
 	 * @param syncLogicEntity 同步逻辑实体
@@ -551,16 +555,48 @@ public class BaseMultiThreadCore {
 			//得到警告详细信息
 			String alarmColumnMessage = getAlarmColumnMessage(syncLogicEntity, rowCompareParam, incrementalSync);
 			
+			//得到警告简单信息
+			String alarmColumnSimpleMessage = getAlarmColumnSimpleMessage(syncLogicEntity, rowCompareParam, incrementalSync);
+			
 			AlarmColumnPrintLevel alarmColumnPrintLevel = incrementalSync.getAlarmColumnPrintLevel();
 			if(AlarmColumnPrintLevel.LOGGING == alarmColumnPrintLevel){
-				LoggerUtils.warn(alarmColumnMessage);
 				
+				Boolean loggingPrint = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getBaseRunEntity().getSyncAlarmColumnLoggingPrint();
+				if(!loggingPrint && !alarmLogCache.contains(alarmColumnSimpleMessage)){
+					alarmLogCache.add(alarmColumnSimpleMessage);
+					LoggerUtils.warn(alarmColumnMessage);
+				}
+				
+				if(loggingPrint){
+					LoggerUtils.warn(alarmColumnMessage);
+				}
 			}else if(AlarmColumnPrintLevel.EXCEPTION == alarmColumnPrintLevel){
 				IllegalStateException ex = new IllegalStateException(alarmColumnMessage);
 				LoggerUtils.error(ex);
 				throw ex;
 			}
 		}
+	}
+	
+	/**
+	 * 得到警告简单信息
+	 * @param syncLogicEntity 同步逻辑实体
+	 * @param rowCompareParam 行比较参数
+	 * @param incrementalSync 增量同步实体
+	 * @return 得到警告信息
+	 */
+	private String getAlarmColumnSimpleMessage(SyncLogicEntity syncLogicEntity,RowCompareParam rowCompareParam,IncrementalSync incrementalSync){
+		String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+		String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+		
+		StringBuilder alarmString = new StringBuilder("[警告字段] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+",详细信息:[");
+		List<String> alarmColumn = incrementalSync.getAlarmColumn();
+		for (String column : alarmColumn) {
+			alarmString.append("(字段:"+column+")");
+		}
+		alarmString.append("]");
+		return alarmString.toString();
 	}
 
 	/**
