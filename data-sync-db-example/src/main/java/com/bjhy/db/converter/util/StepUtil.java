@@ -48,8 +48,8 @@ public class StepUtil {
 		    singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 		    singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
 		    
-//		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
-//		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
+		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
+		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
 		    singleStepSyncConfig.setToValidationWhere(" where sys_orgCode=:sys_orgCode ");
 		    if ((simpleColumnNameMapping != null) && (!simpleColumnNameMapping.isEmpty())) {
 		      singleStepSyncConfig.getSimpleColumnNameMapping().putAll(simpleColumnNameMapping);
@@ -68,9 +68,6 @@ public class StepUtil {
 			singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		    
 		    baseCore.syncEntry(singleStepSyncConfig);
-		
-		
-		
 	}
 	
 	public static void checkSyncNotNullWhere(SingleRunEntity singleRunEntity,String fromTableName,String toTableName,String fromWhere,String updateAndPageColumn,String singleStepListenerName,Map<String,String> simpleColumnNameMapping){
@@ -94,8 +91,8 @@ public class StepUtil {
 	    singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 	    singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
 	    
-//	    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
-//	    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
+	    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
+	    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
 	    singleStepSyncConfig.setToValidationWhere(" where sys_orgCode=:sys_orgCode ");
 	    if ((simpleColumnNameMapping != null) && (!simpleColumnNameMapping.isEmpty())) {
 	      singleStepSyncConfig.getSimpleColumnNameMapping().putAll(simpleColumnNameMapping);
@@ -114,9 +111,6 @@ public class StepUtil {
 		singleStepSyncConfig.setIncrementalSync(incrementalSync);
 	    
 	    baseCore.syncEntry(singleStepSyncConfig);
-		
-		
-		
 	}
 	
 	public static void checkSyncNotNull(SingleRunEntity singleRunEntity,String fromTableName,String toTableName,String updateAndPageColumn,String singleStepListenerName,Map<String,String> simpleColumnNameMapping){
@@ -141,8 +135,8 @@ public class StepUtil {
 		    singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 		    singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
 		    
-//		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
-//		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
+		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
+		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
 		    singleStepSyncConfig.setToValidationWhere(" where sys_orgCode=:sys_orgCode ");
 		    if ((simpleColumnNameMapping != null) && (!simpleColumnNameMapping.isEmpty())) {
 		      singleStepSyncConfig.getSimpleColumnNameMapping().putAll(simpleColumnNameMapping);
@@ -161,7 +155,6 @@ public class StepUtil {
 			singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		    
 		    baseCore.syncEntry(singleStepSyncConfig);
-		
 	}
 	
 	public static void checkOnlyOneSync(SingleRunEntity singleRunEntity,String fromTableName,String toTableName,String updateAndPageColumn,String singleStepListenerName,Map<String,String> simpleColumnNameMapping){
@@ -186,8 +179,8 @@ public class StepUtil {
 		    singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 		    singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
 		    
-//		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
-//		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
+		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
+		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
 		    singleStepSyncConfig.setToValidationWhere(" where sys_orgCode=:sys_orgCode ");
 		    if ((simpleColumnNameMapping != null) && (!simpleColumnNameMapping.isEmpty())) {
 		      singleStepSyncConfig.getSimpleColumnNameMapping().putAll(simpleColumnNameMapping);
@@ -206,6 +199,5 @@ public class StepUtil {
 			singleStepSyncConfig.setIncrementalSync(incrementalSync);
 		    
 		    baseCore.syncEntry(singleStepSyncConfig);
-		
 	}
 }

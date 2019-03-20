@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 加载 db.properties配置文件
@@ -52,6 +53,17 @@ public class SyncPropertiesUtil {
 			return value;
 		}
 		return null;
+	}
+	
+	public static boolean getProperty(String key,boolean defaultValue){
+		String value = getProperty(key);
+		if(StringUtils.isBlank(value)){
+			return defaultValue;
+		}
+		if("true".equals(value)){
+			return true;
+		}
+		return false;
 	}
 	
 	/**

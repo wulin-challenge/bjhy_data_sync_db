@@ -3,27 +3,16 @@ package com.bjhy.data.sync.db.natived.dao.impl;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import com.bjhy.data.sync.db.domain.SyncLogicEntity;
+import com.bjhy.data.sync.db.natived.dao.BaseVersionCheckDao;
 import com.bjhy.data.sync.db.natived.dao.VersionCheckDao;
 import com.bjhy.data.sync.db.natived.domain.VersionCheckEntity;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 
-public class SqlServerVersionCheckDaoImpl implements VersionCheckDao{
-	
-	private SyncLogicEntity syncLogicEntity;
-
-	private NamedParameterJdbcTemplate namedNativeTemplate;
-	
-	public SqlServerVersionCheckDaoImpl(SyncLogicEntity syncLogicEntity) {
-		super();
-		this.syncLogicEntity = syncLogicEntity;
-		this.namedNativeTemplate = syncLogicEntity.getNamedNativeTemplate();
-	}
+public class SqlServerVersionCheckDaoImpl extends BaseVersionCheckDao implements VersionCheckDao{
 	
 	@Override
 	public void store(VersionCheckEntity versionCheckEntity) {

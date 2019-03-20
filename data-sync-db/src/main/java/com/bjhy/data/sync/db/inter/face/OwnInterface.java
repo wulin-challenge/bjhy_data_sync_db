@@ -205,7 +205,7 @@ public interface OwnInterface {
 		public List<String> getAddVersionCheckColumnSql(List<AddColumnAttribute> addToTableColumns);
 		
 		/**
-		 * 得到通过versionCheck清楚数据的deletesql
+		 * 得到通过versionCheck清除数据的deletesql
 		 * @return
 		 */
 		public String getToDeleteByVersionCheck();

@@ -49,7 +49,7 @@ public class VersionCheckCore {
 	public VersionCheckCore(SyncLogicEntity syncLogicEntity) {
 		List<AddColumnAttribute> addToTableColumns = syncLogicEntity.getSingleStepSyncConfig().getAddToTableColumns();
 		this.syncLogicEntity = syncLogicEntity;
-		this.versionCheckDao = new VersionCheckDaoFactory(syncLogicEntity).getVersionCheckDao();
+		this.versionCheckDao = VersionCheckDaoFactory.getVersionCheckDao();
 		initVersionCheck(); //初始化VersionCheck的实现对象
 		addVersionCheckColumn(addToTableColumns); //添加versionCheckColumn
 		storeOrUpdateVersionCheck();//保存或者更新 VersionCheck值
@@ -59,7 +59,7 @@ public class VersionCheckCore {
 	 * 初始化VersionCheck的实现对象
 	 */
 	private void initVersionCheck(){
-		String databaseType = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDatabaseType();
+		String databaseType = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getToTemplate().getConnectConfig().getDatabaseType();
 		
 		if("Oracle".equalsIgnoreCase(databaseType)){
 			versionCheck = new OracleVersionCheck(syncLogicEntity);

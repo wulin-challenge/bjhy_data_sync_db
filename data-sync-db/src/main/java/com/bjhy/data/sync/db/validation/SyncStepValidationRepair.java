@@ -1,19 +1,28 @@
 package com.bjhy.data.sync.db.validation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.bjhy.data.sync.db.core.BaseCore;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncTemplate;
 import com.bjhy.data.sync.db.natived.dao.StepStoreDao;
+import com.bjhy.data.sync.db.natived.dao.VersionCheckDao;
 import com.bjhy.data.sync.db.natived.dao.impl.StepStoreDaoImpl;
+import com.bjhy.data.sync.db.natived.dao.impl.VersionCheckDaoFactory;
 import com.bjhy.data.sync.db.natived.domain.StepStoreEntity;
+import com.bjhy.data.sync.db.natived.domain.VersionCheckEntity;
 import com.bjhy.data.sync.db.util.DataSourceUtil;
 import com.bjhy.data.sync.db.util.LoggerUtils;
+import com.bjhy.data.sync.db.util.SyncPropertiesUtil;
+import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 
 /**
  * 同步步骤校验修复
@@ -21,19 +30,28 @@ import com.bjhy.data.sync.db.util.LoggerUtils;
  *
  */
 public class SyncStepValidationRepair {
+	private Logger logger = Logger.getLogger(SyncStepValidationRepair.class);
+	
+	/**
+	 * 版本检测常量
+	 */
+	public final static String VERSION_CHECK_PARAM = "versionCheckParam";
 	
 	
 	private static SyncStepValidationRepair syncStepValidationRepair;
 	
 	private StepStoreDao stepStoreDao;
 	
+	private VersionCheckDao versionCheckDao;
+	
 	private SyncTemplate enableNativeSyncTemplate;
 	
 	private Thread thread;
 	
 	private SyncStepValidationRepair(){
-		enableNativeSyncTemplate = DataSourceUtil.getInstance().getEnableNativeSyncTemplate();
-		stepStoreDao = new StepStoreDaoImpl();
+		this.enableNativeSyncTemplate = DataSourceUtil.getInstance().getEnableNativeSyncTemplate();
+		this.stepStoreDao = new StepStoreDaoImpl();
+		this.versionCheckDao = VersionCheckDaoFactory.getVersionCheckDao();
 	}
 	
 	/**
@@ -93,7 +111,7 @@ public class SyncStepValidationRepair {
 			
 			StepStoreEntity findOneById = stepStoreDao.findOneById(stepStoreEntity);
 			SingleStepSyncConfig singleStepSyncConfig = findOneById.getSingleStepSyncConfig();
-			
+
 			SyncTemplate fromTemplate = singleStepSyncConfig.getSingleRunEntity().getFromTemplate();
 			
 			//校验数据源是否可用
@@ -114,7 +132,6 @@ public class SyncStepValidationRepair {
 	 * 校验步骤数据
 	 * @param singleStepSyncConfig
 	 */
-	@SuppressWarnings("deprecation")
 	private void validationStepData(SingleStepSyncConfig singleStepSyncConfig,StepStoreEntity stepStoreEntity){
 		NamedParameterJdbcTemplate fromTemplate = DataSourceUtil.getInstance().getNamedTemplate(singleStepSyncConfig.getSingleRunEntity().getFromTemplate());
 		NamedParameterJdbcTemplate toTemplate = DataSourceUtil.getInstance().getNamedTemplate(singleStepSyncConfig.getSingleRunEntity().getToTemplate());
@@ -128,6 +145,12 @@ public class SyncStepValidationRepair {
 			toValidationWhere = "";
 		}
 		
+		//目标检测并删除脏数据
+		boolean versionCheck = SyncPropertiesUtil.getProperty("sync.to.version.check.delete",false);
+		if(versionCheck){
+			toVersionCheckAndDelete(singleStepSyncConfig, toTemplate, validationParams);
+		}
+		
 		String fromCountSql = singleStepSyncConfig.getFromCountSql();
 		Integer fromDataNumber = fromTemplate.queryForObject(fromCountSql,validationParams,Integer.class);
 		
@@ -139,6 +162,109 @@ public class SyncStepValidationRepair {
 		
 		stepStoreDao.updateByDataNumber(stepStoreEntity);
 		
+	}
+
+	/**
+	 * 目标检测并删除脏数据
+	 * @param singleStepSyncConfig
+	 * @param toTemplate
+	 * @param validationParams
+	 */
+	private void toVersionCheckAndDelete(SingleStepSyncConfig singleStepSyncConfig,NamedParameterJdbcTemplate toTemplate, Map<String, Object> validationParams) {
+		VersionCheckEntity versionCheckEntity = new VersionCheckEntity();
+		String fromDataSourceNumber = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+		String ToDataSourceNumber = singleStepSyncConfig.getSingleRunEntity().getToTemplate().getConnectConfig().getDataSourceNumber();
+		String fromTask = singleStepSyncConfig.getSingleRunEntity().getBaseRunEntity().getFromTask();
+		String toTask = singleStepSyncConfig.getSingleRunEntity().getBaseRunEntity().getToTask();
+		String stepUniquelyIdentifies = singleStepSyncConfig.getStepUniquelyIdentifies();
+		
+		versionCheckEntity.setFromDataSourceNumber(fromDataSourceNumber);
+		versionCheckEntity.setToDataSourceNumber(ToDataSourceNumber);
+		versionCheckEntity.setFromTask(fromTask);
+		versionCheckEntity.setToTask(toTask);
+		versionCheckEntity.setStepUniquelyIdentifies(stepUniquelyIdentifies);
+		
+		VersionCheckEntity reallyVersionCheckEntity = versionCheckDao.findOneByTaskAndTableName(versionCheckEntity);
+		
+		//得到目标检测版本参数
+		List<String> toVersionCheckParams = getToVersionCheckParams(singleStepSyncConfig, reallyVersionCheckEntity);
+		
+		if(toVersionCheckParams.size()>0){
+			//得到目标检测版本SQL
+			String toVersionCheckSql = getToVersionCheckSql(singleStepSyncConfig, reallyVersionCheckEntity);
+			
+			Map<String,Object> VersionCheckParams = new HashMap<String,Object>();
+			VersionCheckParams.put(VERSION_CHECK_PARAM, toVersionCheckParams);
+			VersionCheckParams.putAll(validationParams);
+			
+			Integer hasDataNumber = toTemplate.queryForObject(toVersionCheckSql, VersionCheckParams, Integer.class);
+			if(hasDataNumber>0){
+				logger.warn("有 "+hasDataNumber+"条脏数据被清除!sql语句: "+toVersionCheckSql);
+				String toVersionDeleteSql = getToVersionDeleteSql(singleStepSyncConfig, reallyVersionCheckEntity);
+				toTemplate.update(toVersionDeleteSql, VersionCheckParams);
+			}
+		}
+	}
+	
+	/**
+	 * 得到目标检测版本SQL
+	 * @param singleStepSyncConfig
+	 * @param reallyVersionCheckEntity
+	 * @return
+	 */
+	private String getToVersionCheckSql(SingleStepSyncConfig singleStepSyncConfig,VersionCheckEntity reallyVersionCheckEntity){
+		//校验的条件
+		String toValidationWhere = singleStepSyncConfig.getToValidationWhere();
+		toValidationWhere = StringUtils.isBlank(toValidationWhere)?" where 1=1 ":toValidationWhere;
+				
+		StringBuilder toVersionCheckSql = new StringBuilder();
+		toVersionCheckSql.append("select count(1) num from ");
+		toVersionCheckSql.append(singleStepSyncConfig.getToTableName());
+		toVersionCheckSql.append(" "+toValidationWhere+" AND ");
+		toVersionCheckSql.append(VersionCheckCore.SYNC_VERSION_CHECK);
+		toVersionCheckSql.append(" not in(:"+VERSION_CHECK_PARAM+") ");
+		return toVersionCheckSql.toString();
+	}
+	
+	/**
+	 * 得到目标删除版本SQL
+	 * @param singleStepSyncConfig
+	 * @param reallyVersionCheckEntity
+	 * @return
+	 */
+	private String getToVersionDeleteSql(SingleStepSyncConfig singleStepSyncConfig,VersionCheckEntity reallyVersionCheckEntity){
+		//校验的条件
+		String toValidationWhere = singleStepSyncConfig.getToValidationWhere();
+		toValidationWhere = StringUtils.isBlank(toValidationWhere)?" where 1=1 ":toValidationWhere;
+				
+		StringBuilder toVersionCheckSql = new StringBuilder();
+		toVersionCheckSql.append("delete from ");
+		toVersionCheckSql.append(singleStepSyncConfig.getToTableName());
+		toVersionCheckSql.append(" "+toValidationWhere+" AND ");
+		toVersionCheckSql.append(VersionCheckCore.SYNC_VERSION_CHECK);
+		toVersionCheckSql.append(" not in(:"+VERSION_CHECK_PARAM+") ");
+		return toVersionCheckSql.toString();
+	}
+	
+	/**
+	 * 得到目标检测版本参数
+	 * @param singleStepSyncConfig
+	 * @param reallyVersionCheckEntity
+	 * @return
+	 */
+	private List<String> getToVersionCheckParams(SingleStepSyncConfig singleStepSyncConfig,VersionCheckEntity reallyVersionCheckEntity){
+		List<String> versionParams = new ArrayList<String>();
+		
+		String beforeCheckVersion = reallyVersionCheckEntity.getBeforeCheckVersion();
+		if(StringUtils.isNotBlank(beforeCheckVersion)){
+			versionParams.addAll(Arrays.asList(beforeCheckVersion.split(",")));
+		}
+		
+		String currentCheckVersion = reallyVersionCheckEntity.getCurrentCheckVersion();
+		if(StringUtils.isNotBlank(currentCheckVersion)){
+			versionParams.add(currentCheckVersion);
+		}
+		return versionParams;
 	}
 	
 	/**

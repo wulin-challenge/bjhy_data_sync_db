@@ -9,21 +9,12 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
+import com.bjhy.data.sync.db.natived.dao.BaseVersionCheckDao;
 import com.bjhy.data.sync.db.natived.dao.VersionCheckDao;
 import com.bjhy.data.sync.db.natived.domain.VersionCheckEntity;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 
-public class MySqlVersionCheckDaoImpl implements VersionCheckDao{
-	
-	private SyncLogicEntity syncLogicEntity;
-
-	private NamedParameterJdbcTemplate namedNativeTemplate;
-	
-	public MySqlVersionCheckDaoImpl(SyncLogicEntity syncLogicEntity) {
-		super();
-		this.syncLogicEntity = syncLogicEntity;
-		this.namedNativeTemplate = syncLogicEntity.getNamedNativeTemplate();
-	}
+public class MySqlVersionCheckDaoImpl extends BaseVersionCheckDao implements VersionCheckDao{
 	
 	@Override
 	public void store(VersionCheckEntity versionCheckEntity) {

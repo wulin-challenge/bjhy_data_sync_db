@@ -9,7 +9,10 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.alibaba.druid.pool.DruidAbstractDataSource.PhysicalConnectionInfo;
+import com.alibaba.druid.pool.DruidDataSource;
 import com.bjhy.data.sync.db.core.BaseLoaderCore;
+import com.bjhy.data.sync.db.datasource.DBDruidDataSource;
 import com.bjhy.data.sync.db.domain.ConnectConfig;
 import com.bjhy.data.sync.db.domain.SyncTemplate;
 import com.bjhy.data.sync.db.log.LogCache;
@@ -180,15 +183,72 @@ public class DataSourceUtil {
 			LoggerUtils.warn("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源以被停用!!");
 			return false;
 		}
+		return isEnableConnection(syncTemplate);
+	}
+	
+	/**
+	 * 测试连接是否可用
+	 * @param syncTemplate
+	 * @return
+	 */
+	public boolean isEnableConnection(SyncTemplate syncTemplate){
+		DataSource dataSource = syncTemplate.getDataSource();
+		if(dataSource instanceof DBDruidDataSource){
+			return isEnableUseDruidConnection(syncTemplate);
+		}
+		return isEnableUseDefaultConnection(syncTemplate);
+	}
+	
+	private boolean isEnableUseDruidConnection(SyncTemplate syncTemplate){
+		ConnectConfig connect = syncTemplate.getConnectConfig();
+		DBDruidDataSource dataSource = (DBDruidDataSource)syncTemplate.getDataSource();
 		
-		DataSource driverManagerDataSource = syncTemplate.getDriverManagerDataSource();
+		Connection connection = null;
 		try {
-			Connection connection = driverManagerDataSource.getConnection();
+			connection = dataSource.getTestConnection();
+		}catch (SQLException e) {
+			LogCache.addDataSourceLog("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
+			LoggerUtils.error("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
+			return false;
+		}finally{
+			if(connection != null){
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LogCache.addDataSourceLog("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
+					LoggerUtils.warn("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
+				}
+			}
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * 使用默认方式测试连接是否可用
+	 * @param syncTemplate
+	 * @return
+	 */
+	private boolean isEnableUseDefaultConnection(SyncTemplate syncTemplate){
+		ConnectConfig connect = syncTemplate.getConnectConfig();
+		DataSource driverManagerDataSource = syncTemplate.getDriverManagerDataSource();
+		Connection connection = null;
+		try {
+			connection = driverManagerDataSource.getConnection();
 			connection.close();
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			LogCache.addDataSourceLog("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
 			LoggerUtils.warn("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
 			return false;
+		}finally{
+			if(connection != null){
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					LogCache.addDataSourceLog("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
+					LoggerUtils.warn("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源不能连接!!-->详细信息 : "+e.getMessage());
+				}
+			}
 		}
 		return true;
 	}

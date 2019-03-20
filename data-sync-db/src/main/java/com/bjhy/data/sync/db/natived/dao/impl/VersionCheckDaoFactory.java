@@ -1,54 +1,58 @@
 package com.bjhy.data.sync.db.natived.dao.impl;
 
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
+import com.bjhy.data.sync.db.domain.SyncTemplate;
 import com.bjhy.data.sync.db.natived.dao.VersionCheckDao;
-import com.bjhy.data.sync.db.version.check.OracleVersionCheck;
-import com.bjhy.data.sync.db.version.check.SqlServerVersionCheck;
+import com.bjhy.data.sync.db.util.DataSourceUtil;
 
+/**
+ * 
+ * @author wubo
+ *
+ */
 public class VersionCheckDaoFactory{
-	
-	/**
-	 * 同步逻辑实体
-	 */
-	private SyncLogicEntity syncLogicEntity;
-	
 	/**
 	 * 版本检测dao
 	 */
-	private VersionCheckDao versionCheckDao;
+	private static VersionCheckDao versionCheckDao;
 	
 
-	public VersionCheckDaoFactory(SyncLogicEntity syncLogicEntity) {
-		super();
-		this.syncLogicEntity = syncLogicEntity;
-		initVersionCheckDao();
+	private VersionCheckDaoFactory() {}
+	
+	/**
+	 * 得到具体的 [版本检测dao] 对象,且该对象始终只有一个
+	 * @return
+	 */
+	public static VersionCheckDao getVersionCheckDao(){
+		if(versionCheckDao == null){
+			synchronized(VersionCheckDaoFactory.class){
+				if(versionCheckDao == null){
+					new VersionCheckDaoFactory().initVersionCheckDao();
+				}
+			}
+		}
+		return versionCheckDao;
 	}
-	
-	
 	
 	/**
 	 * 初始化VersionCheckDao的实现对象
 	 */
 	private void initVersionCheckDao(){
-		String databaseType = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDatabaseType();
+		SyncTemplate enableNativeSyncTemplate = DataSourceUtil.getInstance().getEnableNativeSyncTemplate();
+		String databaseType = enableNativeSyncTemplate.getConnectConfig().getDatabaseType();
 		
 		if("Oracle".equalsIgnoreCase(databaseType)){
-			versionCheckDao = new OracleVersionCheckDaoImpl(syncLogicEntity);
+			versionCheckDao = new OracleVersionCheckDaoImpl();
 			
 		}else if("SqlServer".equalsIgnoreCase(databaseType)){
-			versionCheckDao = new SqlServerVersionCheckDaoImpl(syncLogicEntity);
+			versionCheckDao = new SqlServerVersionCheckDaoImpl();
 			
 		}else if("MySql".equalsIgnoreCase(databaseType)){
-			versionCheckDao = new MySqlVersionCheckDaoImpl(syncLogicEntity);
+			versionCheckDao = new MySqlVersionCheckDaoImpl();
 			
 		}else if("DM".equalsIgnoreCase(databaseType)){
-			versionCheckDao = new DmVersionCheckDaoImpl(syncLogicEntity);
-			
+			versionCheckDao = new DmVersionCheckDaoImpl();
 		}
 	}
 
-	public VersionCheckDao getVersionCheckDao() {
-		return versionCheckDao;
-	}
-	
 }

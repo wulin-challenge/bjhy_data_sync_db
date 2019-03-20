@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.bjhy.data.sync.db.core.BaseLoaderCore;
+import com.bjhy.data.sync.db.datasource.DBDruidDataSource;
 import com.bjhy.data.sync.db.domain.ConnectConfig;
 import com.bjhy.data.sync.db.domain.SyncConfig;
 import com.bjhy.data.sync.db.domain.SyncTemplate;
@@ -126,7 +127,7 @@ public class DataSourceLoader {
 	 * @return
 	 */
 	public DataSource getDataSource(ConnectConfig connect){
-		DruidDataSource dataSource = new DruidDataSource();
+		DBDruidDataSource dataSource = new DBDruidDataSource();
 		try {
 			dataSource.setUrl(connect.getConnectUrl());
 			dataSource.setUsername(connect.getConnectUsername());
@@ -148,7 +149,7 @@ public class DataSourceLoader {
 	 * 设置 DruidDataSource 的参数
 	 * @param dataSource 
 	 */
-	private void setDruidDataSourceParams(DruidDataSource dataSource){
+	private void setDruidDataSourceParams(DBDruidDataSource dataSource){
 		//设置这个Name是为了防止 DruidDataSource 抛出 
 		if(getPropertyOfBoolean("druidName", false)){
 			dataSource.setName(DataSourceLoader.getUUID());
@@ -156,7 +157,7 @@ public class DataSourceLoader {
 		dataSource.setMinIdle(getPropertyOfInt("minIdle", 1));
 		dataSource.setMaxActive(getPropertyOfInt("maxActive", 200));
 		dataSource.setInitialSize(getPropertyOfInt("initialSize", 1));
-		dataSource.setMaxWait(getPropertyOfLong("maxWait", 600000L)); //默认10分钟
+		dataSource.setMaxWait(getPropertyOfLong("maxWait", 60000L)); //默认1分钟
 		dataSource.setPoolPreparedStatements(getPropertyOfBoolean("poolPreparedStatements", false));
 		dataSource.setMaxPoolPreparedStatementPerConnectionSize(getPropertyOfInt("maxPoolPreparedStatementPerConnectionSize", -1));
 		dataSource.setValidationQuery(getPropertyOfStr("validationQuery", null));
