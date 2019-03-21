@@ -170,10 +170,10 @@ public class SyncStepValidationRepair {
 			Integer repairNumber = entry.getValue()-1;
 			
 			if(repairNumber<0){
-				logger.error("该步骤执行3次修复都没有成功!在下一次用户自定义的定时器到来之前将放弃修复,请人工解决!,具体步骤信息:"+singleStepSyncConfig);
+				logger.error("该步骤执行"+maxRetryNumber+"次修复都没有成功!在下一次用户自定义的定时器到来之前将放弃修复,请人工解决!,具体步骤信息:"+singleStepSyncConfig);
 				removeStepMaxRepairNumber(singleStepSyncConfig);
 			}else{
-				logger.info("步骤 "+singleStepSyncConfig.getStepUniquelyIdentifies()+" 正在执行倒数第 "+(repairNumber+1)+"次修复!");
+				logger.info("步骤 "+singleStepSyncConfig.getStepUniquelyIdentifies()+" 正在执行第 "+(maxRetryNumber-repairNumber)+"次修复,最多执行 "+maxRetryNumber+"次!");
 				stepMaxRepairNumber.put(singleStepSyncConfig, (repairNumber));
 				
 				BaseCore baseCore = new BaseCore();
