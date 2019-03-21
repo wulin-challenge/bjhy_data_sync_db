@@ -1,5 +1,6 @@
 package com.bjhy.data.sync.db.loader;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -167,6 +168,12 @@ public class DataSourceLoader {
 		dataSource.setTestWhileIdle(getPropertyOfBoolean("testWhileIdle", true));
 		dataSource.setTimeBetweenEvictionRunsMillis(getPropertyOfLong("timeBetweenEvictionRunsMillis", 60000L));
 		dataSource.setMinEvictableIdleTimeMillis(getPropertyOfLong("minEvictableIdleTimeMillis", 600000L));
+		try {
+			dataSource.setFilters(getPropertyOfStr("filters", null));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**

@@ -34,7 +34,7 @@ public class StepObjectUtil {
 		copySingleStepSyncConfig.getSingleRunEntity().setToTemplate(toSyncTemplate);
 		copySingleStepSyncConfig.getSingleRunEntity().setNativeTemplate(NativeSyncTemplate);
 		copySingleStepSyncConfig.getSingleRunEntity().getBaseRunEntity().setSyncConfig(BaseLoaderCore.getInstance().getSyncConfig());
-		copySingleStepSyncConfig.setStartStepSyncType(SingleStepSyncConfig.START_STEP_SYSTEM_CHECK_SYNC);
+		copySingleStepSyncConfig.setStartStepSyncType(SingleStepSyncConfig.START_STEP_USER_SYNC);
 		return copySingleStepSyncConfig;
 	}
 	

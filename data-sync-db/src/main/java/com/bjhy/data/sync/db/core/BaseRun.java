@@ -44,7 +44,7 @@ public class BaseRun {
 		//自动//校验修复
 		if(baseRunEntity.getIsAutoRepair() && repairFlagOnlyOne){
 			repairFlagOnlyOne = false;
-			SyncStepValidationRepair.getInstance().validationRepair();
+			SyncStepValidationRepair.getInstance().validationRepairStart();
 		}
 		//得到能用的 来源 同步Template 通过 fromTask
 		final List<SyncTemplate> enableFromSyncTemplateList = baseRunEntity.enableFromSyncTemplateList();

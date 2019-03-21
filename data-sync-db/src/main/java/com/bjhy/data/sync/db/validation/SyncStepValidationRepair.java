@@ -3,11 +3,19 @@ package com.bjhy.data.sync.db.validation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.jetty.util.ConcurrentHashSet;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.bjhy.data.sync.db.core.BaseCore;
@@ -19,8 +27,8 @@ import com.bjhy.data.sync.db.natived.dao.impl.StepStoreDaoImpl;
 import com.bjhy.data.sync.db.natived.dao.impl.VersionCheckDaoFactory;
 import com.bjhy.data.sync.db.natived.domain.StepStoreEntity;
 import com.bjhy.data.sync.db.natived.domain.VersionCheckEntity;
+import com.bjhy.data.sync.db.thread.ThreadFactoryImpl;
 import com.bjhy.data.sync.db.util.DataSourceUtil;
-import com.bjhy.data.sync.db.util.LoggerUtils;
 import com.bjhy.data.sync.db.util.SyncPropertiesUtil;
 import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 
@@ -37,16 +45,43 @@ public class SyncStepValidationRepair {
 	 */
 	public final static String VERSION_CHECK_PARAM = "versionCheckParam";
 	
-	
 	private static SyncStepValidationRepair syncStepValidationRepair;
+	
+	/**
+	 * 修复最大重试次数
+	 */
+	private int maxRetryNumber = 5;
+	
+	/**
+	 * 修复线程运行状态
+	 */
+	private volatile boolean repairThreadRunStatus = false;
+	
+	/**
+	 * 需要修复的步骤
+	 */
+	private ConcurrentHashSet<SingleStepSyncConfig> needRepairSteps = new ConcurrentHashSet<SingleStepSyncConfig>();
+	
+	/**
+	 * 最大修复次数
+	 */
+	private ConcurrentHashMap<SingleStepSyncConfig,Integer> stepMaxRepairNumber  = new  ConcurrentHashMap<SingleStepSyncConfig,Integer>();
+	
+	/**
+	 * 定时执行修复线程
+	 */
+	private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl(
+	        "SyncStepRepairScheduledThread"));
 	
 	private StepStoreDao stepStoreDao;
 	
 	private VersionCheckDao versionCheckDao;
 	
+	/**
+	 * 暂时未使用
+	 */
+	@SuppressWarnings("unused")
 	private SyncTemplate enableNativeSyncTemplate;
-	
-	private Thread thread;
 	
 	private SyncStepValidationRepair(){
 		this.enableNativeSyncTemplate = DataSourceUtil.getInstance().getEnableNativeSyncTemplate();
@@ -55,36 +90,121 @@ public class SyncStepValidationRepair {
 	}
 	
 	/**
-	 * 校验修复
+	 * 校验修复开始,这是修复线程的入口
 	 */
-	public void validationRepair(){
-		startOneThread();//开启一个线程
+	public void validationRepairStart(){
+		
+		 if(repairThreadRunStatus){
+			return; 
+		 }
+		 repairThreadRunStatus = true;
+		 
+		 final long period = 120;
+         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+             @Override
+             public void run() {
+                scheduledRepairLogic();
+             }
+         }, 60, period, TimeUnit.SECONDS);
+         
+         final long period2 = 60;
+         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+             @Override
+             public void run() {
+            	 // 修复定时同步过程中的步骤
+            	 try {
+					scheduledSyncRunningStep();
+				} catch (Throwable e) {
+					logger.error("scheduled scheduledSyncRunningStep error : "+e.getMessage());
+				}
+             }
+         }, 30, period2, TimeUnit.SECONDS);
+	}
+	
+	/**
+	 * 修复定时同步过程中的步骤
+	 */
+	private void scheduledSyncRunningStep(){
+		
+		//若有待修复的步骤,这添加到最大修复步骤中
+		addToStepMaxRepairNumber();
+		//执行步骤修复
+		executeStepRepair();
+	}
+	
+	/**
+	 * 若有待修复的步骤,这添加到最大修复步骤中
+	 */
+	private void addToStepMaxRepairNumber(){
+		if(needRepairSteps.size() == 0){
+			return;
+		}
+		
+		//要修复的步骤
+		Set<SingleStepSyncConfig> toRepairSteps = new HashSet<SingleStepSyncConfig>();
+		toRepairSteps.addAll(needRepairSteps);
+		
+		//从需要修复的步骤中清除[要修复的步骤]
+		needRepairSteps.removeAll(toRepairSteps);
+		
+		for (SingleStepSyncConfig singleStepSyncConfig : toRepairSteps) {
+			//此处只添加来自用户定时同步的步骤,不添加系统自动修复的步骤
+			if(SingleStepSyncConfig.START_STEP_USER_SYNC.equals(singleStepSyncConfig.getStartStepSyncType())){
+				singleStepSyncConfig.setStartStepSyncType(SingleStepSyncConfig.START_STEP_SYSTEM_CHECK_SYNC);
+				stepMaxRepairNumber.put(singleStepSyncConfig, maxRetryNumber);
+			}
+		}
+	}
+	
+	/**
+	 * 执行步骤修复
+	 */
+	private void executeStepRepair(){
+		if(stepMaxRepairNumber.size() == 0){
+			return;
+		}
+		
+		Set<Entry<SingleStepSyncConfig, Integer>> entrySet = new ConcurrentHashMap<SingleStepSyncConfig,Integer>(stepMaxRepairNumber).entrySet();
+		for (Entry<SingleStepSyncConfig, Integer> entry : entrySet) {
+			SingleStepSyncConfig singleStepSyncConfig = entry.getKey();
+			Integer repairNumber = entry.getValue()-1;
+			
+			if(repairNumber<0){
+				logger.error("该步骤执行3次修复都没有成功!在下一次用户自定义的定时器到来之前将放弃修复,请人工解决!,具体步骤信息:"+singleStepSyncConfig);
+				removeStepMaxRepairNumber(singleStepSyncConfig);
+			}else{
+				logger.info("步骤 "+singleStepSyncConfig.getStepUniquelyIdentifies()+" 正在执行倒数第 "+(repairNumber+1)+"次修复!");
+				stepMaxRepairNumber.put(singleStepSyncConfig, (repairNumber));
+				
+				BaseCore baseCore = new BaseCore();
+				baseCore.syncEntry(singleStepSyncConfig);
+			}
+		}
+		
 		
 	}
 	
 	/**
-	 * 开启一个线程
+	 * 删除 [最大修复次数] 列表中的步骤
+	 * @param singleStepSyncConfig
 	 */
-	private void startOneThread(){
-		thread = new Thread(){
-			public void run() {
-				logic();
+	public void removeStepMaxRepairNumber(SingleStepSyncConfig singleStepSyncConfig){
+		if(SingleStepSyncConfig.START_STEP_SYSTEM_CHECK_SYNC.equals(singleStepSyncConfig.getStartStepSyncType())){
+			if(stepMaxRepairNumber.containsKey(singleStepSyncConfig)){
+				stepMaxRepairNumber.remove(singleStepSyncConfig);
 			}
-		};
-		thread.start();
+		}
 	}
 	
-	//逻辑
-	private void logic(){
+	/**
+	 * 定时修复逻辑
+	 */
+	private void scheduledRepairLogic(){
 		try {
-			Thread.sleep(1000*15);
 			validationLogic();//校验的逻辑
 			repairData();
-			
-		} catch (Exception e) {
-			LoggerUtils.error("修复数据时出现了错误:错误信息 : "+e.getMessage());
-		}finally{
-			logic();
+		} catch (Throwable e) {
+			logger.error("修复数据时出现了错误:错误信息 : "+e.getMessage());
 		}
 	}
 	
@@ -148,7 +268,15 @@ public class SyncStepValidationRepair {
 		//目标检测并删除脏数据
 		boolean versionCheck = SyncPropertiesUtil.getProperty("sync.to.version.check.delete",false);
 		if(versionCheck){
-			toVersionCheckAndDelete(singleStepSyncConfig, toTemplate, validationParams);
+			try {
+				toVersionCheckAndDelete(singleStepSyncConfig, toTemplate, validationParams);
+			} catch (Exception e) {
+				String dataSourceName = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+				String dataSourceNumber = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+				String toTableName = singleStepSyncConfig.getToTableName();
+				
+				logger.error("改表存在程序无法修复的数据,请人工处理! "+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+" , 错误信息  : "+e.getMessage());
+			}
 		}
 		
 		String fromCountSql = singleStepSyncConfig.getFromCountSql();
@@ -282,27 +410,32 @@ public class SyncStepValidationRepair {
 					&& "1".equals(findOneById.getIsRepairSync())){
 				
 				SingleStepSyncConfig singleStepSyncConfig = findOneById.getSingleStepSyncConfig();
-				
-				String dataSourceName = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
-				String dataSourceNumber = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
-				String toTableName = singleStepSyncConfig.getToTableName();
-				LoggerUtils.info("[开始修复数据] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
-			
-				BaseCore baseCore = new BaseCore();
-				baseCore.syncEntry(singleStepSyncConfig);
-				
-				LoggerUtils.info("[结束修复数据] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
+				SyncStepValidationRepair.getInstance().getNeedRepairSteps().add(singleStepSyncConfig);
 			}
-			
 		}
 	}
 	
-	//	
+	/**
+	 * 得到同步步骤验证修复实例,有且只有一个实例
+	 * @return
+	 */
 	public static SyncStepValidationRepair getInstance(){
 		if(syncStepValidationRepair == null){
-			syncStepValidationRepair = new SyncStepValidationRepair();
+			synchronized(SyncStepValidationRepair.class){
+				if(syncStepValidationRepair == null){
+					syncStepValidationRepair = new SyncStepValidationRepair();
+				}
+			}
 		}
 		return syncStepValidationRepair;
 	}
 
+	/**
+	 * 得到需要修复的步骤集合
+	 * @return
+	 */
+	public ConcurrentHashSet<SingleStepSyncConfig> getNeedRepairSteps() {
+		return needRepairSteps;
+	}
+	
 }

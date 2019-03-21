@@ -10,12 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.util.ConcurrentHashSet;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.bjhy.data.sync.db.domain.IncrementalSync;
@@ -42,6 +40,7 @@ import com.bjhy.data.sync.db.util.BeanUtils;
 import com.bjhy.data.sync.db.util.CollectionUtil;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 import com.bjhy.data.sync.db.util.MapUtil;
+import com.bjhy.data.sync.db.validation.SyncStepValidationRepair;
 import com.bjhy.data.sync.db.validation.SyncStepValidationStore;
 import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 
@@ -126,6 +125,8 @@ public class BaseMultiThreadCore {
 		SyncStepLogInfoEntity syncStepLogInfoEntity = syncLogicEntity.getSyncStepLogInfoEntity();
 		syncStepLogInfoEntity.setSyncStepEndTime(System.currentTimeMillis());
 		
+		SingleStepSyncConfig singleStepSyncConfig = syncLogicEntity.getSingleStepSyncConfig();
+		
 		StringBuilder failInfo = new StringBuilder("[同步结束] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
 		
 		int insertCount = syncStepLogInfoEntity.getInsertCount().get();
@@ -142,13 +143,22 @@ public class BaseMultiThreadCore {
 		failInfo.append("\n\t "+(deleteCount>0?"<定位标记>":"")+"deleteCount:"+deleteCount);
 		failInfo.append("\n\t "+(noUpdateCount>0?"<定位标记>":"")+"noUpdateCount:"+noUpdateCount);
 		failInfo.append("\n\t "+(failCount>0?"<定位标记>":"")+"failCount:"+failCount);
+		failInfo.append("\n\t "+"startStepSyncType[同步步骤执行方式]:"+singleStepSyncConfig.getStartStepSyncType());
 		failInfo.append("\n\t 该步骤的同步时间:"+((endTime-startTime)/1000)+" 秒钟   <==> "+((endTime-startTime)/60000)+" 分钟");
 		
 		ConcurrentHashSet<String> failMessageSet = syncStepLogInfoEntity.getFailInfo();
 		for (String failMessage : failMessageSet) {
 			failInfo.append("\n\t <定位标记>失败具体信息:"+failMessage);
 		}
-		LoggerUtils.info(failInfo.toString());
+		
+		//同步成功与否的判断
+		if(failCount == 0 && failMessageSet.size() == 0){
+			LoggerUtils.info(failInfo.toString());
+			// 删除 [最大修复次数] 列表中的步骤
+			SyncStepValidationRepair.getInstance().removeStepMaxRepairNumber(singleStepSyncConfig);
+		}else{
+			LoggerUtils.error(failInfo.toString());
+		}
 	}
 	
 	/**
@@ -676,7 +686,8 @@ public class BaseMultiThreadCore {
 					}
 				}
 			});
-		} catch (DataAccessException e) {
+		} catch (Exception e) {
+			SyncStepValidationRepair.getInstance().getNeedRepairSteps().add(syncLogicEntity.getSingleStepSyncConfig());
 			Boolean isThisOnlyOneSync = syncLogicEntity.getSingleStepSyncConfig().getIsThisOnlyOneSync();
 			//只同步一次的步骤,重复就不打印出来
 			if(!isThisOnlyOneSync){
@@ -719,7 +730,8 @@ public class BaseMultiThreadCore {
 				syncLogicEntity.getSyncStepLogInfoEntity().getInsertCount().incrementAndGet();
 				namedToTemplate.update(insertSql, rowParam);
 			}
-		} catch (DataAccessException e) {
+		} catch (Exception e) {
+			SyncStepValidationRepair.getInstance().getNeedRepairSteps().add(syncLogicEntity.getSingleStepSyncConfig());
 			Boolean isThisOnlyOneSync = syncLogicEntity.getSingleStepSyncConfig().getIsThisOnlyOneSync();
 			//只同步一次的步骤,重复就不打印出来
 			if(!isThisOnlyOneSync){
@@ -746,8 +758,6 @@ public class BaseMultiThreadCore {
 		StringBuilder failInfo = new StringBuilder("表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
 		failInfo.append(",当前这条数据已经存在或sql有错误,具体的错误信息:"+e.getMessage());
 		
-		//打印错误信息
-		LoggerUtils.error(failInfo.toString());
 		syncLogicEntity.getSyncStepLogInfoEntity().getFailCount().incrementAndGet();
 		syncLogicEntity.getSyncStepLogInfoEntity().getFailInfo().add(failInfo.toString());
 		

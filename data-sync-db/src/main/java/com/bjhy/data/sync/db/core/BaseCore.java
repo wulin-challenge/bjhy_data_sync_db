@@ -15,7 +15,7 @@ import java.util.Set;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.jdt.internal.compiler.ast.SynchronizedStatement;
+import org.apache.log4j.Logger;
 
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
@@ -23,8 +23,7 @@ import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
 import com.bjhy.data.sync.db.domain.SyncStepLogInfoEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
 import com.bjhy.data.sync.db.loader.DataSourceLoader;
-import com.bjhy.data.sync.db.util.LoggerUtils;
-import com.bjhy.data.sync.db.util.SyncPropertiesUtil;
+import com.bjhy.data.sync.db.validation.SyncStepValidationRepair;
 import com.bjhy.data.sync.db.validation.SyncStepValidationStore;
 import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 
@@ -35,6 +34,7 @@ import com.bjhy.data.sync.db.version.check.VersionCheckCore;
  */
 public class BaseCore {
 	
+	private Logger logger = Logger.getLogger(BaseCore.class);
 	/**
 	 * 同步入口
 	 */
@@ -50,11 +50,11 @@ public class BaseCore {
 			//是否为只同步一次步骤
 			isRunOnlyOne(singleStepSyncConfig);
 		} catch (Exception e) {
+			SyncStepValidationRepair.getInstance().getNeedRepairSteps().add(singleStepSyncConfig);
 			String dataSourceName = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
 			String dataSourceNumber = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
 			String toTableName =singleStepSyncConfig.getToTableName();
-			e.printStackTrace();
-			LoggerUtils.error("这是同步入口最外层  BaseCore ,最后向外抛出的 RuntimeException 异常. 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+" 第49 行 抛出的错误信息: "+e.getMessage());
+			logger.error("这是同步入口最外层  BaseCore ,最后向外抛出的 RuntimeException 异常. 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+" 第49 行 抛出的错误信息: "+e.getMessage(),e);
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class BaseCore {
 				String dataSourceName = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
 				String dataSourceNumber = singleStepSyncConfig.getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
 				String toTableName = singleStepSyncConfig.getToTableName();
-				LoggerUtils.info("[当前为只同步一次步骤,该步骤已经被同步一次,当前不在同步] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
+				logger.info("[当前为只同步一次步骤,该步骤已经被同步一次,当前不在同步] 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber);
 			}
 			
 		}else{
@@ -432,7 +432,7 @@ public class BaseCore {
 			String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
 			String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
 			
-			LoggerUtils.error("执行的语句是:"+selectSql+"表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+" , 错误信息  : "+e.getMessage());
+			logger.error("执行的语句是:"+selectSql+"表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+" , 错误信息  : "+e.getMessage());
 			throw new RuntimeException(e);
 		}
 		return columnNames;

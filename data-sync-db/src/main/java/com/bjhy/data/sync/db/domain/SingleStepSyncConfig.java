@@ -377,4 +377,138 @@ public class SingleStepSyncConfig {
 	public void setIncrementalSync(IncrementalSync incrementalSync) {
 		this.incrementalSync = incrementalSync;
 	}
+
+	@Override
+	public int hashCode() {
+		String fromTask = singleRunEntity.getFromTemplate().getConnectConfig().getTask();
+		String toTask = singleRunEntity.getToTemplate().getConnectConfig().getTask();
+		
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((startStepSyncType == null)?0:startStepSyncType.hashCode());
+		result = prime * result + ((stepUniquelyIdentifies == null)?0:stepUniquelyIdentifies.hashCode());
+		result = prime * result + ((fromFromPart == null)?0:fromFromPart.hashCode());
+		result = prime * result + ((fromSelectPart == null)?0:fromSelectPart.hashCode());
+		result = prime * result + ((toTableName == null)?0:toTableName.hashCode());
+		result = prime * result + ((highPerformancePageColumn == null)?0:highPerformancePageColumn.hashCode());
+		result = prime * result + ((updateColumn == null)?0:updateColumn.hashCode());
+		result = prime * result + ((updateWhere == null)?0:updateWhere.hashCode());
+		result = prime * result + ((toValidationWhere == null)?0:toValidationWhere.hashCode());
+		result = prime * result + ((SingleStepListenerName == null)?0:SingleStepListenerName.hashCode());
+		result = prime * result + ((fromTask == null)?0:fromTask.hashCode());
+		result = prime * result + ((toTask == null)?0:toTask.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj) return true;
+		if(obj == null) return false;
+		if(getClass() != obj.getClass()) return false;
+		
+		SingleStepSyncConfig other = (SingleStepSyncConfig)obj;
+		
+		String fromTask = singleRunEntity.getFromTemplate().getConnectConfig().getTask();
+		String toTask = singleRunEntity.getToTemplate().getConnectConfig().getTask();
+		
+		String otherFromTask = other.singleRunEntity.getFromTemplate().getConnectConfig().getTask();
+		String otherToTask = other.singleRunEntity.getToTemplate().getConnectConfig().getTask();
+		
+		if (startStepSyncType == null) {
+			if (other.startStepSyncType != null)
+				return false;
+		} else if (!startStepSyncType.equals(other.startStepSyncType))
+			return false;
+		
+		if (stepUniquelyIdentifies == null) {
+            if (other.stepUniquelyIdentifies != null)
+                return false;
+        } else if (!stepUniquelyIdentifies.equals(other.stepUniquelyIdentifies))
+            return false;
+
+		if (fromFromPart == null) {
+            if (other.fromFromPart != null)
+                return false;
+        } else if (!fromFromPart.equals(other.fromFromPart))
+            return false;
+		
+		if (fromSelectPart == null) {
+            if (other.fromSelectPart != null)
+                return false;
+        } else if (!fromSelectPart.equals(other.fromSelectPart))
+            return false;
+		
+		if (toTableName == null) {
+            if (other.toTableName != null)
+                return false;
+        } else if (!toTableName.equals(other.toTableName))
+            return false;
+		
+		if (highPerformancePageColumn == null) {
+            if (other.highPerformancePageColumn != null)
+                return false;
+        } else if (!highPerformancePageColumn.equals(other.highPerformancePageColumn))
+            return false;
+		
+		if (updateColumn == null) {
+            if (other.updateColumn != null)
+                return false;
+        } else if (!updateColumn.equals(other.updateColumn))
+            return false;
+		
+		if (updateWhere == null) {
+            if (other.updateWhere != null)
+                return false;
+        } else if (!updateWhere.equals(other.updateWhere))
+            return false;
+		
+		if (toValidationWhere == null) {
+            if (other.toValidationWhere != null)
+                return false;
+        } else if (!toValidationWhere.equals(other.toValidationWhere))
+            return false;
+		
+		if (SingleStepListenerName == null) {
+			if (other.SingleStepListenerName != null)
+				return false;
+		} else if (!SingleStepListenerName.equals(other.SingleStepListenerName))
+			return false;
+		
+		if (fromTask == null) {
+			if (otherFromTask != null)
+				return false;
+		} else if (!fromTask.equals(otherFromTask))
+			return false;
+		
+		if (toTask == null) {
+			if (otherToTask != null)
+				return false;
+		} else if (!toTask.equals(otherToTask))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		String fromTask = singleRunEntity.getFromTemplate().getConnectConfig().getTask();
+		String toTask = singleRunEntity.getToTemplate().getConnectConfig().getTask();
+		String fromConnectUrl = singleRunEntity.getFromTemplate().getConnectConfig().getConnectUrl();
+		String toConnectUrl = singleRunEntity.getToTemplate().getConnectConfig().getConnectUrl();
+		
+		StringBuilder toString = new StringBuilder("{fromTask:"+fromTask);
+		toString.append(",toTask:"+toTask);
+		toString.append(",startStepSyncType:"+startStepSyncType);
+		toString.append(",stepUniquelyIdentifies:"+stepUniquelyIdentifies);
+		toString.append(",fromFromPart:"+fromFromPart);
+		toString.append(",fromSelectPart:"+fromSelectPart);
+		toString.append(",toTableName:"+toTableName);
+		toString.append(",highPerformancePageColumn:"+highPerformancePageColumn);
+		toString.append(",updateColumn:"+updateColumn);
+		toString.append(",updateWhere:"+updateWhere);
+		toString.append(",toValidationWhere:"+toValidationWhere);
+		toString.append(",fromConnectUrl:"+fromConnectUrl);
+		toString.append(",toConnectUrl:"+toConnectUrl);
+		toString.append(",SingleStepListenerName:"+SingleStepListenerName+"}");
+		return toString.toString();
+	}
 }
