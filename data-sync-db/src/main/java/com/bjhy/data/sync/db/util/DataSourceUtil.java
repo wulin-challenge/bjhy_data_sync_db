@@ -32,8 +32,18 @@ public class DataSourceUtil {
 	 * @return
 	 */
 	public SyncTemplate getEnableFromSyncTemplateByConnectConfig(ConnectConfig connectConfig){
+		return getEnableFromSyncTemplateByConnectConfig(connectConfig, true);
+	}
+	
+	/**
+	 * 得到能用的 来源 同步Template 通过 ConnectConfig
+	 * @param connectConfig
+	 * @param isPrintLog是否打印日志
+	 * @return
+	 */
+	public SyncTemplate getEnableFromSyncTemplateByConnectConfig(ConnectConfig connectConfig,boolean isPrintLog){
 		//得到能用的 来源 同步Template
-		List<SyncTemplate> enableFromSyncTemplateList = getEnableFromSyncTemplate();
+		List<SyncTemplate> enableFromSyncTemplateList = getEnableFromSyncTemplate(isPrintLog);
 		for (SyncTemplate syncTemplate : enableFromSyncTemplateList) {
 			ConnectConfig connectConfig2 = syncTemplate.getConnectConfig();
 			if(connectConfig.getTask().equals(connectConfig2.getTask()) && connectConfig.getDatabaseType().equals(connectConfig2.getDatabaseType()) && connectConfig.getDataSourceNumber().equals(connectConfig2.getDataSourceNumber())){
@@ -49,8 +59,18 @@ public class DataSourceUtil {
 	 * @return
 	 */
 	public SyncTemplate getEnableToSyncTemplateByConnectConfig(ConnectConfig connectConfig){
+		return getEnableToSyncTemplateByConnectConfig(connectConfig, true);
+	}
+	
+	/**
+	 * 得到能用的 目标 同步Template 通过 ConnectConfig
+	 * @param connectConfig
+	 * @param isPrintLog 是否打印日志
+	 * @return
+	 */
+	public SyncTemplate getEnableToSyncTemplateByConnectConfig(ConnectConfig connectConfig,boolean isPrintLog){
 		//得到能用的 目标  同步Template
-		List<SyncTemplate> enableToSyncTemplateList = getEnableToSyncTemplate();
+		List<SyncTemplate> enableToSyncTemplateList = getEnableToSyncTemplate(isPrintLog);
 		for (SyncTemplate syncTemplate : enableToSyncTemplateList) {
 			ConnectConfig connectConfig2 = syncTemplate.getConnectConfig();
 			if(connectConfig.getTask().equals(connectConfig2.getTask()) && connectConfig.getDatabaseType().equals(connectConfig2.getDatabaseType()) && connectConfig.getDataSourceNumber().equals(connectConfig2.getDataSourceNumber())){
@@ -66,8 +86,18 @@ public class DataSourceUtil {
 	 * @return
 	 */
 	public SyncTemplate getEnableNativeSyncTemplateByConnectConfig(ConnectConfig connectConfig){
+		return getEnableNativeSyncTemplateByConnectConfig(connectConfig, true);
+	}
+	
+	/**
+	 * 得到能用的 本地 同步Template 通过 ConnectConfig
+	 * @param connectConfig
+	 * @param isPrintLog 是否打印日志
+	 * @return
+	 */
+	public SyncTemplate getEnableNativeSyncTemplateByConnectConfig(ConnectConfig connectConfig,boolean isPrintLog){
 		//得到能用的 本地 同步Template
-		SyncTemplate syncTemplate = getEnableNativeSyncTemplate();
+		SyncTemplate syncTemplate = getEnableNativeSyncTemplate(isPrintLog);
 		
 		ConnectConfig connectConfig2 = syncTemplate.getConnectConfig();
 		if(connectConfig.getTask().equals(connectConfig2.getTask()) 
@@ -125,14 +155,25 @@ public class DataSourceUtil {
 	
 	/**
 	 * 得到能用的 来源 同步Template
+	 * 
 	 * @return
 	 */
 	public List<SyncTemplate> getEnableFromSyncTemplate(){
+		return getEnableFromSyncTemplate(true);
+	}
+	
+	/**
+	 * 得到能用的 来源 同步Template
+	 * 
+	 * @param isPrintLog是否打印日志
+	 * @return
+	 */
+	public List<SyncTemplate> getEnableFromSyncTemplate(boolean isPrintLog){
 		List<SyncTemplate> enableSyncTemplate = new ArrayList<SyncTemplate>();
 		
 		List<SyncTemplate> fromSyncTemplate = BaseLoaderCore.getInstance().getFromSyncTemplate();
 		for (SyncTemplate syncTemplate : fromSyncTemplate) {
-			Boolean enableSyncTemplate2 = isEnableSyncTemplate(syncTemplate);
+			Boolean enableSyncTemplate2 = isEnableSyncTemplate(syncTemplate,isPrintLog);
 			if(enableSyncTemplate2){
 				enableSyncTemplate.add(syncTemplate);
 			}
@@ -145,11 +186,20 @@ public class DataSourceUtil {
 	 * @return
 	 */
 	public List<SyncTemplate> getEnableToSyncTemplate(){
+		return getEnableToSyncTemplate(true);
+	}
+	
+	/**
+	 * 得到能用的 目标 同步Template
+	 * @param isPrintLog 是否打印日志
+	 * @return
+	 */
+	public List<SyncTemplate> getEnableToSyncTemplate(boolean isPrintLog){
 		List<SyncTemplate> enableSyncTemplate = new ArrayList<SyncTemplate>();
 		
 		List<SyncTemplate> toSyncTemplate = BaseLoaderCore.getInstance().getToSyncTemplate();
 		for (SyncTemplate syncTemplate : toSyncTemplate) {
-			Boolean enableSyncTemplate2 = isEnableSyncTemplate(syncTemplate);
+			Boolean enableSyncTemplate2 = isEnableSyncTemplate(syncTemplate,isPrintLog);
 			if(enableSyncTemplate2){
 				enableSyncTemplate.add(syncTemplate);
 			}
@@ -162,9 +212,18 @@ public class DataSourceUtil {
 	 * @return
 	 */
 	public SyncTemplate getEnableNativeSyncTemplate(){
+		return getEnableNativeSyncTemplate(true);
+	}
+	
+	/**
+	 * 得到能用的 本地 存储Template
+	 * @param isPrintLog 是否打印日志
+	 * @return
+	 */
+	public SyncTemplate getEnableNativeSyncTemplate(boolean isPrintLog){
 		
 		SyncTemplate nativeStoreTemplate = BaseLoaderCore.getInstance().getNativeStoreTemplate();
-		Boolean enableSyncTemplate2 = isEnableSyncTemplate(nativeStoreTemplate);
+		Boolean enableSyncTemplate2 = isEnableSyncTemplate(nativeStoreTemplate,isPrintLog);
 		if(enableSyncTemplate2){
 			return nativeStoreTemplate;
 		}
@@ -177,10 +236,21 @@ public class DataSourceUtil {
 	 * @return
 	 */
 	public Boolean isEnableSyncTemplate(SyncTemplate syncTemplate){
+		return isEnableSyncTemplate(syncTemplate,true);
+	}
+	
+	/**
+	 * 可以用
+	 * @param syncTemplate
+	 * @return
+	 */
+	public Boolean isEnableSyncTemplate(SyncTemplate syncTemplate,boolean isPrintLog){
 		ConnectConfig connect = syncTemplate.getConnectConfig();
 		if(!connect.getIsEnable()){
-			LogCache.addDataSourceLog("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源以被停用!!");
-			LoggerUtils.warn("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源以被停用!!");
+			if(isPrintLog){
+				LogCache.addDataSourceLog("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源以被停用!!");
+				LoggerUtils.warn("数据源名称:"+connect.getDataSourceName()+" , 数据源编号:"+connect.getDataSourceNumber()+" , 错误信息:当前数据源以被停用!!");
+			}
 			return false;
 		}
 		return isEnableConnection(syncTemplate);

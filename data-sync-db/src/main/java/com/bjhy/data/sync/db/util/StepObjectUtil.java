@@ -26,9 +26,9 @@ public class StepObjectUtil {
 		ConnectConfig toConnectConfig = copySingleStepSyncConfig.getSingleRunEntity().getToTemplate().getConnectConfig();
 		ConnectConfig nativeConnectConfig = copySingleStepSyncConfig.getSingleRunEntity().getNativeTemplate().getConnectConfig();
 		
-		SyncTemplate fromSyncTemplate = DataSourceUtil.getInstance().getEnableFromSyncTemplateByConnectConfig(fromConnectConfig);
-		SyncTemplate toSyncTemplate = DataSourceUtil.getInstance().getEnableToSyncTemplateByConnectConfig(toConnectConfig);
-		SyncTemplate NativeSyncTemplate = DataSourceUtil.getInstance().getEnableNativeSyncTemplateByConnectConfig(nativeConnectConfig);
+		SyncTemplate fromSyncTemplate = DataSourceUtil.getInstance().getEnableFromSyncTemplateByConnectConfig(fromConnectConfig,false);
+		SyncTemplate toSyncTemplate = DataSourceUtil.getInstance().getEnableToSyncTemplateByConnectConfig(toConnectConfig,false);
+		SyncTemplate NativeSyncTemplate = DataSourceUtil.getInstance().getEnableNativeSyncTemplateByConnectConfig(nativeConnectConfig,false);
 		
 		copySingleStepSyncConfig.getSingleRunEntity().setFromTemplate(fromSyncTemplate);
 		copySingleStepSyncConfig.getSingleRunEntity().setToTemplate(toSyncTemplate);
