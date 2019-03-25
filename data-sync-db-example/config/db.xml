@@ -3,8 +3,25 @@
 	<import-data-sources>
 		<!-- 
 		<import-data-source>sync/criminal-base/criminal-base-db.xml</import-data-source>
-		 -->
+		 
 		<import-data-source>sync/criminal-base/criminal-crane-db2.xml</import-data-source>
+		-->
+		
+		<import-data-source>sync/new_cas_platform/new_cas_platform.xml</import-data-source>
+		
 	</import-data-sources>
 	
+	
+	<!-- 
+	<native-template task="notive_store_task" isEnable="true" databaseType="mysql">
+		<sort-number>1</sort-number>
+		<data-source-name>crane</data-source-name>
+		<data-source-number>5100</data-source-number>
+		<connect-driver>com.mysql.jdbc.Driver</connect-driver>
+		<connect-url>jdbc:mysql://192.168.0.94:3306/db0</connect-url>
+		<connect-username>root</connect-username>
+		<connect-password></connect-password>
+		<connect-dialect></connect-dialect>
+	</native-template>
+	 -->
 </data-sources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 这是罪犯基础数据同步的配置文件 -->
+<data-sources>
+	<from-template>
+		<data-source task="from_old_yz_task" isEnable="true" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>from家中测试cas库</data-source-name>
+			<data-source-number>from_new_cas_platform</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@zxq:1521:orcl</connect-url>
+			<connect-username>new_cas_platform</connect-username>
+			<connect-password>123456789</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+	</from-template>
+	
+	<to-template>
+		
+		<data-source task="to_new_yz_task" isEnable="true" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>to家中测试cas库</data-source-name>
+			<data-source-number>to_new_cas_platform</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@zxq:1521:orcl</connect-url>
+			<connect-username>new_cas_platform</connect-username>
+			<connect-password>123456789</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+	</to-template>
+	
+	<native-template task="notive_store_task" isEnable="true" databaseType="oracle">
+		<sort-number>1</sort-number>
+		<data-source-name>native家中测试cas库</data-source-name>
+		<data-source-number>native_new_cas_platform</data-source-number>
+		<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+		<connect-url>jdbc:oracle:thin:@zxq:1521:orcl</connect-url>
+		<connect-username>new_cas_platform</connect-username>
+		<connect-password>123456789</connect-password>
+		<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+	</native-template>
+</data-sources>

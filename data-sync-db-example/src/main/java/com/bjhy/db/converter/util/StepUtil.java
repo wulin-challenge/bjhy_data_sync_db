@@ -91,9 +91,9 @@ public class StepUtil {
 	    singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 	    singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
 	    
-	    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
-	    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
-	    singleStepSyncConfig.setToValidationWhere(" where sys_orgCode=:sys_orgCode ");
+//	    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
+//	    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
+//	    singleStepSyncConfig.setToValidationWhere(" where sys_orgCode=:sys_orgCode ");
 	    if ((simpleColumnNameMapping != null) && (!simpleColumnNameMapping.isEmpty())) {
 	      singleStepSyncConfig.getSimpleColumnNameMapping().putAll(simpleColumnNameMapping);
 	    }

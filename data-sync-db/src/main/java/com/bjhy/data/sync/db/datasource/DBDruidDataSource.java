@@ -1,6 +1,8 @@
 package com.bjhy.data.sync.db.datasource;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
@@ -9,14 +11,20 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import com.alibaba.druid.filter.Filter;
 import com.alibaba.druid.mock.MockDriver;
+import com.alibaba.druid.pool.DruidConnectionHolder;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
+import com.alibaba.druid.pool.vendor.OracleValidConnectionChecker;
 import com.alibaba.druid.proxy.DruidDriver;
 import com.alibaba.druid.stat.JdbcDataSourceStat;
+import com.alibaba.druid.stat.JdbcSqlStat;
 import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
 import com.alibaba.druid.util.JdbcConstants;
 import com.alibaba.druid.util.JdbcUtils;
+import com.alibaba.druid.util.MySqlUtils;
+import com.bjhy.data.sync.db.util.DBJdbcUtil;
+import com.bjhy.data.sync.db.util.ReflectUtil;
 
 /**
  * 继承DruidDataSource,扩展一些自定义逻辑
@@ -26,6 +34,8 @@ import com.alibaba.druid.util.JdbcUtils;
 public class DBDruidDataSource extends DruidDataSource {
 	private final static Log LOG = LogFactory.getLog(DruidDataSource.class);
 	private static final long serialVersionUID = 1L;
+	
+	private DBOracleValidConnectionChecker oracleChecker = new DBOracleValidConnectionChecker();
 	
 	/**
 	 * 最大重试次数
@@ -135,12 +145,111 @@ public class DBDruidDataSource extends DruidDataSource {
 	private void validationConnection(Connection connection) throws SQLException {
 		//默认添加自动测试连接是否可用测试
 		if(validationQuery != null && validationQueryTimeout>0){
-			Statement createStatement = connection.createStatement();
-			createStatement.setQueryTimeout(validationQueryTimeout);
-			createStatement.executeQuery(validationQuery);
+			Statement createStatement = null;
+			ResultSet executeQuery = null;
+			try {
+				createStatement = connection.createStatement();
+				createStatement.setQueryTimeout(validationQueryTimeout);
+				executeQuery = createStatement.executeQuery(validationQuery);
+			} finally {
+				DBJdbcUtil.close(executeQuery);
+				DBJdbcUtil.close(createStatement);
+			}
 		}
 	}
 	
+	
+	
+	@Override
+	protected boolean testConnectionInternal(Connection conn) {
+		return super.testConnectionInternal(conn);
+	}
+
+	@Override
+	protected boolean testConnectionInternal(DruidConnectionHolder holder, Connection conn) {
+		String sqlFile = JdbcSqlStat.getContextSqlFile();
+        String sqlName = JdbcSqlStat.getContextSqlName();
+
+        if (sqlFile != null) {
+            JdbcSqlStat.setContextSqlFile(null);
+        }
+        if (sqlName != null) {
+            JdbcSqlStat.setContextSqlName(null);
+        }
+        try {
+            if (validConnectionChecker != null) {
+            	
+            	boolean valid;
+            	if(validConnectionChecker instanceof OracleValidConnectionChecker){
+            		valid = oracleChecker.isValidConnection(conn, validationQuery, validationQueryTimeout);
+            	}else{
+            		valid = validConnectionChecker.isValidConnection(conn, validationQuery, validationQueryTimeout);
+            	}
+                
+                long currentTimeMillis = System.currentTimeMillis();
+                if (holder != null) {
+//                	holder.lastValidTimeMillis = currentTimeMillis;
+                	ReflectUtil.setFieldValue(holder, "lastValidTimeMillis", currentTimeMillis);
+                }
+
+                if (valid && isMySql) { // unexcepted branch
+                    long lastPacketReceivedTimeMs = MySqlUtils.getLastPacketReceivedTimeMs(conn);
+                    if (lastPacketReceivedTimeMs > 0) {
+                        long mysqlIdleMillis = currentTimeMillis - lastPacketReceivedTimeMs;
+                        if (lastPacketReceivedTimeMs > 0 //
+                                && mysqlIdleMillis >= timeBetweenEvictionRunsMillis) {
+                            discardConnection(conn);
+                            String errorMsg = "discard long time none received connection. "
+                                    + ", jdbcUrl : " + jdbcUrl
+                                    + ", jdbcUrl : " + jdbcUrl
+                                    + ", lastPacketReceivedIdleMillis : " + mysqlIdleMillis;
+                            LOG.error(errorMsg);
+                            return false;
+                        }
+                    }
+                }
+
+                return valid;
+            }
+
+            if (conn.isClosed()) {
+                return false;
+            }
+
+            if (null == validationQuery) {
+                return true;
+            }
+
+            Statement stmt = null;
+            ResultSet rset = null;
+            try {
+                stmt = conn.createStatement();
+                if (getValidationQueryTimeout() > 0) {
+                    stmt.setQueryTimeout(validationQueryTimeout);
+                }
+                rset = stmt.executeQuery(validationQuery);
+                if (!rset.next()) {
+                    return false;
+                }
+            } finally {
+            	DBJdbcUtil.close(rset);
+            	DBJdbcUtil.close(stmt);
+            }
+
+            return true;
+        } catch (Throwable ex) {
+            // skip
+            return false;
+        } finally {
+            if (sqlFile != null) {
+                JdbcSqlStat.setContextSqlFile(sqlFile);
+            }
+            if (sqlName != null) {
+                JdbcSqlStat.setContextSqlName(sqlName);
+            }
+        }
+	}
+
 	/**
 	 * 得到一个临时连接
 	 * @return

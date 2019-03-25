@@ -19,7 +19,8 @@ public class SyncServiceImpl extends BaseSyncService{
 	@Override
 	public void doRunSync(SingleRunEntity singleRunEntity) {
 //		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "CRIMINAL_BASE_INFO_CRIMINAL_BASEINFO", "select * ", "from CRIMINAL_BASE_INFO", "CRIMINAL_BASEINFO", "ID", BaseInfoListener.class.getName(), YzColumnMappingUtil.baseInfoMapping());
-		StepUtil.checkSyncNotNullWhere(singleRunEntity, "criminal_base_info", "criminal_baseinfo", "", "ID", null, null);
+//		StepUtil.checkSyncNotNullWhere(singleRunEntity, "criminal_base_info", "criminal_baseinfo", "", "ID", null, null);
+		StepUtil.checkSyncNotNullWhere(singleRunEntity, "CAS_APP_CLIENT", "CAS_APP_CLIENT_bak", "", "ID", null, null);
 	}
 
 	@Override
