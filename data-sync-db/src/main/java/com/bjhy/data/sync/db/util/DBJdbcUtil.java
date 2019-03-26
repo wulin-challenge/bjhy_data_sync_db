@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class DBJdbcUtil {
-	private static Logger logger = Logger.getLogger(ReflectUtil.class);
+	private static Logger logger = Logger.getLogger(DBJdbcUtil.class);
 
 	public static void close(Statement x) {
         if (x == null) {
