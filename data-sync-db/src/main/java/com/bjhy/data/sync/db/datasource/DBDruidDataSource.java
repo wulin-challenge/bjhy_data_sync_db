@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
@@ -36,6 +37,9 @@ public class DBDruidDataSource extends DruidDataSource {
 	private static final long serialVersionUID = 1L;
 	
 	private DBOracleValidConnectionChecker oracleChecker = new DBOracleValidConnectionChecker();
+	private volatile DruidConnectionHolder[] connections;
+	private DruidConnectionHolder[] evictConnections;
+	private DruidConnectionHolder[] keepAliveConnections;
 	
 	/**
 	 * 最大重试次数
@@ -359,5 +363,83 @@ public class DBDruidDataSource extends DruidDataSource {
 		} finally {
 			lock.unlock();
 		}
+	}
+
+	@Override
+	public void shrink() {
+		super.shrink();
+	}
+
+	@Override
+	public void shrink(boolean checkTime) {
+		super.shrink(checkTime);
+	}
+
+	@Override
+	public void shrink(boolean checkTime, boolean keepAlive) {
+		Class<?> superclass = this.getClass().getSuperclass();
+		connections = (DruidConnectionHolder[]) ReflectUtil.getFieldValue(this, superclass, "connections");
+		evictConnections = (DruidConnectionHolder[]) ReflectUtil.getFieldValue(this, superclass, "evictConnections");
+		keepAliveConnections = (DruidConnectionHolder[]) ReflectUtil.getFieldValue(this, superclass, "keepAliveConnections");
+		
+		try {
+            lock.lockInterruptibly();
+        } catch (InterruptedException e) {
+            return;
+        }
+
+        int evictCount = 0;
+        int keepAliveCount = 0;
+        try {
+            if (!inited) {
+                return;
+            }
+            final int checkCount = getPoolingCount() - minIdle;
+            final long currentTimeMillis = System.currentTimeMillis();
+            for (int i = 0; i < getPoolingCount(); ++i) {
+                DruidConnectionHolder connection = connections[i];
+
+                if (checkTime) {
+                    if (phyTimeoutMillis > 0) {
+                        long phyConnectTimeMillis = currentTimeMillis - connection.getTimeMillis();
+                        if (phyConnectTimeMillis > phyTimeoutMillis) {
+                            evictConnections[evictCount++] = connection;
+                            continue;
+                        }
+                    }
+
+                    long idleMillis = currentTimeMillis - connection.getLastActiveTimeMillis();
+
+                    if (idleMillis < minEvictableIdleTimeMillis) {
+                        break;
+                    }
+
+                    if (checkTime && i < checkCount) {
+                        evictConnections[evictCount++] = connection;
+                    } else if (idleMillis > maxEvictableIdleTimeMillis) {
+                        evictConnections[evictCount++] = connection;
+                    } else if (keepAlive) {
+                        keepAliveConnections[keepAliveCount++] = connection;
+                    }
+                } else {
+                    if (i < checkCount) {
+                        evictConnections[evictCount++] = connection;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        } finally {
+            lock.unlock();
+        }
+        if (evictCount > 0) {
+            for (int i = 0; i < evictCount; ++i) {
+                DruidConnectionHolder item = evictConnections[i];
+                Connection connection = item.getConnection();
+                //记录详细异常数据源
+                DBJdbcUtil.close(connection);
+            }
+        }
+		super.shrink(checkTime, keepAlive);
 	}
 }
