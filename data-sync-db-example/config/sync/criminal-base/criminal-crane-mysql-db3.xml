@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 这是罪犯基础数据同步的配置文件 -->
+<data-sources>
+	<from-template>
+		<data-source task="from_old_yz_task" isEnable="true" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>来源狱政</data-source-name>
+			<data-source-number>bzjy7</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url>
+			<connect-username>bzjy7</connect-username>
+			<connect-password>123456789</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+		</data-source>
+	</from-template>
+	
+	<to-template>
+		
+		<data-source task="to_new_yz_task" isEnable="true" databaseType="mySql">
+			<sort-number>1</sort-number>
+			<data-source-name>mysql-crane</data-source-name>
+			<data-source-number>mysql-5100</data-source-number>
+			<connect-driver>com.mysql.jdbc.Driver</connect-driver>
+			<connect-url>
+			<![CDATA[
+					jdbc:mysql://192.168.0.94:3306/db0?useUnicode=true&characterEncoding=utf8&pinGlobalTxToPhysicalConnection=true
+				]]>
+			</connect-url>
+			<connect-username>root</connect-username>
+			<connect-password></connect-password>
+			<connect-dialect>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</connect-dialect>
+		</data-source>
+	</to-template>
+	
+	<native-template task="notive_store_task" isEnable="true" databaseType="mySql">
+		<sort-number>1</sort-number>
+			<data-source-name>mysql-crane</data-source-name>
+			<data-source-number>mysql-5100</data-source-number>
+			<connect-driver>com.mysql.jdbc.Driver</connect-driver>
+			<connect-url>
+			<![CDATA[
+					jdbc:mysql://192.168.0.94:3306/db0?useUnicode=true&characterEncoding=utf8&pinGlobalTxToPhysicalConnection=true
+				]]>
+			</connect-url>
+			<connect-username>root</connect-username>
+			<connect-password></connect-password>
+			<connect-dialect>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</connect-dialect>
+	</native-template>
+</data-sources>

@@ -2,7 +2,6 @@ package com.bjhy.data.sync.db.util;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
@@ -63,6 +62,7 @@ public class DBJdbcUtil {
     	
     	Set<ConnectionMetaData> cmdRegisterList = new HashSet<ConnectionMetaData>();
     	cmdRegisterList.add(new OracleConnectionMetaData(x));
+    	cmdRegisterList.add(new MySqlConnectionMetaData(x));
     	
     	for (ConnectionMetaData connectionMetaData : cmdRegisterList) {
 			if(x != null && x.getClass().getName().equals(connectionMetaData.implClassName())){
@@ -130,6 +130,41 @@ public class DBJdbcUtil {
 		@Override
 		public String implClassName() {
 			return "oracle.jdbc.driver.T4CConnection";
+		}
+    }
+    
+    /**
+     * MySql的连接元数据实现类
+     * @author wubo
+     */
+    private static class MySqlConnectionMetaData implements ConnectionMetaData{
+    	private String userName;
+    	private String database;
+    	private Connection x;
+    	
+		public MySqlConnectionMetaData(Connection x) {
+			this.x = x;
+		}
+
+		@Override
+		public String userName() {
+			if(this.userName == null){
+				userName = (String) ReflectUtil.getFieldValue(x,x.getClass().getSuperclass(), "user");
+			}
+			return userName;
+		}
+
+		@Override
+		public String database() {
+			if(this.database == null){
+				database = (String) ReflectUtil.getFieldValue(x,x.getClass().getSuperclass(), "myURL");
+			}
+			return database;
+		}
+
+		@Override
+		public String implClassName() {
+			return "com.mysql.jdbc.JDBC4Connection";
 		}
     }
     

@@ -24,7 +24,7 @@ public abstract class BaseSyncService implements SyncService{
 	@Override
 	public void runSync(SingleRunEntity singleRunEntity) {
 		//禁用oracle的相关约束
-		DataBaseConstraintHelper.disableOracleConstrain(singleRunEntity.getToTemplate());
+//		DataBaseConstraintHelper.disableOracleConstrain(singleRunEntity.getToTemplate());
 		doRunSync(singleRunEntity);
 		//起用oracle的相关约束
 //		DataBaseConstraintHelper.enableOracleConstrain(singleRunEntity.getToTemplate());

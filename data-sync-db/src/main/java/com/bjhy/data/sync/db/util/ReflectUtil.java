@@ -62,7 +62,7 @@ public class ReflectUtil {
 			declaredField.setAccessible(true);
 	    	return declaredField.get(obj);
 		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-			logger.error("reflect set value fail!", e);
+			logger.error("reflect get value fail!", e);
 		}
 		return null;
 	}

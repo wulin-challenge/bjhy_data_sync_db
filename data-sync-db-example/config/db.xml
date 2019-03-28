@@ -4,8 +4,9 @@
 		<!-- 
 		<import-data-source>sync/criminal-base/criminal-base-db.xml</import-data-source>
 		<import-data-source>sync/new_cas_platform/new_cas_platform.xml</import-data-source>
-		 -->
 		<import-data-source>sync/criminal-base/criminal-crane-db2.xml</import-data-source>
+		 -->
+		<import-data-source>sync/criminal-base/criminal-crane-mysql-db3.xml</import-data-source>
 		
 		
 		
