@@ -169,6 +169,20 @@ public interface OwnInterface {
 	 *
 	 */
 	public abstract class SingleStepListener{
+		
+		/**
+		 * 来源表的分页数据 回调
+		 * @param syncLogicEntity
+		 * @param pageFromData 来源表的分页数据
+		 */
+		public void pageCall(final SyncLogicEntity syncLogicEntity,final List<Map<String,Object>> pageFromData) {};
+		
+		/**
+		 * 来源表的单行数据 回调
+		 * @param syncLogicEntity
+		 * @param rowParam 来源表的单行数据
+		 * @return
+		 */
 		public abstract Map<String,Object> rowCall(final SyncLogicEntity syncLogicEntity,final Map<String,Object> rowParam);
 	}
 	

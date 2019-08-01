@@ -91,6 +91,13 @@ public class BaseMultiThreadCore {
 			public void currentThreadRunning(int iterations, int i) {
 				List<Map<String, Object>> pageFromData = multiThreadPage.pageData(i);
 				SyncLogicEntity newSyncLogicEntity = copyNewSyncLogicEntity(syncLogicEntity);
+				
+				SingleStepListener singleStepListener = syncLogicEntity.getSingleStepSyncConfig().getSingleStepListener();
+				
+				//page回调
+				if(singleStepListener != null){
+					singleStepListener.pageCall(syncLogicEntity, pageFromData);
+				}
 				pageSyncLogic(newSyncLogicEntity,pageFromData);//分页同步逻辑
 			}
 
