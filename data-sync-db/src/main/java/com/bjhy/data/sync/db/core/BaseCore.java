@@ -155,17 +155,17 @@ public class BaseCore {
 	 */
 	public void parseStepSyncConfig(SyncLogicEntity syncLogicEntity){
 		setSyncColumns(syncLogicEntity);//设置要同步的列
-		versionCheck(syncLogicEntity);//版本检查
+		addSyncColumns(syncLogicEntity);//添加同步列
 		buildDllSql(syncLogicEntity);//构建inserSql和updateSql和checkSql和DeleteSql语句(即dll)
 	}
 	
 	/**
-	 * 版本检查
+	 * 添加同步列
 	 * @param syncLogicEntity
 	 */
-	private void versionCheck(SyncLogicEntity syncLogicEntity){
-		Boolean isAddVersionCheckFilter = syncLogicEntity.getSingleStepSyncConfig().getIsAddVersionCheckFilter();
-		if(isAddVersionCheckFilter){
+	private void addSyncColumns(SyncLogicEntity syncLogicEntity){
+		Boolean isAutoAddToTableColumns = syncLogicEntity.getSingleStepSyncConfig().getIsAutoAddToTableColumns();
+		if(isAutoAddToTableColumns){
 			String syncVersionCheck = VersionCheckCore.SYNC_VERSION_CHECK;
 			syncLogicEntity.getSingleStepSyncConfig().getAddStaticFromColumns().put(syncVersionCheck, syncLogicEntity.getCheckVersion());
 			VersionCheckCore versionCheckCore = new VersionCheckCore(syncLogicEntity);

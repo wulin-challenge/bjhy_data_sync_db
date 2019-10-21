@@ -80,6 +80,11 @@ public class SingleStepSyncConfig {
 	private List<AddColumnAttribute> addToTableColumns = new ArrayList<AddColumnAttribute>();
 	
 	/**
+	 * 是否自动添加同步列或者自定义列
+	 */
+	private Boolean isAutoAddToTableColumns = true;
+	
+	/**
 	 * 是否多线程分页
 	 */
 	private Boolean isMultiThreadPage = true;
@@ -305,6 +310,8 @@ public class SingleStepSyncConfig {
 	public void setIsAddVersionCheckFilter(Boolean isAddVersionCheckFilter) {
 		this.isAddVersionCheckFilter = isAddVersionCheckFilter;
 	}
+	
+	
 
 	public String getStepUniquelyIdentifies() {
 		return stepUniquelyIdentifies;
@@ -368,6 +375,14 @@ public class SingleStepSyncConfig {
 
 	public List<AddColumnAttribute> getAddToTableColumns() {
 		return addToTableColumns;
+	}
+	
+	public Boolean getIsAutoAddToTableColumns() {
+		return isAutoAddToTableColumns;
+	}
+
+	public void setIsAutoAddToTableColumns(Boolean isAutoAddToTableColumns) {
+		this.isAutoAddToTableColumns = isAutoAddToTableColumns;
 	}
 
 	public IncrementalSync getIncrementalSync() {
