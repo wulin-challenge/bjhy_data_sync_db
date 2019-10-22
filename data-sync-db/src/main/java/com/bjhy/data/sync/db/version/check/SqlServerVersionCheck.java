@@ -35,7 +35,13 @@ public class SqlServerVersionCheck implements VersionCheck{
 	public String getToDeleteByVersionCheck() {
 		String syncVersionCheck = VersionCheckCore.SYNC_VERSION_CHECK;
 		String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
-		String toDeleteSql = "DELETE FROM "+toTableName+" WHERE "+syncVersionCheck+" in(:"+syncVersionCheck+") or "+syncVersionCheck+" is null or "+syncVersionCheck+"=''";
+		
+		String toDeleteSql = "DELETE FROM "+toTableName+" WHERE "+syncVersionCheck+" in(:"+syncVersionCheck+")";
+		
+		Boolean isDeleteVersionValueEmpty = syncLogicEntity.getSingleStepSyncConfig().getIsDeleteVersionValueEmpty();
+		if(isDeleteVersionValueEmpty) {
+			toDeleteSql += " or "+syncVersionCheck+" is null or "+syncVersionCheck+"=''";
+		}
 		return toDeleteSql;
 	}
 }

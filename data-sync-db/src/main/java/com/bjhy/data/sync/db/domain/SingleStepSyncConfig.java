@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
+import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 
 /**
  * 单个步骤同步配置参数
@@ -109,6 +110,12 @@ public class SingleStepSyncConfig {
 	 * 是否添加版本检测过滤数据
 	 */
 	private Boolean isAddVersionCheckFilter = true;
+	
+	/**
+	 * 通过{@link #isAddVersionCheckFilter}进行数据过滤时,是否对 ${@link #VersionCheckCore.SYNC_VERSION_CHECK}
+	 * 字段值为空的数据执行删除操作
+	 */
+	private Boolean isDeleteVersionValueEmpty = true;
 	
 	/**
 	 * 更新字段,通过该字段去更新已经存在的数据
@@ -311,7 +318,13 @@ public class SingleStepSyncConfig {
 		this.isAddVersionCheckFilter = isAddVersionCheckFilter;
 	}
 	
-	
+	public Boolean getIsDeleteVersionValueEmpty() {
+		return isDeleteVersionValueEmpty;
+	}
+
+	public void setIsDeleteVersionValueEmpty(Boolean isDeleteVersionValueEmpty) {
+		this.isDeleteVersionValueEmpty = isDeleteVersionValueEmpty;
+	}
 
 	public String getStepUniquelyIdentifies() {
 		return stepUniquelyIdentifies;
