@@ -70,6 +70,11 @@ public class SyncLogicEntity {
 	private SyncStepLogInfoEntity syncStepLogInfoEntity;
 	
 	/**
+	 * 同步步骤Id
+	 */
+	private long syncStepId;
+	
+	/**
 	 * 得到Named式的fromTemplate
 	 * @return
 	 */
@@ -181,5 +186,13 @@ public class SyncLogicEntity {
 
 	public void setSyncStepLogInfoEntity(SyncStepLogInfoEntity syncStepLogInfoEntity) {
 		this.syncStepLogInfoEntity = syncStepLogInfoEntity;
+	}
+
+	public long getSyncStepId() {
+		return syncStepId;
+	}
+
+	public void setSyncStepId(long syncStepId) {
+		this.syncStepId = syncStepId;
 	}
 }

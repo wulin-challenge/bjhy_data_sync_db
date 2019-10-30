@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<from-template>
+<!-- 		<data-source task="from_new_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>老的行政区划表</data-source-name>
+			<data-source-number>old_region</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url>
+			<connect-username>platform_sj_a</connect-username>
+			<connect-password>platform_sj_a</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect
+			</connect-dialect>
+
+
+
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表1</data-source-name> -->
+<!-- 			<data-source-number>new_region1</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+
+
+
+
+
+
+
+
+		</data-source>
+		
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表2</data-source-name> -->
+<!-- 			<data-source-number>new_region2</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表3</data-source-name> -->
+<!-- 			<data-source-number>new_region3</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+<!-- 		<data-source task="from_reverse_to_old_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+		
+	</from-template>
+
+	<to-template>
+
+		<data-source task="to_old_region_task" isEnable="true" databaseType="oracle">
+			<sort-number>1</sort-number>
+			<data-source-name>老的行政区划表</data-source-name>
+			<data-source-number>old_region</data-source-number>
+			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+			<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url>
+			<connect-username>platform_sj_a</connect-username>
+			<connect-password>platform_sj_a</connect-password>
+			<connect-dialect>org.hibernate.dialect.OracleDialect
+			</connect-dialect>
+		</data-source>
+		
+<!-- 		<data-source task="to_reverse_from_new_region_task" isEnable="true" databaseType="oracle"> -->
+<!-- 			<sort-number>1</sort-number> -->
+<!-- 			<data-source-name>新的行政区划表</data-source-name> -->
+<!-- 			<data-source-number>new_region</data-source-number> -->
+<!-- 			<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver> -->
+<!-- 			<connect-url>jdbc:oracle:thin:@192.168.0.208:1521/orclpdb</connect-url> -->
+<!-- 			<connect-username>dp_admin</connect-username> -->
+<!-- 			<connect-password>oracle</connect-password> -->
+<!-- 			<connect-dialect>org.hibernate.dialect.OracleDialect -->
+<!-- 			</connect-dialect> -->
+<!-- 		</data-source> -->
+	</to-template>
+
+	<native-template task="notive_store_task" isEnable="true" databaseType="oracle">
+		<sort-number>1</sort-number>
+		<data-source-name>老的行政区划表</data-source-name>
+		<data-source-number>old_region</data-source-number>
+		<connect-driver>oracle.jdbc.driver.OracleDriver</connect-driver>
+		<connect-url>jdbc:oracle:thin:@192.168.0.49:1521:orcl</connect-url>
+		<connect-username>platform_sj_a</connect-username>
+		<connect-password>platform_sj_a</connect-password>
+		<connect-dialect>org.hibernate.dialect.OracleDialect</connect-dialect>
+	</native-template>
+</data-sources>

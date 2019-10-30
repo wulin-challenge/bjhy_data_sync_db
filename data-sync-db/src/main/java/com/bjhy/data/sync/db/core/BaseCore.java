@@ -23,6 +23,7 @@ import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
 import com.bjhy.data.sync.db.domain.SyncStepLogInfoEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
 import com.bjhy.data.sync.db.loader.DataSourceLoader;
+import com.bjhy.data.sync.db.util.BaseCoreUtil;
 import com.bjhy.data.sync.db.validation.SyncStepValidationRepair;
 import com.bjhy.data.sync.db.validation.SyncStepValidationStore;
 import com.bjhy.data.sync.db.version.check.VersionCheckCore;
@@ -135,6 +136,7 @@ public class BaseCore {
 	 */
 	private void assembleStepParamsLogic(SingleStepSyncConfig singleStepSyncConfig){
 		SyncLogicEntity syncLogicEntity = new SyncLogicEntity();
+		syncLogicEntity.setSyncStepId(BaseCoreUtil.getSyncStepId());
 		syncLogicEntity.setSingleStepSyncConfig(singleStepSyncConfig);
 		syncLogicEntity.setCheckVersion(DataSourceLoader.getUUID());
 		//同步步骤日志信息实体 

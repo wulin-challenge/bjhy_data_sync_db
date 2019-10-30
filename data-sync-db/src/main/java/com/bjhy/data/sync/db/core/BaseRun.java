@@ -2,20 +2,12 @@ package com.bjhy.data.sync.db.core;
 
 import java.util.List;
 
-
-
-
-
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.bjhy.data.sync.db.domain.BaseRunEntity;
 import com.bjhy.data.sync.db.domain.SingleRunEntity;
 import com.bjhy.data.sync.db.domain.SyncTemplate;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ForRunSync;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ForRunThread;
 import com.bjhy.data.sync.db.thread.ThreadControl;
-import com.bjhy.data.sync.db.util.DataSourceUtil;
 import com.bjhy.data.sync.db.util.SyncPropertiesUtil;
 import com.bjhy.data.sync.db.validation.SyncStepValidationRepair;
 
@@ -149,6 +141,8 @@ public class BaseRun {
 			 */
 			@Override
 			public void allThreadAfterRun(int iterations) {
+				//保证执行下一个任务之前的所有任务都已经执行完成
+				BaseAsynchronousBatchCommitCode.getInstance().addEmptyOrderTask();
 				forRunSync.allRunAfter();
 				
 				//是否为只同步一次步骤

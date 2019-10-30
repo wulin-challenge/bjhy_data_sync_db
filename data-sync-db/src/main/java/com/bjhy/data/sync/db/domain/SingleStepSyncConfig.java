@@ -104,6 +104,7 @@ public class SingleStepSyncConfig {
 	/**
 	 * 是否同步null值,true表示同步空值,否则反之
 	 */
+	@Deprecated
 	private Boolean isSyncNullValue = true;
 	
 	/**
@@ -170,6 +171,11 @@ public class SingleStepSyncConfig {
 	 * 增量同步数据
 	 */
 	private IncrementalSync incrementalSync;
+	
+	/**
+	 * 是否为顺序同步步骤
+	 */
+	private Boolean isOrderSyncStep = false;
 	
 	/**
 	 * 得到fromSql语句
@@ -286,12 +292,19 @@ public class SingleStepSyncConfig {
 		this.updateWhere = updateWhere;
 	}
 
+	/**
+	 * 不在对null值这个情况进行处理
+	 * @return
+	 */
+	@Deprecated
 	public Boolean getIsSyncNullValue() {
-		return isSyncNullValue;
+//		return isSyncNullValue;
+		return true;
 	}
 
+	@Deprecated
 	public void setIsSyncNullValue(Boolean isSyncNullValue) {
-		this.isSyncNullValue = isSyncNullValue;
+//		this.isSyncNullValue = isSyncNullValue;
 	}
 
 	public List<String> getRemoveFromColumns() {
@@ -406,6 +419,14 @@ public class SingleStepSyncConfig {
 		this.incrementalSync = incrementalSync;
 	}
 
+	public Boolean getIsOrderSyncStep() {
+		return isOrderSyncStep;
+	}
+
+	public void setIsOrderSyncStep(Boolean isOrderSyncStep) {
+		this.isOrderSyncStep = isOrderSyncStep;
+	}
+
 	@Override
 	public int hashCode() {
 		String fromTask = singleRunEntity.getFromTemplate().getConnectConfig().getTask();
@@ -425,6 +446,7 @@ public class SingleStepSyncConfig {
 		result = prime * result + ((SingleStepListenerName == null)?0:SingleStepListenerName.hashCode());
 		result = prime * result + ((fromTask == null)?0:fromTask.hashCode());
 		result = prime * result + ((toTask == null)?0:toTask.hashCode());
+		result = prime * result + ((isOrderSyncStep == null)?0:isOrderSyncStep.hashCode());
 		return result;
 	}
 
@@ -502,6 +524,12 @@ public class SingleStepSyncConfig {
 		} else if (!SingleStepListenerName.equals(other.SingleStepListenerName))
 			return false;
 		
+		if (isOrderSyncStep == null) {
+			if (other.isOrderSyncStep != null)
+				return false;
+		} else if (!isOrderSyncStep.equals(other.isOrderSyncStep))
+			return false;
+		
 		if (fromTask == null) {
 			if (otherFromTask != null)
 				return false;
@@ -513,6 +541,7 @@ public class SingleStepSyncConfig {
 				return false;
 		} else if (!toTask.equals(otherToTask))
 			return false;
+		
 		return true;
 	}
 
@@ -536,6 +565,7 @@ public class SingleStepSyncConfig {
 		toString.append(",toValidationWhere:"+toValidationWhere);
 		toString.append(",fromConnectUrl:"+fromConnectUrl);
 		toString.append(",toConnectUrl:"+toConnectUrl);
+		toString.append(",isOrderSyncStep:"+isOrderSyncStep);
 		toString.append(",SingleStepListenerName:"+SingleStepListenerName+"}");
 		return toString.toString();
 	}

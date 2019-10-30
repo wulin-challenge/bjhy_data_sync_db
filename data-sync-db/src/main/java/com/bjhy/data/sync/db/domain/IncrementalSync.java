@@ -19,8 +19,20 @@ public class IncrementalSync {
 	
 	/**
 	 * 行唯一值key
+	 * <p> 已经过期,请使用  fromIdColumn 和 toIdColumn 替代
 	 */
+	@Deprecated 
 	private String uniqueValueKey;
+	
+	/**
+	 * 来源方Id列
+	 */
+	private String fromIdColumn;
+	
+	/**
+	 * 目标方Id列
+	 */
+	private String toIdColumn;
 	
 	/**
 	 * 判断两个值是否相等的回调接口
@@ -70,12 +82,45 @@ public class IncrementalSync {
 	 */
 	private List<String> alarmColumn = new ArrayList<String>(5);
 
+	/**
+	 * <p> 已经过期,请使用  fromIdColumn 和 toIdColumn 替代
+	 * @return
+	 */
+	@Deprecated
 	public String getUniqueValueKey() {
 		return uniqueValueKey != null?uniqueValueKey.toUpperCase():null;
 	}
 
+	/**
+	 * <p> 已经过期,请使用  fromIdColumn 和 toIdColumn 替代
+	 * @param uniqueValueKey
+	 */
+	@Deprecated
 	public void setUniqueValueKey(String uniqueValueKey) {
 		this.uniqueValueKey = uniqueValueKey;
+	}
+	
+
+	public String getFromIdColumn() {
+		if(fromIdColumn == null) {
+			return uniqueValueKey;
+		}
+		return fromIdColumn;
+	}
+
+	public void setFromIdColumn(String fromIdColumn) {
+		this.fromIdColumn = fromIdColumn;
+	}
+
+	public String getToIdColumn() {
+		if(toIdColumn == null) {
+			return uniqueValueKey;
+		}
+		return toIdColumn;
+	}
+
+	public void setToIdColumn(String toIdColumn) {
+		this.toIdColumn = toIdColumn;
 	}
 
 	public ValueCompare getValueCompare() {
