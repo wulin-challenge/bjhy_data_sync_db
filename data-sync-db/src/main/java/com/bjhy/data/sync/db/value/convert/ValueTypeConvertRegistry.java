@@ -112,12 +112,23 @@ public class ValueTypeConvertRegistry {
 	 * 默认注册值类型转换器
 	 */
 	private void defaultRegisterValueTypeConvert(){
+		//将字符串转为 数字类型的值的转换器
 		registerConverter(String.class,int.class,new StringConvertNumber(int.class));
 		registerConverter(String.class,Integer.class,new StringConvertNumber(Integer.class));
 		registerConverter(String.class,long.class,new StringConvertNumber(long.class));
 		registerConverter(String.class,Long.class,new StringConvertNumber(Long.class));
 		registerConverter(String.class,BigDecimal.class,new StringConvertNumber(BigDecimal.class));
+		
+		//将null转为 空字符串("") 的转换器
 		registerConverter(Null.class,StringBlank.class,new NullConvertStringBlank());
+		//将 空字符串("")转为 null 的转换器
 		registerConverter(StringBlank.class,Null.class,new StringBlankConvertNull());
+		
+		//将数字转换为字符串的转换器
+		registerConverter(Integer.class, String.class, new NumberConvertString(Integer.class));
+		registerConverter(int.class, String.class, new NumberConvertString(int.class));
+		registerConverter(Long.class, String.class, new NumberConvertString(Long.class));
+		registerConverter(long.class, String.class, new NumberConvertString(long.class));
+		registerConverter(BigDecimal.class, String.class, new NumberConvertString(BigDecimal.class));
 	}
 }
