@@ -155,7 +155,7 @@ public class BaseAsynchronousBatchCommitCode {
 			synchronized(unfinishedTask) {
 				//添加一个空普通顺序任务来执行结束节点任务
 				BatchTaskNodeKey emptyKey = new BatchTaskNodeKey(syncLogicEntity.getSyncStepId(),null, null);
-				value = new OrderTaskNodeValue(syncLogicEntity, null, null);
+				value = buildTaskValue(syncLogicEntity, null, null,null);
 				value.setIsStepEndTaskNode(true);
 				setOrderStepTaskCondition(syncLogicEntity,value);
 				
@@ -167,14 +167,9 @@ public class BaseAsynchronousBatchCommitCode {
 		value = unfinishedTask.get(key);
 		if(value != null) {
 			synchronized(unfinishedTask) {
-				BatchTaskNodeValue endTaskValue = null;
-				if(value instanceof OrderTaskNodeValue) {
-					endTaskValue = value;
-				}else {
-					//将结束任务包装为顺序任务
-					endTaskValue = new OrderTaskNodeValue(syncLogicEntity, value.getInsertSql(), value.getUpdateSqlList());
-					endTaskValue.setData(value.getData());
-				}
+				//将结束任务包装为顺序任务
+				BatchTaskNodeValue endTaskValue = buildTaskValue(syncLogicEntity, value.getInsertSql(), value.getUpdateSqlList(),null);
+				endTaskValue.setData(value.getData());
 				
 				endTaskValue.setIsStepEndTaskNode(true);
 				setOrderStepTaskCondition(syncLogicEntity,endTaskValue);
@@ -255,8 +250,11 @@ public class BaseAsynchronousBatchCommitCode {
 		logic.setSyncStepId(-1l);
 		
 		BatchTaskNodeKey emptyKey = new BatchTaskNodeKey(BaseCoreUtil.getSyncStepId(),null, null);
-		BatchTaskNodeValue emptyValue = buildTaskValue(logic, null, null);
-		moveTask(emptyKey, emptyValue);
+		BatchTaskNodeValue emptyValue = buildTaskValue(logic, null, null,OrderStepTaskNodeValue.class);
+		
+		synchronized(unfinishedTask) {
+			moveTask(emptyKey, emptyValue);
+		}
 	}
 	
 	private void addTask(SyncLogicEntity syncLogicEntity,String insertSql,List<String> updateSqlList,final Map<String, Object> rowParam) {
@@ -267,7 +265,7 @@ public class BaseAsynchronousBatchCommitCode {
 			
 			idAndKeyMapping.putIfAbsent(syncLogicEntity.getSyncStepId(), key);
 			if(value == null) {
-				value = buildTaskValue(syncLogicEntity, insertSql, updateSqlList);
+				value = buildTaskValue(syncLogicEntity, insertSql, updateSqlList,BatchTaskNodeValue.class);
 				unfinishedTask.put(key, value);
 			}
 			
@@ -288,12 +286,25 @@ public class BaseAsynchronousBatchCommitCode {
 	 * @param updateSqlList
 	 * @return
 	 */
-	private BatchTaskNodeValue buildTaskValue(SyncLogicEntity syncLogicEntity,String insertSql,List<String> updateSqlList) {
+	private BatchTaskNodeValue buildTaskValue(SyncLogicEntity syncLogicEntity,String insertSql,List<String> updateSqlList,Class<? extends BatchTaskNodeValue> clazz) {
+		
+		if(clazz == BatchTaskNodeValue.class) {
+			return new BatchTaskNodeValue(syncLogicEntity,insertSql, updateSqlList);
+		}
+		
+		if(clazz == OrderTaskNodeValue.class){
+			return new OrderTaskNodeValue(syncLogicEntity,insertSql, updateSqlList);
+		}
+		
+		if(clazz == OrderStepTaskNodeValue.class){
+			return new OrderStepTaskNodeValue(syncLogicEntity,insertSql, updateSqlList);
+		}
+		
 		Boolean isOrderSyncStep = syncLogicEntity.getSingleStepSyncConfig().getIsOrderSyncStep();
 		if(isOrderSyncStep) {
 			return new OrderStepTaskNodeValue(syncLogicEntity,insertSql, updateSqlList);
-		}else {
-			return new BatchTaskNodeValue(syncLogicEntity,insertSql, updateSqlList);
+		}else{
+			return new OrderTaskNodeValue(syncLogicEntity,insertSql, updateSqlList);
 		}
 	}
 	
