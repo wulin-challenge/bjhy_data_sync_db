@@ -48,7 +48,7 @@ public class StepUtil {
 		    singleStepSyncConfig.setIsMultiThreadPage(Boolean.valueOf(true));
 		    singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 		    singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
-		    singleStepSyncConfig.setIsOrderSyncStep(true);
+		    singleStepSyncConfig.setIsOrderSyncStep(false);
 		    singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("sys_orgName", toTableName, 64));
 		    singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("sys_orgCode", toTableName, 64));
 		    
@@ -103,7 +103,7 @@ public class StepUtil {
 		    singleStepSyncConfig.setIsMultiThreadPage(true);
 		    singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 		    singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
-		    singleStepSyncConfig.setIsOrderSyncStep(false);
+		    singleStepSyncConfig.setIsOrderSyncStep(true);
 		    singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("sys_orgName", toTableName, 64));
 		    singleStepSyncConfig.getAddToTableColumns().add(new AddColumnAttribute("sys_orgCode", toTableName, 64));
 		    
