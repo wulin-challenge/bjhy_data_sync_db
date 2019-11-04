@@ -27,22 +27,22 @@ public class BatchSyncServiceImpl extends BaseSyncService{
 		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
 		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
 		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		
-		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		
-		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
-		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		
+//		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere2(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		
+//		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
+//		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
 	}
 
 	@Override

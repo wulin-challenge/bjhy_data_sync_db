@@ -13,6 +13,11 @@ import java.util.Map;
 public class BatchTaskNodeValue extends BatchTaskNodeKey{
 	
 	/**
+	 * 任务节点Id,主要用于调试时使用
+	 */
+	private Long taskNodeId;
+	
+	/**
 	 * 是否为步骤的结束任务节点
 	 */
 	private Boolean isStepEndTaskNode = false;
@@ -24,9 +29,22 @@ public class BatchTaskNodeValue extends BatchTaskNodeKey{
 	
 	private SyncLogicEntity syncLogicEntity;
 	
+	/**
+	 * 表示这是一个新的对象,用于重写hashcode和equals方法
+	 */
+	private Object currentAddress = new Object();
+	
 	public BatchTaskNodeValue(SyncLogicEntity syncLogicEntity,String insertSql, List<String> updateSqlList) {
-		super(insertSql, updateSqlList);
+		super(syncLogicEntity.getSyncStepId(),insertSql, updateSqlList);
 		this.syncLogicEntity = syncLogicEntity;
+	}
+	
+	public Long getTaskNodeId() {
+		return taskNodeId;
+	}
+
+	public void setTaskNodeId(Long taskNodeId) {
+		this.taskNodeId = taskNodeId;
 	}
 
 	public Boolean getIsStepEndTaskNode() {
@@ -60,51 +78,28 @@ public class BatchTaskNodeValue extends BatchTaskNodeKey{
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		
-		int result = super.hashCode();
-		result = prime * result + ((isStepEndTaskNode == null)?0:isStepEndTaskNode.hashCode());
-		result = prime * result + ((data == null)?0:data.hashCode());
-		result = prime * result + ((syncLogicEntity == null)?0:syncLogicEntity.hashCode());
-		return result;
+		return this.currentAddress.hashCode();
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if(this == obj) return true;
-		if(obj == null) return false;
-		if(getClass() != obj.getClass()) return false;
+	public boolean equals(Object object) {
+		if(this == object) return true;
+		if(object == null) return false;
+		if(getClass() != object.getClass()) return false;
 		
-		BatchTaskNodeValue other = (BatchTaskNodeValue)obj;
+		BatchTaskNodeValue other = (BatchTaskNodeValue)object;
 		
-		if(!super.equals(obj)) {
-			return false;
-		}
-		
-		if (isStepEndTaskNode == null) {
-			if (other.isStepEndTaskNode != null)
+		if (currentAddress == null) {
+			if (other.currentAddress != null)
 				return false;
-		} else if (!isStepEndTaskNode.equals(other.isStepEndTaskNode))
+		} else if (!currentAddress.equals(other.currentAddress))
 			return false;
-		
-		if (data == null) {
-            if (other.data != null)
-                return false;
-        } else if (!data.equals(other.data))
-            return false;
-		
-		if (syncLogicEntity == null) {
-			if (other.syncLogicEntity != null)
-				return false;
-		} else if (!syncLogicEntity.equals(other.syncLogicEntity))
-			return false;
-		
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString();
+		return currentAddress.toString();
 	}
 	
 }

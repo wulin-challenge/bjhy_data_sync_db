@@ -98,9 +98,9 @@ public class StepUtil {
 		    singleStepSyncConfig.setFromSelectPart(fromSelectPart);
 		    singleStepSyncConfig.setToTableName(toTableName);
 		    singleStepSyncConfig.setUpdateColumn(updateAndPageColumn);
-		    singleStepSyncConfig.setIsAddVersionCheckFilter(Boolean.valueOf(true));
-		    singleStepSyncConfig.setIsSyncNullValue(Boolean.valueOf(true));
-		    singleStepSyncConfig.setIsMultiThreadPage(Boolean.valueOf(true));
+		    singleStepSyncConfig.setIsAddVersionCheckFilter(false);
+		    singleStepSyncConfig.setIsSyncNullValue(true);
+		    singleStepSyncConfig.setIsMultiThreadPage(true);
 		    singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
 		    singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
 		    singleStepSyncConfig.setIsOrderSyncStep(false);

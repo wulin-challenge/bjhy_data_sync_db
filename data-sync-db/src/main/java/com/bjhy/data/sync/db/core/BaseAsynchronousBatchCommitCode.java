@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import com.bjhy.data.sync.db.collection.ConcurrentSet;
 import com.bjhy.data.sync.db.domain.BatchTaskNodeKey;
 import com.bjhy.data.sync.db.domain.BatchTaskNodeValue;
+import com.bjhy.data.sync.db.domain.OrderStepTaskNodeValue;
 import com.bjhy.data.sync.db.domain.OrderTaskNodeValue;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
@@ -40,6 +41,11 @@ public class BaseAsynchronousBatchCommitCode {
 	 * 批量提交数量
 	 */
 	private static final int BATCH_COMMIT_NUMBER = 500;
+	
+	/**
+	 * 任务节点Id
+	 */
+	private AtomicLong taskNodeIds = new AtomicLong();
 
 	/**
 	 * 默认5万条任务节点,TODO 后期可修改为可配置
@@ -147,13 +153,13 @@ public class BaseAsynchronousBatchCommitCode {
 		BatchTaskNodeKey key = idAndKeyMapping.get(syncLogicEntity.getSyncStepId());
 		if(key == null) {
 			synchronized(unfinishedTask) {
-				//添加一个空任务来执行结束节点任务
-				BatchTaskNodeKey emptyKey = new BatchTaskNodeKey(null, null);
-				value = buildTaskValue(syncLogicEntity, null, null);
+				//添加一个空普通顺序任务来执行结束节点任务
+				BatchTaskNodeKey emptyKey = new BatchTaskNodeKey(syncLogicEntity.getSyncStepId(),null, null);
+				value = new OrderTaskNodeValue(syncLogicEntity, null, null);
 				value.setIsStepEndTaskNode(true);
-				setOrderTaskCondition(value);
+				setOrderStepTaskCondition(syncLogicEntity,value);
 				
-				moveEndTask(emptyKey, value);
+				moveEndTask(syncLogicEntity,emptyKey, value);
 				return;
 			}
 		}
@@ -161,18 +167,27 @@ public class BaseAsynchronousBatchCommitCode {
 		value = unfinishedTask.get(key);
 		if(value != null) {
 			synchronized(unfinishedTask) {
-				value.setIsStepEndTaskNode(true);
-				setOrderTaskCondition(value);
-				moveEndTask(key, value);
+				BatchTaskNodeValue endTaskValue = null;
+				if(value instanceof OrderTaskNodeValue) {
+					endTaskValue = value;
+				}else {
+					//将结束任务包装为顺序任务
+					endTaskValue = new OrderTaskNodeValue(syncLogicEntity, value.getInsertSql(), value.getUpdateSqlList());
+					endTaskValue.setData(value.getData());
+				}
+				
+				endTaskValue.setIsStepEndTaskNode(true);
+				setOrderStepTaskCondition(syncLogicEntity,endTaskValue);
+				moveEndTask(syncLogicEntity,key, endTaskValue);
 				idAndKeyMapping.remove(syncLogicEntity.getSyncStepId());
 			}
 		}
 		
 	}
 
-	private void setOrderTaskCondition(BatchTaskNodeValue value) {
-		if(value instanceof OrderTaskNodeValue) {
-			OrderTaskNodeValue orderValue = (OrderTaskNodeValue) value;
+	private void setOrderStepTaskCondition(SyncLogicEntity syncLogicEntity,BatchTaskNodeValue value) {
+		if(value instanceof OrderStepTaskNodeValue) {
+			OrderStepTaskNodeValue orderValue = (OrderStepTaskNodeValue) value;
 			orderValue.setCondition(lock.newCondition());
 		}
 	}
@@ -182,18 +197,20 @@ public class BaseAsynchronousBatchCommitCode {
 	 * @param key
 	 * @param value
 	 */
-	private void moveEndTask(BatchTaskNodeKey key, BatchTaskNodeValue value) {
+	private void moveEndTask(SyncLogicEntity syncLogicEntity,BatchTaskNodeKey key, BatchTaskNodeValue value) {
 		try {
 			lock.lock();
-			asyncTask.put(value);
+			putTask(value);
 			
 			//若当前移动的任务为顺序任务,则在该任务之后添加一空顺序任务以保证其顺序执行
 			if(value instanceof OrderTaskNodeValue) {
 				asyncTask.put(createEmptyOrderTaskValue(value.getSyncLogicEntity()));
 				
-				OrderTaskNodeValue orderValue = (OrderTaskNodeValue) value;
-				Condition condition = orderValue.getCondition();
-				condition.await();
+				if(value instanceof OrderStepTaskNodeValue) {
+					OrderStepTaskNodeValue orderValue = (OrderStepTaskNodeValue) value;
+					Condition condition = orderValue.getCondition();
+					condition.await();
+				}
 			}
 		} catch (InterruptedException e) {
 			LoggerUtils.error("添加任务失败!"+e.getMessage());
@@ -213,15 +230,17 @@ public class BaseAsynchronousBatchCommitCode {
 	 */
 	private void moveTask(BatchTaskNodeKey key, BatchTaskNodeValue value) {
 		try {
-			asyncTask.put(value);
-			//若当前移动的任务为顺序任务,则在该任务之后添加一空顺序任务以保证其顺序执行
-			if(value instanceof OrderTaskNodeValue) {
-				asyncTask.put(createEmptyOrderTaskValue(value.getSyncLogicEntity()));
-			}
+			putTask(value);
 		} catch (InterruptedException e) {
 			LoggerUtils.error("添加任务失败!"+e.getMessage());
 		}
 		unfinishedTask.remove(key);
+	}
+	
+	private void putTask(BatchTaskNodeValue value) throws InterruptedException {
+		long taskNodeId = taskNodeIds.incrementAndGet();
+		value.setTaskNodeId(taskNodeId);
+		asyncTask.put(value);
 	}
 	
 	/**
@@ -235,18 +254,17 @@ public class BaseAsynchronousBatchCommitCode {
 		logic.setSingleStepSyncConfig(step);
 		logic.setSyncStepId(-1l);
 		
-		BatchTaskNodeKey emptyKey = new BatchTaskNodeKey(null, null);
+		BatchTaskNodeKey emptyKey = new BatchTaskNodeKey(BaseCoreUtil.getSyncStepId(),null, null);
 		BatchTaskNodeValue emptyValue = buildTaskValue(logic, null, null);
 		moveTask(emptyKey, emptyValue);
 	}
 	
 	private void addTask(SyncLogicEntity syncLogicEntity,String insertSql,List<String> updateSqlList,final Map<String, Object> rowParam) {
-		BatchTaskNodeKey key = new BatchTaskNodeKey(insertSql, updateSqlList);
+		BatchTaskNodeKey key = new BatchTaskNodeKey(syncLogicEntity.getSyncStepId(),insertSql, updateSqlList);
 		
 		synchronized(unfinishedTask) {
 			BatchTaskNodeValue value = unfinishedTask.get(key);
 			
-			//TODO 目前不确定 一个 Id 是否会对应多个key
 			idAndKeyMapping.putIfAbsent(syncLogicEntity.getSyncStepId(), key);
 			if(value == null) {
 				value = buildTaskValue(syncLogicEntity, insertSql, updateSqlList);
@@ -273,14 +291,14 @@ public class BaseAsynchronousBatchCommitCode {
 	private BatchTaskNodeValue buildTaskValue(SyncLogicEntity syncLogicEntity,String insertSql,List<String> updateSqlList) {
 		Boolean isOrderSyncStep = syncLogicEntity.getSingleStepSyncConfig().getIsOrderSyncStep();
 		if(isOrderSyncStep) {
-			return new OrderTaskNodeValue(syncLogicEntity,insertSql, updateSqlList);
+			return new OrderStepTaskNodeValue(syncLogicEntity,insertSql, updateSqlList);
 		}else {
 			return new BatchTaskNodeValue(syncLogicEntity,insertSql, updateSqlList);
 		}
 	}
 	
 	/**
-	 * 创建空顺序任务value
+	 * 创建空普通顺序任务value
 	 * @param syncLogicEntity
 	 * @return
 	 */
@@ -320,9 +338,10 @@ public class BaseAsynchronousBatchCommitCode {
 	private BatchTaskNodeValue getTask() {
 		synchronized(asyncTask) {
 			//清除当前线程的同步任务标识
-			Long currentSyncStepId = consumerThreadLocal.get();
-			if(currentSyncStepId != null) {
-				bingConsumerTask.remove(currentSyncStepId);
+			Long currentThreadSyncStepId = consumerThreadLocal.get();
+			if(currentThreadSyncStepId != null) {
+				bingConsumerTask.remove(currentThreadSyncStepId);
+				consumerThreadLocal.remove();
 			}
 			
 			Iterator<BatchTaskNodeValue> iterator = asyncTask.iterator();
@@ -336,7 +355,7 @@ public class BaseAsynchronousBatchCommitCode {
 				}
 				
 				//处理普通情况
-				if(isMatch(syncStepId)) {
+				if(isMatch(syncStepId,currentThreadSyncStepId)) {
 					setTaskStatus(value, syncStepId);
 					return value;
 				}
@@ -372,13 +391,14 @@ public class BaseAsynchronousBatchCommitCode {
 	
 	/**
 	 * 是否匹配,true:表示匹配,false:表示不匹配
-	 * @param syncStepId
+	 * @param syncStepId 步骤Id
+	 * @param currentThreadSyncStepId 当前线程步骤Id
 	 * @return
 	 */
-	private boolean isMatch(Long syncStepId) {
+	private boolean isMatch(Long syncStepId,Long currentThreadSyncStepId) {
 		
 		return (!bingConsumerTask.contains(syncStepId) 
-				|| syncStepId == consumerThreadLocal.get());
+				|| syncStepId == currentThreadSyncStepId);
 	}
 	
 	private void executeSync(BatchTaskNodeValue value) {
@@ -434,8 +454,8 @@ public class BaseAsynchronousBatchCommitCode {
 	 * @param value
 	 */
 	private void producerStepUnlock(BatchTaskNodeValue value) {
-		if(value instanceof OrderTaskNodeValue) {
-			OrderTaskNodeValue orderValue = (OrderTaskNodeValue) value;
+		if(value instanceof OrderStepTaskNodeValue) {
+			OrderStepTaskNodeValue orderValue = (OrderStepTaskNodeValue) value;
 			Condition condition = orderValue.getCondition();
 			if(condition != null) {
 				try {

@@ -106,6 +106,7 @@ public class BaseCoreUtil {
 		
 		int insertCount = syncStepLogInfoEntity.getInsertCount().get();
 		int updateCount = syncStepLogInfoEntity.getUpdateCount().get();
+		syncStepLogInfoEntity.getUpdateCount().incrementAndGet();
 		int deleteCount = syncStepLogInfoEntity.getDeleteCount().get();
 		int noUpdateCount = syncStepLogInfoEntity.getNoUpdateCount().get();
 		int failCount = syncStepLogInfoEntity.getFailCount().get();

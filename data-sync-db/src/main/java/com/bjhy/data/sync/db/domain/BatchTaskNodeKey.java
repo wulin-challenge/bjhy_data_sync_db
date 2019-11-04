@@ -9,6 +9,7 @@ import java.util.List;
  *
  */
 public class BatchTaskNodeKey{
+	private Long syncStepId;
 	/**
 	 * insert sql
 	 */
@@ -19,12 +20,22 @@ public class BatchTaskNodeKey{
 	 */
 	private List<String> updateSqlList = new ArrayList<String>();
 	
-	public BatchTaskNodeKey(String insertSql, List<String> updateSqlList) {
+	public BatchTaskNodeKey(Long syncStepId,String insertSql, List<String> updateSqlList) {
 		super();
+		this.syncStepId = syncStepId;
 		this.insertSql = insertSql;
 		if(updateSqlList != null) {
 			this.updateSqlList.addAll(updateSqlList);
 		}
+	}
+	
+
+	public Long getSyncStepId() {
+		return syncStepId;
+	}
+
+	public void setSyncStepId(Long syncStepId) {
+		this.syncStepId = syncStepId;
 	}
 
 	public String getInsertSql() {
@@ -48,6 +59,7 @@ public class BatchTaskNodeKey{
 		
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((syncStepId == null)?0:syncStepId.hashCode());
 		result = prime * result + ((insertSql == null)?0:insertSql.hashCode());
 		result = prime * result + ((updateSqlList == null)?0:updateSqlList.hashCode());
 		return result;
@@ -60,6 +72,12 @@ public class BatchTaskNodeKey{
 		if(getClass() != obj.getClass()) return false;
 		
 		BatchTaskNodeKey other = (BatchTaskNodeKey)obj;
+		
+		if (syncStepId == null) {
+			if (other.syncStepId != null)
+				return false;
+		} else if (!syncStepId.equals(other.syncStepId))
+			return false;
 		
 		if (insertSql == null) {
 			if (other.insertSql != null)
