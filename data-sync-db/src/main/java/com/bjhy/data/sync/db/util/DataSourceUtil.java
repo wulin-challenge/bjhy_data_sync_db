@@ -7,10 +7,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import com.alibaba.druid.pool.DruidAbstractDataSource.PhysicalConnectionInfo;
-import com.alibaba.druid.pool.DruidDataSource;
 import com.bjhy.data.sync.db.core.BaseLoaderCore;
 import com.bjhy.data.sync.db.datasource.DBDruidDataSource;
 import com.bjhy.data.sync.db.domain.ConnectConfig;
@@ -105,6 +104,34 @@ public class DataSourceUtil {
 		  && connectConfig.getDataSourceNumber().equals(connectConfig2.getDataSourceNumber())){
 			
 			return syncTemplate;
+		}
+		return null;
+	}
+	
+	/**
+	 * 通用数据源number从来源数据源配置和目标数据源配置中找到对应的 SyncTemplate
+	 * @param dataSourceNumber 数据源number
+	 * @return
+	 */
+	public SyncTemplate getEnableSyncTemplateBySourceNumber(String dataSourceNumber) {
+		if(StringUtils.isBlank(dataSourceNumber)) {
+			throw new IllegalArgumentException("dataSourceNumber 参数不能为空!");
+		}
+		dataSourceNumber = dataSourceNumber.trim();
+		
+		List<SyncTemplate> newEnableSyncTemplateList = new ArrayList<SyncTemplate>();
+		//得到能用的 来源 同步Template
+		List<SyncTemplate> enableFromSyncTemplateList = getEnableFromSyncTemplate();
+		//得到能用的 来源 同步Template
+		List<SyncTemplate> enableToSyncTemplateList = getEnableToSyncTemplate();
+		
+		newEnableSyncTemplateList.addAll(enableFromSyncTemplateList);
+		newEnableSyncTemplateList.addAll(enableToSyncTemplateList);
+		
+		for (SyncTemplate syncTemplate : newEnableSyncTemplateList) {
+			if(syncTemplate.getConnectConfig().getDataSourceNumber().trim().equals(dataSourceNumber)) {
+				return syncTemplate;
+			}
 		}
 		return null;
 	}
@@ -335,7 +362,11 @@ public class DataSourceUtil {
 	
 	public static DataSourceUtil getInstance(){
 		if(dataSourceUtil == null){
-			dataSourceUtil = new DataSourceUtil();
+			synchronized(DataSourceUtil.class) {
+				if(dataSourceUtil == null){
+					dataSourceUtil = new DataSourceUtil();
+				}
+			}
 		}
 		return dataSourceUtil;
 	}
