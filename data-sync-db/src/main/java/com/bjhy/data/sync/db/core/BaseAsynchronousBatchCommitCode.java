@@ -1,9 +1,11 @@
 package com.bjhy.data.sync.db.core;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -60,7 +62,7 @@ public class BaseAsynchronousBatchCommitCode {
 	/**
 	 * syncStepId 和 BatchTaskNodeKey 的映射
 	 */
-	private ConcurrentHashMap<Long/* syncStepId*/,BatchTaskNodeKey> idAndKeyMapping = new ConcurrentHashMap<Long,BatchTaskNodeKey>();
+	private ConcurrentHashMap<Long/* syncStepId*/,Set<BatchTaskNodeKey>> idAndKeyMapping = new ConcurrentHashMap<Long,Set<BatchTaskNodeKey>>();
 	
 	private MultiThreadConsumerTask<BatchTaskNodeValue> consumer = new MultiThreadConsumerTask<BatchTaskNodeValue>(5, 1, TimeUnit.SECONDS, new ThreadFactoryImpl("BaseAsynchronousBatchCommitCode"));
 	/**
@@ -150,8 +152,10 @@ public class BaseAsynchronousBatchCommitCode {
 	 */
 	public void addEndTask(SyncLogicEntity syncLogicEntity) {
 		BatchTaskNodeValue value = null;
-		BatchTaskNodeKey key = idAndKeyMapping.get(syncLogicEntity.getSyncStepId());
-		if(key == null) {
+		
+		Set<BatchTaskNodeKey> keySet = idAndKeyMapping.get(syncLogicEntity.getSyncStepId());
+		
+		if(keySet == null || keySet.size() == 0) {
 			synchronized(unfinishedTask) {
 				//添加一个空普通顺序任务来执行结束节点任务
 				BatchTaskNodeKey emptyKey = new BatchTaskNodeKey(syncLogicEntity.getSyncStepId(),null, null);
@@ -164,20 +168,30 @@ public class BaseAsynchronousBatchCommitCode {
 			}
 		}
 		
-		value = unfinishedTask.get(key);
-		if(value != null) {
-			synchronized(unfinishedTask) {
-				//将结束任务包装为顺序任务
-				BatchTaskNodeValue endTaskValue = buildTaskValue(syncLogicEntity, value.getInsertSql(), value.getUpdateSqlList(),null);
-				endTaskValue.setData(value.getData());
-				
-				endTaskValue.setIsStepEndTaskNode(true);
-				setOrderStepTaskCondition(syncLogicEntity,endTaskValue);
-				moveEndTask(syncLogicEntity,key, endTaskValue);
-				idAndKeyMapping.remove(syncLogicEntity.getSyncStepId());
+		int i = 1;
+		for (BatchTaskNodeKey key : keySet) {
+			value = unfinishedTask.get(key);
+			if(value == null) {
+				continue;
 			}
+			if(keySet.size() == i) {
+				synchronized(unfinishedTask) {
+					//将结束任务包装为顺序任务
+					BatchTaskNodeValue endTaskValue = buildTaskValue(syncLogicEntity, value.getInsertSql(), value.getUpdateSqlList(),null);
+					endTaskValue.setData(value.getData());
+					
+					endTaskValue.setIsStepEndTaskNode(true);
+					setOrderStepTaskCondition(syncLogicEntity,endTaskValue);
+					moveEndTask(syncLogicEntity,key, endTaskValue);
+					idAndKeyMapping.remove(syncLogicEntity.getSyncStepId());
+				}
+			}else {
+				synchronized(unfinishedTask) {
+					moveTask(key, value);
+				}
+			}
+			i++;
 		}
-		
 	}
 
 	private void setOrderStepTaskCondition(SyncLogicEntity syncLogicEntity,BatchTaskNodeValue value) {
@@ -263,7 +277,14 @@ public class BaseAsynchronousBatchCommitCode {
 		synchronized(unfinishedTask) {
 			BatchTaskNodeValue value = unfinishedTask.get(key);
 			
-			idAndKeyMapping.putIfAbsent(syncLogicEntity.getSyncStepId(), key);
+			//一个步骤可能对应多个key
+			Set<BatchTaskNodeKey> keySet = idAndKeyMapping.get(syncLogicEntity.getSyncStepId());
+			if(keySet == null) {
+				keySet = new HashSet<BatchTaskNodeKey>();
+				idAndKeyMapping.putIfAbsent(syncLogicEntity.getSyncStepId(), keySet);
+			}
+			keySet.add(key);
+			
 			if(value == null) {
 				value = buildTaskValue(syncLogicEntity, insertSql, updateSqlList,BatchTaskNodeValue.class);
 				unfinishedTask.put(key, value);
@@ -419,6 +440,9 @@ public class BaseAsynchronousBatchCommitCode {
 		
 		//批量提交的数据量
 		int len = value.getData().size();
+		
+		//计数标记
+		boolean flag = true;
 		try {
 			String insertSql = value.getInsertSql();
 			if(StringUtils.isNotBlank(insertSql)) {
@@ -426,7 +450,12 @@ public class BaseAsynchronousBatchCommitCode {
 				
 				NamedParameterJdbcTemplate namedToTemplate = value.getSyncLogicEntity().getNamedToTemplate();
 				namedToTemplate.batchUpdate(insertSql, value.getArrayData());
-				syncLogicEntity.getSyncStepLogInfoEntity().getInsertCount().addAndGet(len);
+				
+				if(flag) {
+					flag = false;
+					syncLogicEntity.getSyncStepLogInfoEntity().getInsertCount().addAndGet(len);
+					
+				}
 			}
 			
 			List<String> updateSqlList = value.getUpdateSqlList();
@@ -435,7 +464,11 @@ public class BaseAsynchronousBatchCommitCode {
 				
 				NamedParameterJdbcTemplate namedToTemplate = value.getSyncLogicEntity().getNamedToTemplate();
 				namedToTemplate.batchUpdate(updateSql, value.getArrayData());
-				syncLogicEntity.getSyncStepLogInfoEntity().getUpdateCount().addAndGet(len);
+				
+				if(flag) {
+					flag = false;
+					syncLogicEntity.getSyncStepLogInfoEntity().getUpdateCount().addAndGet(len);
+				}
 			}
 		} catch (Throwable e) {
 			SyncStepValidationRepair.getInstance().getNeedRepairSteps().add(syncLogicEntity.getSingleStepSyncConfig());
