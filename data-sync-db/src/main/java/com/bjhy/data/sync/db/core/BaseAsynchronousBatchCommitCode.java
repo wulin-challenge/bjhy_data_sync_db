@@ -118,8 +118,7 @@ public class BaseAsynchronousBatchCommitCode {
 		
 		//数据保存或者更新
 		if(!exis){
-			addTask(syncLogicEntity,insertSql, null, rowParam);
-			
+			addTask(syncLogicEntity,insertSql, pageRowUpdateColumnSqlList, rowParam);
 		}else{
 			addTask(syncLogicEntity,null, pageRowUpdateColumnSqlList, rowParam);
 		}
