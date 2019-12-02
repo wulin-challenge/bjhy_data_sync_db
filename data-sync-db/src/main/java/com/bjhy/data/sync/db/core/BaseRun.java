@@ -142,14 +142,15 @@ public class BaseRun {
 			@Override
 			public void allThreadAfterRun(int iterations) {
 				//保证执行下一个任务之前的所有任务都已经执行完成
-				BaseAsynchronousBatchCommitCode.getInstance().addEmptyOrderTask();
-				forRunSync.allRunAfter();
+//				forRunSync.allRunAfter();
+				
+				//forRunSync.allRunAfter()的功能有下面这个语句完成了 
+				BaseAsynchronousBatchCommitCode.getInstance().addEndEmptyOrderTask(forRunSync);
 				
 				//是否为只同步一次步骤
 				if(baseRunEntity.getIsThisOnlyOne()){
 					SyncPropertiesUtil.setProperty("sync.is.this.only.one", "false");
 				}
-				
 			}
 		});
 	}

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepAfterListener;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
 import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 
@@ -394,7 +395,7 @@ public class SingleStepSyncConfig {
 	public void setSingleStepAfterListener(String singleStepAfterListener) {
 		this.singleStepAfterListener = singleStepAfterListener;
 	}
-
+	
 	public Map<String, String> getSimpleColumnNameMapping() {
 		return simpleColumnNameMapping;
 	}

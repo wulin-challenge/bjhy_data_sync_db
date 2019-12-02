@@ -244,4 +244,16 @@ public interface OwnInterface {
 		public boolean doEqualsCompare(Class<? extends Object> dataClass,Object lessRowValue,Object moreRowValue);
 	}
 	
+	/**
+	 * 所有线程运行后结束监听
+	 * @author wulin
+	 *
+	 */
+	public interface AllThreadAfterRunEndListener{
+		/**
+		 * 所有线程运行后
+		 */
+		void allThreadAfterRun();
+	}
+	
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.bjhy.data.sync.db.inter.face.OwnInterface.AllThreadAfterRunEndListener;
 import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 
 /**
@@ -68,6 +69,11 @@ public class SyncLogicEntity {
 	 * 同步步骤日志信息实体 
 	 */
 	private SyncStepLogInfoEntity syncStepLogInfoEntity;
+	
+	/**
+	 * 所有线程运行后结束监听器
+	 */
+	private AllThreadAfterRunEndListener endListener;
 	
 	/**
 	 * 同步步骤Id
@@ -186,6 +192,14 @@ public class SyncLogicEntity {
 
 	public void setSyncStepLogInfoEntity(SyncStepLogInfoEntity syncStepLogInfoEntity) {
 		this.syncStepLogInfoEntity = syncStepLogInfoEntity;
+	}
+	
+	public AllThreadAfterRunEndListener getEndListener() {
+		return endListener;
+	}
+
+	public void setEndListener(AllThreadAfterRunEndListener endListener) {
+		this.endListener = endListener;
 	}
 
 	public long getSyncStepId() {

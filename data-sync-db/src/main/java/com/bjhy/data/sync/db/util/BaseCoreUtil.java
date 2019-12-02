@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.domain.SyncStepLogInfoEntity;
+import com.bjhy.data.sync.db.inter.face.OwnInterface.AllThreadAfterRunEndListener;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepAfterListener;
 import com.bjhy.data.sync.db.validation.SyncStepValidationRepair;
 import com.bjhy.data.sync.db.validation.SyncStepValidationStore;
@@ -63,6 +64,17 @@ public class BaseCoreUtil {
 	}
 	
 	/**
+	 * 执行 所有线程运行后结束监听
+	 * @param syncLogicEntity
+	 */
+	public static void endListener(SyncLogicEntity syncLogicEntity) {
+		AllThreadAfterRunEndListener endListener = syncLogicEntity.getEndListener();
+		if(endListener != null) {
+			endListener.allThreadAfterRun();
+		}
+	}
+	
+	/**
 	 * 步骤同步结束事件
 	 * @param syncLogicEntity
 	 */
@@ -84,6 +96,7 @@ public class BaseCoreUtil {
 			SingleStepAfterListener stepListener = getStepListener(syncLogicEntity, singleStepAfterListener, SingleStepAfterListener.class);
 			if(stepListener != null){
 				stepListener.stepAfterCall(syncLogicEntity);
+				return;
 			}
 		}
 	}

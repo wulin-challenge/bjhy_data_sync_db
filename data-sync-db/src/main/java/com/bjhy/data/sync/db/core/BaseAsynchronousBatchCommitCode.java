@@ -25,6 +25,8 @@ import com.bjhy.data.sync.db.domain.OrderTaskNodeValue;
 import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.domain.SyncPageRowEntity;
+import com.bjhy.data.sync.db.inter.face.OwnInterface.ForRunSync;
+import com.bjhy.data.sync.db.listener.BaseAllThreadAfterRunListener;
 import com.bjhy.data.sync.db.thread.ConsumerTask;
 import com.bjhy.data.sync.db.thread.MultiThreadConsumerTask;
 import com.bjhy.data.sync.db.thread.ThreadFactoryImpl;
@@ -255,9 +257,23 @@ public class BaseAsynchronousBatchCommitCode {
 	 * 添加空顺序任务
 	 */
 	public void addEmptyOrderTask() {
+		addEndEmptyOrderTask(null);
+	}
+	
+	/**
+	 * 添加 (所有同步运行完后执行监听器) 空顺序任务
+	 * @param forRunSync
+	 */
+	public void addEndEmptyOrderTask(ForRunSync forRunSync) {
+		
 		SyncLogicEntity logic = new SyncLogicEntity();
 		SingleStepSyncConfig step = new SingleStepSyncConfig();
 		step.setIsOrderSyncStep(true);
+		
+		//添加  所有同步运行完后执行监听器
+		if(forRunSync != null) {
+			logic.setEndListener(new BaseAllThreadAfterRunListener(forRunSync));
+		}
 		
 		logic.setSingleStepSyncConfig(step);
 		logic.setSyncStepId(-1l);
@@ -488,6 +504,8 @@ public class BaseAsynchronousBatchCommitCode {
 					LoggerUtils.error("BaseCoreUtil.endStepSync : "+e.getMessage());
 				}
 			}
+			//执行 所有线程运行后结束监听
+			BaseCoreUtil.endListener(syncLogicEntity);
 		}
 		
 	}

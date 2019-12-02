@@ -49,12 +49,12 @@ public abstract class BaseSyncService implements SyncService{
 
 	@Override
 	public String toTask() {
-		return "to_new_yz_task";
+		return "to_old_region_task";
 	}
 
 	@Override
 	public String fromTask() {
-		return "from_old_yz_task";
+		return "from_reverse_to_old_region_task";
 	}
 
 	@Override
