@@ -54,7 +54,7 @@ public class BaseAsynchronousBatchCommitCode {
 	/**
 	 * 默认5万条任务节点,TODO 后期可修改为可配置
 	 */
-	private BlockingQueue<BatchTaskNodeValue> asyncTask = new LinkedBlockingQueue<BatchTaskNodeValue>(50);
+	private BlockingQueue<BatchTaskNodeValue> asyncTask = new LinkedBlockingQueue<BatchTaskNodeValue>(500);
 	
 	/**
 	 * 未完成的任务
@@ -398,7 +398,11 @@ public class BaseAsynchronousBatchCommitCode {
 				
 				//处理顺序任务节点情况
 				if(value instanceof OrderTaskNodeValue) {
-					return getOrderTask(value, syncStepId);
+					BatchTaskNodeValue orderValue = getOrderTask(value, syncStepId);
+					if(orderValue == null && !(value instanceof OrderStepTaskNodeValue)) {
+						continue;
+					}
+					return orderValue;
 				}
 				
 				//处理普通情况
