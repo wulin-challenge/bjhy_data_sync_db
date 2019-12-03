@@ -2,6 +2,7 @@ package com.bjhy.data.sync.db.listener;
 
 import com.bjhy.data.sync.db.inter.face.OwnInterface.AllThreadAfterRunEndListener;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ForRunSync;
+import com.bjhy.data.sync.db.thread.ThreadFactoryImpl;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 
 /**
@@ -19,13 +20,21 @@ public class BaseAllThreadAfterRunListener implements AllThreadAfterRunEndListen
 
 	@Override
 	public void allThreadAfterRun() {
-		if(forRunSync != null) {
-			try {
-				forRunSync.allRunAfter();
-			} catch (Exception e) {
-				LoggerUtils.error("运行 forRunSync.allRunAfter()出错! "+e.getMessage());
+		ThreadFactoryImpl threadFactory = new ThreadFactoryImpl("BaseAllThreadAfterRunListener");
+		threadFactory.newThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				if(forRunSync != null) {
+					try {
+						forRunSync.allRunAfter();
+					} catch (Exception e) {
+						LoggerUtils.error("运行 forRunSync.allRunAfter()出错! "+e.getMessage());
+					}
+				}
 			}
-		}
+		}).start();
+		
 	}
 
 }
