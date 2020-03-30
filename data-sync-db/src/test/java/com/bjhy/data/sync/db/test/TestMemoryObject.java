@@ -11,7 +11,6 @@ import com.bjhy.data.sync.db.domain.SingleStepSyncConfig;
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.ForRunSync;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
-import com.fasterxml.jackson.core.util.MinimalPrettyPrinter;
 
 public class TestMemoryObject {
 	

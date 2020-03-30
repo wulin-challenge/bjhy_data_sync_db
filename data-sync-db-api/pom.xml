@@ -1,0 +1,295 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.bjhy</groupId>
+	<artifactId>data-sync-db-api</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version.slf4j>1.7.10</version.slf4j>
+		<version.objenesis>2.1</version.objenesis>
+		<version.cglib>3.1</version.cglib>
+		<nexusAddress>192.168.0.2:81</nexusAddress>
+		<version.spring>4.3.11.RELEASE</version.spring>
+		<version.commons-lang>3.3.2</version.commons-lang>
+		<version.commons-collections>4.0</version.commons-collections>
+		<version.maven-compiler-plugin>3.2</version.maven-compiler-plugin>
+		<version.maven-surefire-plugin>2.18.1</version.maven-surefire-plugin>
+		<version.maven-source-plugin>2.4</version.maven-source-plugin>
+		<version.maven-javadoc-plugin>2.10.3</version.maven-javadoc-plugin>
+		<encoding>UTF-8</encoding>
+		<java.version>1.8</java.version>
+		<version.brace>1.0.1-SNAPSHOT</version.brace>
+		<version.slf4j>1.7.22</version.slf4j>
+		<version.logback>1.1.11</version.logback>
+		<version.junit>4.12</version.junit>
+	</properties>
+
+	<!-- deploy -->
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<name>nexus releases Repository</name>
+			<url>http://${nexusAddress}/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>nexus snapshot Repository</name>
+			<url>http://${nexusAddress}/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<dependencyManagement>
+		<dependencies>
+			<!--junit -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${version.junit}</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- slf4j -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${version.slf4j}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${version.logback}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${version.logback}</version>
+			</dependency>
+			<!-- brace -->
+			<dependency>
+				<groupId>cn.wulin</groupId>
+				<artifactId>brace-utils</artifactId>
+				<version>${version.brace}</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.wulin</groupId>
+				<artifactId>brace-core</artifactId>
+				<version>${version.brace}</version>
+			</dependency>
+			<!-- Spring -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${version.spring}</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- Objenesis -->
+			<dependency>
+				<groupId>org.objenesis</groupId>
+				<artifactId>objenesis</artifactId>
+				<version>${version.objenesis}</version>
+			</dependency>
+			<!-- CGLib -->
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>${version.cglib}</version>
+			</dependency>
+			<!-- Apache Commons Lang -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${version.commons-lang}</version>
+			</dependency>
+			<!-- Apache Commons Collections -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>${version.commons-collections}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.bjhy</groupId>
+			<artifactId>data-sync-db</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+		</dependency>
+		<!-- brace -->
+		<dependency>
+			<groupId>cn.wulin</groupId>
+			<artifactId>brace-utils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.wulin</groupId>
+			<artifactId>brace-core</artifactId>
+		</dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Objenesis -->
+		<dependency>
+			<groupId>org.objenesis</groupId>
+			<artifactId>objenesis</artifactId>
+		</dependency>
+		<!-- CGLib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+		</dependency>
+		<!-- Apache Commons Lang -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<!-- Apache Commons Collections -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- spring-boot的打包插件 -->
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring.boot.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<encoding>${encoding}</encoding>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${encoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<encoding>${encoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<configuration>
+					<aggregate>true</aggregate>
+					<charset>${encoding}</charset>
+					<encoding>${encoding}</encoding>
+					<docencoding>${encoding}</docencoding>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- release版本插件 <plugin> <groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-release-plugin</artifactId> <version>2.5.3</version> <configuration> 
+				<tagBase>svn://${svnIp}/src/gaia/tags/</tagBase> </configuration> </plugin> -->
+		</plugins>
+	</build>
+
+</project>

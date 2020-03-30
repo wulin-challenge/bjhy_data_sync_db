@@ -1,0 +1,12 @@
+/.svn/
+/target/
+/.project
+/.gitignore
+/logs/
+/.metadata/
+/.recommenders/
+/RemoteSystemsTempFiles/
+/.settings/
+
+
+

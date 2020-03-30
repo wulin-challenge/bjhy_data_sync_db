@@ -23,6 +23,10 @@ public class BaseRunEntity {
 		this.toTask = toTask;
 	}
 	
+	public BaseRunEntity(SyncConfig syncConfig) {
+		this.syncConfig = syncConfig;
+	}
+
 	/**
 	 * 若SingleStepSyncConfig中isThisOnlyOne设置为true的步骤,sync.is.this.only.one=true才生效同步,默认为false
 	 */
