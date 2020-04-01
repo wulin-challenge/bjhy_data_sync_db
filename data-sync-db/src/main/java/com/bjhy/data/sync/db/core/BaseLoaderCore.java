@@ -132,4 +132,7 @@ public class BaseLoaderCore {
 		return nativeStoreTemplate;
 	}
 
+	public void setNativeStoreTemplate(SyncTemplate nativeStoreTemplate) {
+		this.nativeStoreTemplate = nativeStoreTemplate;
+	}
 }
