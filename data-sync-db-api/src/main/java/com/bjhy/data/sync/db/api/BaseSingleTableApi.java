@@ -209,6 +209,17 @@ public class BaseSingleTableApi {
 	 * @return
 	 */
 	public List<String> getTableColumns(SingleTableEntity singleTableEntity){
+		synchronized(tableColumn) {
+			return getTableColumns2(singleTableEntity);
+		}
+	}
+	
+	/**
+	 * 获取表的完整的
+	 * @param singleTableEntity
+	 * @return
+	 */
+	public List<String> getTableColumns2(SingleTableEntity singleTableEntity){
 		String toTableName = singleTableEntity.getToTableName();
 		List<String> columns = tableColumn.get(toTableName);
 		

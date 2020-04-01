@@ -50,8 +50,8 @@ public class BaseRunApi {
 	public SingleRunEntity getSingleRunEntity(BaseRunEntity baseRunEntity) {
 		SingleRunEntity singleRunEntity = new SingleRunEntity();
 		singleRunEntity.setNativeTemplate(nativeStoreTemplate);
-		singleRunEntity.setToTemplate(fromSyncTemplate);
-		singleRunEntity.setFromTemplate(toSyncTemplate);
+		singleRunEntity.setToTemplate(toSyncTemplate);
+		singleRunEntity.setFromTemplate(fromSyncTemplate);
 		singleRunEntity.setFromIndex(0);
 		singleRunEntity.setToIndex(0);
 		singleRunEntity.setBaseRunEntity(baseRunEntity);

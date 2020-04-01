@@ -1,11 +1,13 @@
 package com.bjhy.data.sync.db.init;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.alibaba.druid.util.JdbcUtils;
 import com.bjhy.data.sync.db.domain.SyncTemplate;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 
@@ -63,21 +65,14 @@ public class InitStepStoreTable {
 	 * 创建同步检测表
 	 */
 	private void createSyncStepStoreTable(String createTableSql){
-		Statement stmt = null;
-		Connection conn = null;
-		try {
-			conn = nativeStoreTemplate.getDataSource().getConnection();
-			stmt = conn.createStatement();
-			stmt.executeUpdate(createTableSql);
-		} catch (SQLException e) {
-			LoggerUtils.info("step_store 表已经存在!"+e.getMessage());
-		}finally{
-			try {
-				stmt.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+		try (Connection connection = nativeStoreTemplate.getDataSource().getConnection();){
+			ResultSet tables = connection.getMetaData().getTables(connection.getCatalog(), null, "step_store", null);
+			if(tables ==null || !tables.next()) {
+				JdbcUtils.execute(connection, createTableSql);
+				LoggerUtils.info("初始化表成功,表名称:  step_store");
 			}
+		} catch (SQLException e) {
+			LoggerUtils.error("创建  step_store 失败!,"+e.getMessage());
 		}
 	}
 	

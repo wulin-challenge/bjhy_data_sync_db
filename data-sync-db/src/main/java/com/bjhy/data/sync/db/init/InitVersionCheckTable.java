@@ -1,11 +1,13 @@
 package com.bjhy.data.sync.db.init;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.alibaba.druid.util.JdbcUtils;
 import com.bjhy.data.sync.db.core.BaseCore;
 import com.bjhy.data.sync.db.domain.SyncTemplate;
 import com.bjhy.data.sync.db.util.LoggerUtils;
@@ -64,21 +66,14 @@ public class InitVersionCheckTable {
 	 * 创建同步检测表
 	 */
 	private void createSyncCheckTable(String createTableSql){
-		Statement stmt = null;
-		Connection conn = null;
-		try {
-			conn = nativeStoreTemplate.getDataSource().getConnection();
-			stmt = conn.createStatement();
-			stmt.executeUpdate(createTableSql);
-		} catch (SQLException e) {
-			LoggerUtils.info("version_check 表已经存在!"+e.getMessage());
-		}finally{
-			try {
-				stmt.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+		try (Connection connection = nativeStoreTemplate.getDataSource().getConnection();){
+			ResultSet tables = connection.getMetaData().getTables(connection.getCatalog(), null, "version_check", null);
+			if(tables ==null || !tables.next()) {
+				JdbcUtils.execute(connection, createTableSql);
+				LoggerUtils.info("初始化表成功,表名称:  version_check");
 			}
+		} catch (SQLException e) {
+			LoggerUtils.error("创建  version_check 失败!,"+e.getMessage());
 		}
 	}
 	
