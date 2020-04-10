@@ -119,7 +119,7 @@ public class BaseMultiThreadCore {
 			
 			String multiThreadPageClass = syncLogicEntity.getSingleStepSyncConfig().getMultiThreadPage();
 			if(StringUtils.isNotBlank(multiThreadPageClass)) {
-				multiThreadPage = BaseCoreUtil.getStepListener(syncLogicEntity, multiThreadPageClass, MultiThreadPage.class);
+				multiThreadPage = BaseCoreUtil.getMultiThreadPageInstance(syncLogicEntity, multiThreadPageClass, MultiThreadPage.class);
 				return multiThreadPage;
 			}
 			

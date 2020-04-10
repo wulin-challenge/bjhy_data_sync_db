@@ -11,27 +11,23 @@ import java.util.Set;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
-import com.bjhy.data.sync.db.inter.face.OwnInterface.MultiThreadPage;
+import com.bjhy.data.sync.db.inter.face.OwnInterface.AbstractMultiThreadPage;
 
 /**
  * 没有多线程的实现
  * @author wubo
  *
  */
-@SuppressWarnings({"deprecation", "unchecked" })
-public class SqlServerMultiThreadPage implements MultiThreadPage{
+@SuppressWarnings({"unchecked" })
+public class SqlServerMultiThreadPage extends AbstractMultiThreadPage{
 	
 	/**
 	 * 每页分页数
 	 */
 	private Integer pageNumber = 50;
 	
-	private SyncLogicEntity syncLogicEntity;
-
-	
-	
 	public SqlServerMultiThreadPage(SyncLogicEntity syncLogicEntity) {
-		this.syncLogicEntity = syncLogicEntity;
+		super(syncLogicEntity);
 	}
 	
 	@Override

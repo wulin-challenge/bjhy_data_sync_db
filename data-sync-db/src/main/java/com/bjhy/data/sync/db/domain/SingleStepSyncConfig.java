@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.bjhy.data.sync.db.inter.face.OwnInterface.MultiThreadPage;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
 
 /**
@@ -178,7 +177,7 @@ public class SingleStepSyncConfig {
 	private Boolean isOrderSyncStep = false;
 	
 	/**
-	 * 多线程分页接口,利用该接口屏蔽了数据库分页语句之间的差异,若不为空时,则使用自定义的分页实现,要求传输完整全限定类名
+	 * 多线程分页接口,利用该接口屏蔽了数据库分页语句之间的差异,若不为空时,则使用自定义的分页实现,要求传输完整全限定类名,并继承 AbstractMultiThreadPage
 	 */
 	private String multiThreadPage;
 	

@@ -1,5 +1,6 @@
 package com.bjhy.data.sync.db.util;
 
+import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -156,6 +157,33 @@ public class BaseCoreUtil {
 		try {
 			Class<T> forName = (Class<T>) Class.forName(classString);
 			newInstance = forName.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+			String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();
+			String dataSourceNumber = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceNumber();
+			String toTableName = syncLogicEntity.getSingleStepSyncConfig().getToTableName();
+			LoggerUtils.error("执行监听异常,监听名称:"+classString+" 表名:"+toTableName+",数据源名称:"+dataSourceName+",数据源编号:"+dataSourceNumber+",异常信息:"+e.getLocalizedMessage());
+		}
+		return newInstance;
+	}
+	
+	/**
+	 * 使用带构造参数的构造方法进行实例化 MultiThreadPage
+	 * @param syncLogicEntity
+	 * @param classString
+	 * @param clazz
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T getMultiThreadPageInstance(SyncLogicEntity syncLogicEntity,String classString,Class<T> clazz){
+		T newInstance = null;
+		try {
+			Class<T> forName = (Class<T>) Class.forName(classString);
+			//使用带构造参数的形式进行实例化
+			Class<SyncLogicEntity>[] argsClass = new Class[1];
+			argsClass[0]= SyncLogicEntity.class;
+			Constructor<T> constructor = forName.getConstructor(argsClass);
+			newInstance = constructor.newInstance(syncLogicEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
 			String dataSourceName = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDataSourceName();

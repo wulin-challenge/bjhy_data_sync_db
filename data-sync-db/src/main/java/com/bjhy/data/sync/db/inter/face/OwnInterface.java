@@ -163,6 +163,16 @@ public interface OwnInterface {
 		
 	}
 	
+	public abstract class AbstractMultiThreadPage implements MultiThreadPage{
+		protected SyncLogicEntity syncLogicEntity;
+
+		public AbstractMultiThreadPage(SyncLogicEntity syncLogicEntity) {
+			super();
+			this.syncLogicEntity = syncLogicEntity;
+		}
+		
+	}
+	
 	/**
 	 * 单个步骤的监听器
 	 * @author wubo

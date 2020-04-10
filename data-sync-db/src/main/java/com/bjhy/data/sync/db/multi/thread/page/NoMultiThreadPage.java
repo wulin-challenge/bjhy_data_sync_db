@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
-import com.bjhy.data.sync.db.inter.face.OwnInterface.MultiThreadPage;
+import com.bjhy.data.sync.db.inter.face.OwnInterface.AbstractMultiThreadPage;
 import com.bjhy.data.sync.db.util.LoggerUtils;
 
 /**
@@ -16,12 +16,10 @@ import com.bjhy.data.sync.db.util.LoggerUtils;
  *
  */
 @SuppressWarnings("unchecked")
-public class NoMultiThreadPage implements MultiThreadPage{
-	
-	private SyncLogicEntity syncLogicEntity;
+public class NoMultiThreadPage extends AbstractMultiThreadPage{
 	
 	public NoMultiThreadPage(SyncLogicEntity syncLogicEntity) {
-		this.syncLogicEntity = syncLogicEntity;
+		super(syncLogicEntity);
 	}
 
 	/**

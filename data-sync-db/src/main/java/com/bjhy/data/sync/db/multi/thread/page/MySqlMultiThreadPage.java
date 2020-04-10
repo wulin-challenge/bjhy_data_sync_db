@@ -11,7 +11,7 @@ import java.util.Set;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.bjhy.data.sync.db.domain.SyncLogicEntity;
-import com.bjhy.data.sync.db.inter.face.OwnInterface.MultiThreadPage;
+import com.bjhy.data.sync.db.inter.face.OwnInterface.AbstractMultiThreadPage;
 import com.bjhy.data.sync.db.util.SqlUtil;
 
 /**
@@ -19,20 +19,16 @@ import com.bjhy.data.sync.db.util.SqlUtil;
  * @author wubo
  *
  */
-@SuppressWarnings({"deprecation", "unchecked" })
-public class MySqlMultiThreadPage implements MultiThreadPage{
+@SuppressWarnings({"unchecked" })
+public class MySqlMultiThreadPage extends AbstractMultiThreadPage{
 	
 	/**
 	 * 每页分页数
 	 */
 	private Integer pageNumber = 50;
 	
-	private SyncLogicEntity syncLogicEntity;
-
-	
-	
 	public MySqlMultiThreadPage(SyncLogicEntity syncLogicEntity) {
-		this.syncLogicEntity = syncLogicEntity;
+		super(syncLogicEntity);
 	}
 	
 	@Override
