@@ -8,9 +8,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepAfterListener;
+import com.bjhy.data.sync.db.inter.face.OwnInterface.MultiThreadPage;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
-import com.bjhy.data.sync.db.version.check.VersionCheckCore;
 
 /**
  * 单个步骤同步配置参数
@@ -177,6 +176,11 @@ public class SingleStepSyncConfig {
 	 * 是否为顺序同步步骤
 	 */
 	private Boolean isOrderSyncStep = false;
+	
+	/**
+	 * 多线程分页接口,利用该接口屏蔽了数据库分页语句之间的差异,若不为空时,则使用自定义的分页实现,要求传输完整全限定类名
+	 */
+	private String multiThreadPage;
 	
 	/**
 	 * 得到fromSql语句
@@ -426,6 +430,14 @@ public class SingleStepSyncConfig {
 
 	public void setIsOrderSyncStep(Boolean isOrderSyncStep) {
 		this.isOrderSyncStep = isOrderSyncStep;
+	}
+	
+	public String getMultiThreadPage() {
+		return multiThreadPage;
+	}
+
+	public void setMultiThreadPage(String multiThreadPage) {
+		this.multiThreadPage = multiThreadPage;
 	}
 
 	@Override

@@ -112,10 +112,17 @@ public class BaseMultiThreadCore {
 	 */
 	private MultiThreadPage getMultiThreadPage(SyncLogicEntity syncLogicEntity){
 		MultiThreadPage multiThreadPage = null;
-		
 		Boolean isMultiThreadPage = syncLogicEntity.getSingleStepSyncConfig().getIsMultiThreadPage();
+		
 		String databaseType = syncLogicEntity.getSingleStepSyncConfig().getSingleRunEntity().getFromTemplate().getConnectConfig().getDatabaseType();
 		if(isMultiThreadPage){
+			
+			String multiThreadPageClass = syncLogicEntity.getSingleStepSyncConfig().getMultiThreadPage();
+			if(StringUtils.isNotBlank(multiThreadPageClass)) {
+				multiThreadPage = BaseCoreUtil.getStepListener(syncLogicEntity, multiThreadPageClass, MultiThreadPage.class);
+				return multiThreadPage;
+			}
+			
 			if("Oracle".equalsIgnoreCase(databaseType)){
 				multiThreadPage = new OracleMultiThreadPage(syncLogicEntity);
 				
