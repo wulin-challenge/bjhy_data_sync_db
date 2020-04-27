@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.bjhy.data.sync.db.core.BaseAsynchronousBatchCommitCode;
 import com.bjhy.data.sync.db.domain.SingleRunEntity;
+import com.bjhy.data.sync.db.domain.SyncTemplate;
 import com.bjhy.db.converter.listener.BatchSyncListener;
 import com.bjhy.db.converter.service.BaseSyncService;
 import com.bjhy.db.converter.util.StepUtil;
@@ -23,6 +24,7 @@ public class BatchSyncServiceImpl extends BaseSyncService{
 //		BaseAsynchronousBatchCommitCode.getInstance().addEmptyOrderTask();
 //		BaseAsynchronousBatchCommitCode.getInstance().addEmptyOrderTask();
 //		BaseAsynchronousBatchCommitCode.getInstance().addEmptyOrderTask();
+		
 //		
 		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);
 		StepUtil.checkSyncNotNullWhere3NoOrder(singleRunEntity, "sys_code_sys_code_new", "select * ", "from sys_code", "sys_code_new", "ID", BatchSyncListener.class.getName(), null);

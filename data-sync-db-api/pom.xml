@@ -12,7 +12,7 @@
 		<version.slf4j>1.7.10</version.slf4j>
 		<version.objenesis>2.1</version.objenesis>
 		<version.cglib>3.1</version.cglib>
-		<nexusAddress>192.168.0.2:81</nexusAddress>
+		<nexusAddress>192.168.2.3:8081</nexusAddress>
 		<version.spring>4.3.11.RELEASE</version.spring>
 		<version.commons-lang>3.3.2</version.commons-lang>
 		<version.commons-collections>4.0</version.commons-collections>
