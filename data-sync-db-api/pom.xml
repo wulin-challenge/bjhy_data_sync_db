@@ -13,7 +13,7 @@
 		<version.objenesis>2.1</version.objenesis>
 		<version.cglib>3.1</version.cglib>
 		<nexusAddress>192.168.2.3:8081</nexusAddress>
-		<version.spring>4.3.11.RELEASE</version.spring>
+		<version.spring>5.2.5.RELEASE</version.spring>
 		<version.commons-lang>3.3.2</version.commons-lang>
 		<version.commons-collections>4.0</version.commons-collections>
 		<version.maven-compiler-plugin>3.2</version.maven-compiler-plugin>
