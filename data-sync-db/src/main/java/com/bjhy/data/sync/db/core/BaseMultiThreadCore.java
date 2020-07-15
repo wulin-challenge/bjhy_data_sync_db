@@ -73,6 +73,11 @@ public class BaseMultiThreadCore {
 			@Override
 			public void currentThreadRunning(int iterations, int i) {
 				List<Map<String, Object>> pageFromData = multiThreadPage.pageData(i);
+				
+				if(pageFromData == null || pageFromData.size() == 0 ) {
+					return;
+				}
+				
 				SyncLogicEntity newSyncLogicEntity = copyNewSyncLogicEntity(syncLogicEntity);
 				
 				SingleStepListener singleStepListener = syncLogicEntity.getSingleStepSyncConfig().getSingleStepListener();
