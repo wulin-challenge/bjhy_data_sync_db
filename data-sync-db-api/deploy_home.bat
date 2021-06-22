@@ -1,0 +1,1 @@
+mvn clean deploy --settings C:\Users\ThinkPad\.m2\settings.xml -Dmaven.test.skip=true -Dmaven.javadoc.skip=true

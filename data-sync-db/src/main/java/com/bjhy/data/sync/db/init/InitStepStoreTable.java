@@ -51,12 +51,15 @@ public class InitStepStoreTable {
 		}else if("sqlServer".equalsIgnoreCase(databaseType)){
 			createSyncStepStoreTable(getSqlServerCreateSql());
 			
-		}else if("mysql".equalsIgnoreCase(databaseType)){
+		}else if("mysql".equalsIgnoreCase(databaseType) || "mariadb".equalsIgnoreCase(databaseType)){
 			createSyncStepStoreTable(getMySqlCreateSql());
 			
 		}else if("dm".equalsIgnoreCase(databaseType)){
 			createSyncStepStoreTable(getDmCreateSql());
 			
+			
+		}else if("kingbase8".equalsIgnoreCase(databaseType) || "kingbase".equalsIgnoreCase(databaseType)){
+			createSyncStepStoreTable(getKingbaseCreateSql());
 			
 		}
 	}
@@ -121,6 +124,28 @@ public class InitStepStoreTable {
 			    + " toDataNumber number(15), " //目标数据数量
 			    + " singleStepByte BLOB " //目标数据数量
 			    + " )";
+		return createTableSql;
+	}
+	/**
+	 * 得到Kingbase的创建语句
+	 * @return
+	 */
+	private String getKingbaseCreateSql(){
+		String createTableSql = "create table step_store("
+				+ " id VARCHAR2(255) primary key not null, " //主键Id
+				+ " isRepairSync varchar(10), " //是否修复同步判断
+				+ " fromDataSourceName varchar(255), " //来源 数据源名称
+				+ " fromDataSourceNumber varchar(255), " //来源 数据源编号
+				+ " toDataSourceName varchar(255), " //目标 数据源名称
+				+ " toDataSourceNumber varchar(255), " //目标 数据源编号
+				+ " fromTask varchar(255), " //来源数据源的任务
+				+ " toTask varchar(255), " //目标数据源的任务
+				+ " toTableName varchar2(255), " //目标表名
+				+ " stepUniquelyIdentifies varchar(255), " //步骤唯一标示
+				+ " fromDataNumber number(15), "  //来源数据数量
+				+ " toDataNumber number(15), " //目标数据数量
+				+ " singleStepByte BLOB " //目标数据数量
+				+ " )";
 		return createTableSql;
 	}
 	

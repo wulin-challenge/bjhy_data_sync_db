@@ -2,7 +2,6 @@ package com.bjhy.data.sync.db.version.check;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.bjhy.data.sync.db.domain.AddColumnAttribute;
@@ -67,12 +65,14 @@ public class VersionCheckCore {
 		}else if("SqlServer".equalsIgnoreCase(databaseType)){
 			versionCheck = new SqlServerVersionCheck(syncLogicEntity);
 			
-		}else if("MySql".equalsIgnoreCase(databaseType)){
+		}else if("MySql".equalsIgnoreCase(databaseType) || "mariadb".equalsIgnoreCase(databaseType)){
 			versionCheck = new MysqlVersionCheck(syncLogicEntity);
 			
 		}else if("DM".equalsIgnoreCase(databaseType)){
 			versionCheck = new DmVersionCheck(syncLogicEntity);
 			
+		}else if("kingbase8".equalsIgnoreCase(databaseType) || "kingbase".equalsIgnoreCase(databaseType)){
+			versionCheck = new KingbaseVersionCheck(syncLogicEntity);
 		}
 	}
 	

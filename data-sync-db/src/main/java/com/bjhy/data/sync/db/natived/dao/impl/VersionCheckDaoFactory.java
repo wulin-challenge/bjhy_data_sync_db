@@ -47,11 +47,14 @@ public class VersionCheckDaoFactory{
 		}else if("SqlServer".equalsIgnoreCase(databaseType)){
 			versionCheckDao = new SqlServerVersionCheckDaoImpl();
 			
-		}else if("MySql".equalsIgnoreCase(databaseType)){
+		}else if("MySql".equalsIgnoreCase(databaseType) || "mariadb".equalsIgnoreCase(databaseType)){
 			versionCheckDao = new MySqlVersionCheckDaoImpl();
 			
 		}else if("DM".equalsIgnoreCase(databaseType)){
 			versionCheckDao = new DmVersionCheckDaoImpl();
+			
+		}else if("kingbase8".equalsIgnoreCase(databaseType) || "kingbase".equalsIgnoreCase(databaseType)){
+			versionCheckDao = new KingbaseVersionCheckDaoImpl();
 		}
 	}
 

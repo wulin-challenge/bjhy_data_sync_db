@@ -25,6 +25,7 @@ import com.bjhy.data.sync.db.inter.face.OwnInterface.MultiThreadPage;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepBeforeListener;
 import com.bjhy.data.sync.db.inter.face.OwnInterface.SingleStepListener;
 import com.bjhy.data.sync.db.multi.thread.page.DmMultiThreadPage;
+import com.bjhy.data.sync.db.multi.thread.page.KingbaseMultiThreadPage;
 import com.bjhy.data.sync.db.multi.thread.page.MySqlMultiThreadPage;
 import com.bjhy.data.sync.db.multi.thread.page.NoMultiThreadPage;
 import com.bjhy.data.sync.db.multi.thread.page.OracleMultiThreadPage;
@@ -134,12 +135,14 @@ public class BaseMultiThreadCore {
 			}else if("SQlServer".equalsIgnoreCase(databaseType)){
 				multiThreadPage = new SqlServerMultiThreadPage(syncLogicEntity);
 				
-			}else if("MySql".equalsIgnoreCase(databaseType)){
+			}else if("MySql".equalsIgnoreCase(databaseType) || "mariadb".equalsIgnoreCase(databaseType)){
 				multiThreadPage = new MySqlMultiThreadPage(syncLogicEntity);
 				
 			}else if("DM".equalsIgnoreCase(databaseType)){
 				multiThreadPage = new DmMultiThreadPage(syncLogicEntity);
 				
+			}else if("kingbase8".equalsIgnoreCase(databaseType) || "kingbase".equalsIgnoreCase(databaseType)){
+				multiThreadPage = new KingbaseMultiThreadPage(syncLogicEntity);
 			}
 			
 		}else{

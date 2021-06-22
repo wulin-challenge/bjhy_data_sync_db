@@ -52,13 +52,14 @@ public class InitVersionCheckTable {
 		}else if("sqlServer".equalsIgnoreCase(databaseType)){
 			createSyncCheckTable(getSqlServerCreateSql());
 			
-		}else if("mysql".equalsIgnoreCase(databaseType)){
+		}else if("mysql".equalsIgnoreCase(databaseType) || "mariadb".equalsIgnoreCase(databaseType)){
 			createSyncCheckTable(getMySqlCreateSql());
 			
 		}else if("dm".equalsIgnoreCase(databaseType)){
 			createSyncCheckTable(getDmCreateSql());
 			
-			
+		}else if("kingbase8".equalsIgnoreCase(databaseType) || "kingbase".equalsIgnoreCase(databaseType)) {
+			createSyncCheckTable(getKingbaseCreateSql());
 		}
 	}
 	
@@ -105,6 +106,27 @@ public class InitVersionCheckTable {
 	 * @return
 	 */
 	private String getOracleCreateSql(){
+		String createTableSql = "create table version_check("
+			    + " id VARCHAR2(255) primary key not null, " //主键Id
+			    + " fromDataSourceName varchar(255), " //来源 数据源名称
+			    + " fromDataSourceNumber varchar(255), " //来源 数据源编号
+			    + " toDataSourceName varchar(255), " //目标 数据源名称
+			    + " toDataSourceNumber varchar(255), " //目标 数据源编号
+			    + " fromTask varchar(255), " //来源数据源的任务
+			    + " toTask varchar(255), " //目标数据源的任务
+			    + " toTableName varchar2(255), " //目标表名
+			    + " stepUniquelyIdentifies varchar(255), " //步骤唯一标示
+			    + " currentCheckVersion varchar2(255), "  //当前检测列的版本
+			    + " beforeCheckVersion varchar2(2550) " //上N次检测列的版本
+			    + " )";
+		return createTableSql;
+	}
+	
+	/**
+	 * 得到kingbase的创建语句
+	 * @return
+	 */
+	private String getKingbaseCreateSql(){
 		String createTableSql = "create table version_check("
 			    + " id VARCHAR2(255) primary key not null, " //主键Id
 			    + " fromDataSourceName varchar(255), " //来源 数据源名称
