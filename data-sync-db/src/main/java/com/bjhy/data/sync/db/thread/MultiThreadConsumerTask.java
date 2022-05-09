@@ -32,6 +32,11 @@ public class MultiThreadConsumerTask<T> {
 	
 	private ThreadFactory threadFactory;
 	
+	/**
+	 * 单一消费线程
+	 */
+	private volatile Thread singleConsumerThread;
+	
 	public MultiThreadConsumerTask(int threadNumber,int sleepTime,TimeUnit unit, ThreadFactory threadFactory) {
 		if(threadNumber <=0) {
 			threadNumber = 1;
@@ -66,8 +71,22 @@ public class MultiThreadConsumerTask<T> {
 					}
 				}
 			});
+			
+			//标记单一消费线程
+			if(singleConsumerThread == null) {
+				singleConsumerThread = threads[i];
+			}
+			
 			threads[i].start();
 		}
+	}
+
+	/**
+	 * 得到单一消费线程
+	 * @return
+	 */
+	public Thread getSingleConsumerThread() {
+		return singleConsumerThread;
 	}
 
 }

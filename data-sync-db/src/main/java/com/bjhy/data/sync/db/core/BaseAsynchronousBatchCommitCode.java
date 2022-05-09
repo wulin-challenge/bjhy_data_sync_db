@@ -396,6 +396,14 @@ public class BaseAsynchronousBatchCommitCode {
 				BatchTaskNodeValue value = iterator.next();
 				Long syncStepId = value.getSyncLogicEntity().getSyncStepId();
 				
+				//处理单一消费线程的情况
+				Boolean isSingleThreadConsumerStep = value.getSyncLogicEntity().getSingleStepSyncConfig().getIsSingleThreadConsumerStep();
+				Thread currentThread = Thread.currentThread();
+				Thread singleConsumerThread = consumer.getSingleConsumerThread();
+				if(isSingleThreadConsumerStep && !singleConsumerThread.equals(currentThread)) {
+					continue;
+				}
+				
 				//处理顺序任务节点情况
 				if(value instanceof OrderTaskNodeValue) {
 					BatchTaskNodeValue orderValue = getOrderTask(value, syncStepId);

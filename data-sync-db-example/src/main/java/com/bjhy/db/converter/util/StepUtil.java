@@ -216,6 +216,95 @@ public class StepUtil {
 		    baseCore.syncEntry(singleStepSyncConfig);
 	}
 	
+	public static void checkSyncNotNullAndNoJYBHAndSingleThread(SingleRunEntity singleRunEntity,String fromTableName,String toTableName,String updateAndPageColumn,String singleStepListenerName,Map<String,String> simpleColumnNameMapping){
+		
+		   BaseCore baseCore = new BaseCore();
+		    
+		    String dataSourceName = singleRunEntity.getFromTemplate().getConnectConfig().getDataSourceName();
+		    String dataSourceNumber = singleRunEntity.getFromTemplate().getConnectConfig().getDataSourceNumber();
+		    
+		    String fromSelectPart = "select * ";
+		    String fromFromPart = "from " + fromTableName;
+		    SingleStepSyncConfig singleStepSyncConfig = new SingleStepSyncConfig();
+		    singleStepSyncConfig.setStepUniquelyIdentifies(fromTableName + "_" + toTableName);
+		    singleStepSyncConfig.setSingleRunEntity(singleRunEntity);
+		    singleStepSyncConfig.setFromFromPart(fromFromPart);
+		    singleStepSyncConfig.setFromSelectPart(fromSelectPart);
+		    singleStepSyncConfig.setToTableName(toTableName);
+		    singleStepSyncConfig.setUpdateColumn(updateAndPageColumn);
+		    singleStepSyncConfig.setIsAddVersionCheckFilter(Boolean.valueOf(true));
+		    singleStepSyncConfig.setIsSyncNullValue(Boolean.valueOf(true));
+		    singleStepSyncConfig.setIsMultiThreadPage(Boolean.valueOf(true));
+		    singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
+		    singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
+		    singleStepSyncConfig.setIsSingleThreadConsumerStep(true);
+		    
+//		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
+//		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
+//		    singleStepSyncConfig.setToValidationWhere(" where sys_orgCode=:sys_orgCode ");
+		    if ((simpleColumnNameMapping != null) && (!simpleColumnNameMapping.isEmpty())) {
+		      singleStepSyncConfig.getSimpleColumnNameMapping().putAll(simpleColumnNameMapping);
+		    }
+		    SyncPageRowEntity syncPageRowEntity = new SyncPageRowEntity();
+		    List<String> pageRowInsertColumns = new ArrayList<String>();
+		    pageRowInsertColumns.add(updateAndPageColumn);
+		    syncPageRowEntity.setPageRowInsertColumns(pageRowInsertColumns);
+		    
+		    //增量同步配置
+			IncrementalSync incrementalSync = new IncrementalSync();
+			incrementalSync.setUniqueValueKey(updateAndPageColumn);
+			incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+//			incrementalSync.getAlarmColumn().add("SYS_ORGCODE");
+//			incrementalSync.getAlarmColumn().add("SYS_ORGNAME");
+			singleStepSyncConfig.setIncrementalSync(incrementalSync);
+		    
+		    baseCore.syncEntry(singleStepSyncConfig);
+	}
+	
+	public static void checkSyncNotNullAndNoJYBH(SingleRunEntity singleRunEntity,String fromTableName,String toTableName,String updateAndPageColumn,String singleStepListenerName,Map<String,String> simpleColumnNameMapping){
+		
+		   BaseCore baseCore = new BaseCore();
+		    
+		    String dataSourceName = singleRunEntity.getFromTemplate().getConnectConfig().getDataSourceName();
+		    String dataSourceNumber = singleRunEntity.getFromTemplate().getConnectConfig().getDataSourceNumber();
+		    
+		    String fromSelectPart = "select * ";
+		    String fromFromPart = "from " + fromTableName;
+		    SingleStepSyncConfig singleStepSyncConfig = new SingleStepSyncConfig();
+		    singleStepSyncConfig.setStepUniquelyIdentifies(fromTableName + "_" + toTableName);
+		    singleStepSyncConfig.setSingleRunEntity(singleRunEntity);
+		    singleStepSyncConfig.setFromFromPart(fromFromPart);
+		    singleStepSyncConfig.setFromSelectPart(fromSelectPart);
+		    singleStepSyncConfig.setToTableName(toTableName);
+		    singleStepSyncConfig.setUpdateColumn(updateAndPageColumn);
+		    singleStepSyncConfig.setIsAddVersionCheckFilter(Boolean.valueOf(true));
+		    singleStepSyncConfig.setIsSyncNullValue(Boolean.valueOf(true));
+		    singleStepSyncConfig.setIsMultiThreadPage(Boolean.valueOf(true));
+		    singleStepSyncConfig.setHighPerformancePageColumn(updateAndPageColumn);
+		    singleStepSyncConfig.setSingleStepListenerName(singleStepListenerName);
+		    
+//		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgName", dataSourceName);
+//		    singleStepSyncConfig.getAddStaticFromColumns().put("sys_orgCode", dataSourceNumber);
+//		    singleStepSyncConfig.setToValidationWhere(" where sys_orgCode=:sys_orgCode ");
+		    if ((simpleColumnNameMapping != null) && (!simpleColumnNameMapping.isEmpty())) {
+		      singleStepSyncConfig.getSimpleColumnNameMapping().putAll(simpleColumnNameMapping);
+		    }
+		    SyncPageRowEntity syncPageRowEntity = new SyncPageRowEntity();
+		    List<String> pageRowInsertColumns = new ArrayList<String>();
+		    pageRowInsertColumns.add(updateAndPageColumn);
+		    syncPageRowEntity.setPageRowInsertColumns(pageRowInsertColumns);
+		    
+		    //增量同步配置
+			IncrementalSync incrementalSync = new IncrementalSync();
+			incrementalSync.setUniqueValueKey(updateAndPageColumn);
+			incrementalSync.getExcludeColumn().add(VersionCheckCore.SYNC_VERSION_CHECK);
+//			incrementalSync.getAlarmColumn().add("SYS_ORGCODE");
+//			incrementalSync.getAlarmColumn().add("SYS_ORGNAME");
+			singleStepSyncConfig.setIncrementalSync(incrementalSync);
+		    
+		    baseCore.syncEntry(singleStepSyncConfig);
+	}
+	
 	public static void checkOnlyOneSync(SingleRunEntity singleRunEntity,String fromTableName,String toTableName,String updateAndPageColumn,String singleStepListenerName,Map<String,String> simpleColumnNameMapping){
             BaseCore baseCore = new BaseCore();
 		    

@@ -173,8 +173,19 @@ public class SingleStepSyncConfig {
 	
 	/**
 	 * 是否为顺序同步步骤
+	 * <p> 单线程消费步骤和顺序同步步骤是不一样的,
+	 * 单线程消费步骤: 单线程消费步骤表示这个步骤的所有数据都由一个线程将数据条件到数据库
+	 * 顺序同步步骤: 顺序同步步骤表示该步骤的数据一定在下一个步骤开始之前提交完成,下一个步骤才会开始向数据提交数
 	 */
 	private Boolean isOrderSyncStep = false;
+	
+	/**
+	 * 是否为单线程消费步骤
+	 * <p> 单线程消费步骤和顺序同步步骤是不一样的,
+	 * 单线程消费步骤: 单线程消费步骤表示这个步骤的所有数据都由一个线程将数据条件到数据库
+	 * 顺序同步步骤: 顺序同步步骤表示该步骤的数据一定在下一个步骤开始之前提交完成,下一个步骤才会开始向数据提交数
+	 */
+	private Boolean isSingleThreadConsumerStep = false;
 	
 	/**
 	 * 多线程分页接口,利用该接口屏蔽了数据库分页语句之间的差异,若不为空时,则使用自定义的分页实现,要求传输完整全限定类名,并继承 AbstractMultiThreadPage
@@ -437,6 +448,14 @@ public class SingleStepSyncConfig {
 
 	public void setMultiThreadPage(String multiThreadPage) {
 		this.multiThreadPage = multiThreadPage;
+	}
+
+	public Boolean getIsSingleThreadConsumerStep() {
+		return isSingleThreadConsumerStep;
+	}
+
+	public void setIsSingleThreadConsumerStep(Boolean isSingleThreadConsumerStep) {
+		this.isSingleThreadConsumerStep = isSingleThreadConsumerStep;
 	}
 
 	@Override
