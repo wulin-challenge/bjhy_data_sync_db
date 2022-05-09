@@ -1,11 +1,9 @@
 package com.bjhy.data.sync.db.datasource;
 
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
@@ -280,12 +278,12 @@ public class DBDruidDataSource extends DruidDataSource {
 				filter.init(this);
 			}
 
-			if (this.dbType == null || this.dbType.length() == 0) {
-				this.dbType = JdbcUtils.getDbType(jdbcUrl, null);
-			}
+		    if (this.dbTypeName == null || this.dbTypeName.length() == 0) {
+                this.dbTypeName = JdbcUtils.getDbType(jdbcUrl, null);
+            }
 
-			if (JdbcConstants.MYSQL.equals(this.dbType) || JdbcConstants.MARIADB.equals(this.dbType)
-					|| JdbcConstants.ALIYUN_ADS.equals(this.dbType)) {
+			if (JdbcConstants.MYSQL.name().equals(this.dbTypeName) || JdbcConstants.MARIADB.equals(this.dbTypeName)
+					|| JdbcConstants.ALIYUN_ADS.equals(this.dbTypeName)) {
 				boolean cacheServerConfigurationSet = false;
 				if (this.connectProperties.containsKey("cacheServerConfiguration")) {
 					cacheServerConfigurationSet = true;
@@ -342,14 +340,14 @@ public class DBDruidDataSource extends DruidDataSource {
 			if (isUseGlobalDataSourceStat()) {
 				dataSourceStat = JdbcDataSourceStat.getGlobal();
 				if (dataSourceStat == null) {
-					dataSourceStat = new JdbcDataSourceStat("Global", "Global", this.dbType);
+					dataSourceStat = new JdbcDataSourceStat("Global", "Global", this.dbTypeName);
 					JdbcDataSourceStat.setGlobal(dataSourceStat);
 				}
 				if (dataSourceStat.getDbType() == null) {
-					dataSourceStat.setDbType(this.dbType);
+					dataSourceStat.setDbType(this.dbTypeName);
 				}
 			} else {
-				dataSourceStat = new JdbcDataSourceStat(this.name, this.jdbcUrl, this.dbType, this.connectProperties);
+				dataSourceStat = new JdbcDataSourceStat(this.name, this.jdbcUrl, this.dbTypeName, this.connectProperties);
 			}
 			
 			PhysicalConnectionInfo pyConnectInfo = createPhysicalConnection();
