@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>info</level>
+		</filter>
+	</appender>
+	<appender name="ROLLING"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/platform.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>logs/platform-%d{yyyy-MM-dd_HH}.%i.log.zip
+			</fileNamePattern>
+			<maxHistory>7</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 50MB -->
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+			<immediateFlush>true</immediateFlush>
+		</encoder>
+	</appender>
+
+	<logger name="com.alibaba.dubbo" level="WARN" />
+	<logger name="org.springframework" level="info" />
+	<logger name="org.hibernate" level="ERROR" />
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ROLLING" />
+	</root>
+</configuration>

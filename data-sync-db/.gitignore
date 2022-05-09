@@ -1,12 +1,7 @@
-/.svn/
 /target/
-/.project
-/.gitignore
 /logs/
-/.metadata/
-/.recommenders/
-/RemoteSystemsTempFiles/
+/office/
 /.settings/
-
-
-
+/.project
+/.classpath
+*.iml

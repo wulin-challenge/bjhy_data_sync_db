@@ -4,16 +4,72 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.bjhy</groupId>
-		<artifactId>platform-parent</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<artifactId>data-sync-db-parent</artifactId>
+		<version>4.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>data-sync-db</artifactId>
 
 	<properties>
 		<version.commons-lang>3.3.2</version.commons-lang>
+		<vesion.commons-beanutils>1.9.3</vesion.commons-beanutils>
+		<version.commons-lang>2.6</version.commons-lang>
+		<version.log4j>1.2.17</version.log4j>
 	</properties>
-
 	<dependencies>
+		<dependency>
+			<groupId>org.apel</groupId>
+			<artifactId>gaia-commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apel</groupId>
+			<artifactId>gaia-util</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${version.log4j}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apel</groupId>
+			<artifactId>kingbase8-dialect</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.com.kingbase</groupId>
+			<artifactId>kingbase-hibernate-dialect-extend </artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apel</groupId>
+			<artifactId>dm-dialect</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
@@ -21,7 +77,6 @@
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc14</artifactId>
-			<version>11.2.0.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.dm</groupId>
@@ -31,7 +86,6 @@
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>sqljdbc4</artifactId>
-			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -44,7 +98,6 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
-			<version>1.1.12</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-dbutils</groupId>
@@ -59,20 +112,20 @@
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
+			<version>${vesion.commons-beanutils}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
+			<version>${version.commons-lang}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>${version.commons-lang}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-util</artifactId>
-			<version>9.2.9.v20150224</version>
 		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>com.bjhy</groupId> -->
@@ -82,7 +135,6 @@
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
 		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>com.dyuproject.protostuff</groupId> -->

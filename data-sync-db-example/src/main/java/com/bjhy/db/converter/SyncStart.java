@@ -1,5 +1,5 @@
 package com.bjhy.db.converter;
-import com.bjhy.platform.container.boot.PlatformStarter;
+import org.apel.gaia.container.config.server.PlatformStarter;
 
 public class SyncStart {
 	

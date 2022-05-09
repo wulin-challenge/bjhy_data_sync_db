@@ -5,22 +5,10 @@
 
 	<parent>
 		<groupId>com.bjhy</groupId>
-		<artifactId>platform-parent</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<artifactId>data-sync-db-parent</artifactId>
+		<version>4.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>data-sync-db-example</artifactId>
-	
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring.boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -41,23 +29,17 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.bjhy</groupId>
-			<artifactId>platform-container-boot</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.bjhy</groupId>
 			<artifactId>data-sync-db</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.bjhy</groupId>
-			<artifactId>platform-property-loader</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<groupId>org.apel</groupId>
+			<artifactId>gaia-container-boot</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
-			<version>2.2.1</version>
+
 			<exclusions>
 				<exclusion>
 					<groupId>c3p0</groupId>
