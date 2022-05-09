@@ -11,7 +11,7 @@
 
 	<properties>
 		<version.commons-lang>3.3.2</version.commons-lang>
-		<vesion.commons-beanutils>1.9.3</vesion.commons-beanutils>
+		<vesion.commons-beanutils>1.9.4</vesion.commons-beanutils>
 		<version.commons-lang>2.6</version.commons-lang>
 		<version.log4j>1.2.17</version.log4j>
 	</properties>
