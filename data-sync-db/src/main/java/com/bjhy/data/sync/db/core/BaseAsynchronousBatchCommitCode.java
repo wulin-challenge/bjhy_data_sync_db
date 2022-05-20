@@ -44,7 +44,7 @@ public class BaseAsynchronousBatchCommitCode {
 	/**
 	 * 批量提交数量
 	 */
-	private static final int BATCH_COMMIT_NUMBER = 500;
+	private static final int BATCH_COMMIT_NUMBER = BaseLoaderCore.getInstance().getSyncConfig().getBatchCommitNumber();
 	
 	/**
 	 * 任务节点Id
@@ -52,9 +52,9 @@ public class BaseAsynchronousBatchCommitCode {
 	private AtomicLong taskNodeIds = new AtomicLong();
 
 	/**
-	 * 默认5万条任务节点,TODO 后期可修改为可配置
+	 * 默认5万条任务节点
 	 */
-	private BlockingQueue<BatchTaskNodeValue> asyncTask = new LinkedBlockingQueue<BatchTaskNodeValue>(500);
+	private BlockingQueue<BatchTaskNodeValue> asyncTask = new LinkedBlockingQueue<BatchTaskNodeValue>(BaseLoaderCore.getInstance().getSyncConfig().getMaxQueueNum());
 	
 	/**
 	 * 未完成的任务

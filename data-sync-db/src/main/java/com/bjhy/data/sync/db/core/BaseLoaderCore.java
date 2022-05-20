@@ -119,6 +119,10 @@ public class BaseLoaderCore {
 	public SyncConfig getSyncConfig() {
 		return syncConfig;
 	}
+	
+	public void setSyncConfig(SyncConfig syncConfig) {
+		this.syncConfig = syncConfig;
+	}
 
 	public List<SyncTemplate> getFromSyncTemplate() {
 		return fromSyncTemplate;

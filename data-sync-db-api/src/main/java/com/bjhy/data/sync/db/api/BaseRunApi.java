@@ -1,5 +1,6 @@
 package com.bjhy.data.sync.db.api;
 
+import com.bjhy.data.sync.db.core.BaseLoaderCore;
 import com.bjhy.data.sync.db.domain.BaseRunEntity;
 import com.bjhy.data.sync.db.domain.SingleRunEntity;
 import com.bjhy.data.sync.db.domain.SyncConfig;
@@ -73,6 +74,8 @@ public class BaseRunApi {
 		syncConfig.setSyncPageRowThreadMaxThreadNum(1);
 		syncConfig.setSyncPageRowMaxColumnNum(1);
 		syncConfig.setSyncAlarmColumnLoggingPrint(false);
+		
+		BaseLoaderCore.getInstance().setSyncConfig(syncConfig);
 	}
 	
 	public SyncConfig getSyncConfig() {

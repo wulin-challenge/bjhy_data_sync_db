@@ -49,6 +49,8 @@ public class SyncConfigLoader {
 		syncConfig.setSyncPageRowThreadMaxThreadNum(loadSyncPageRowThreadMaxThreadNum());
 		syncConfig.setSyncPageRowMaxColumnNum(loadSyncPageRowMaxColumnNum());
 		syncConfig.setSyncAlarmColumnLoggingPrint(loadSyncAlarmColumnLoggingPrint());
+		syncConfig.setMaxQueueNum(loadSyncMaxQueueNum());
+		syncConfig.setBatchCommitNumber(loadBatchCommitNumber());
 		return syncConfig;
 	}
 	
@@ -200,6 +202,34 @@ public class SyncConfigLoader {
 			}
 		}
 		return nullValue;
+	}
+	
+	/**
+	 * 加载 sync.max.queue.num
+	 * @return
+	 */
+	private Integer loadSyncMaxQueueNum(){
+		String num = SyncPropertiesUtil.getProperty("sync.max.queue.num");
+		Integer columnNum = 30;
+		if(StringUtils.isNotEmpty(num)){
+			columnNum = Integer.parseInt(num);
+		}
+		
+		return columnNum;
+	}
+	
+	/**
+	 * 加载 sync.batch.commit.num
+	 * @return
+	 */
+	private Integer loadBatchCommitNumber(){
+		String num = SyncPropertiesUtil.getProperty("sync.batch.commit.num");
+		Integer columnNum = 500;
+		if(StringUtils.isNotEmpty(num)){
+			columnNum = Integer.parseInt(num);
+		}
+		
+		return columnNum;
 	}
 	
 }

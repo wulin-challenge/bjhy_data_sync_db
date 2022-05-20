@@ -67,6 +67,15 @@ public class SyncConfig {
 	 * 同步警告列日志打印开关,true:打印所有日志,false:相同日志只打印一次
 	 */
 	private Boolean syncAlarmColumnLoggingPrint;
+	
+	/**
+	 * 最大队列数
+	 */
+	private Integer maxQueueNum = 30;
+	/**
+	 * 批量提交数
+	 */
+	private Integer batchCommitNumber = 500;
 
 	public List<String> getSyncDataSourceLoaderModel() {
 		return syncDataSourceLoaderModel;
@@ -154,5 +163,21 @@ public class SyncConfig {
 
 	public void setSyncAlarmColumnLoggingPrint(Boolean syncAlarmColumnLoggingPrint) {
 		this.syncAlarmColumnLoggingPrint = syncAlarmColumnLoggingPrint;
+	}
+
+	public Integer getMaxQueueNum() {
+		return maxQueueNum;
+	}
+
+	public void setMaxQueueNum(Integer maxQueueNum) {
+		this.maxQueueNum = maxQueueNum;
+	}
+
+	public Integer getBatchCommitNumber() {
+		return batchCommitNumber;
+	}
+
+	public void setBatchCommitNumber(Integer batchCommitNumber) {
+		this.batchCommitNumber = batchCommitNumber;
 	}
 }
