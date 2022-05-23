@@ -117,6 +117,9 @@ public class BaseLoaderCore {
 	}
 
 	public SyncConfig getSyncConfig() {
+		if(syncConfig == null) {
+			syncConfig = new SyncConfig();
+		}
 		return syncConfig;
 	}
 	

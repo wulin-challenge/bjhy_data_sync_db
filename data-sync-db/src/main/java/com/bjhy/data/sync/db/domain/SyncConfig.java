@@ -19,54 +19,54 @@ public class SyncConfig {
 	/**
 	 * 若SingleStepSyncConfig中isThisOnlyOne设置为true的步骤,sync.is.this.only.one=true才生效同步,默认为false
 	 */
-	private Boolean syncIsThisOnlyOne;
+	private Boolean syncIsThisOnlyOne = false;
 	
 	/**
 	 * 是否同步null值,true表示同步空值,否则反之
 	 * 若配置文件中 sync.is.sync.null.value=true 那表示所有步骤都要同步空值
 	 * 若配置文件中 sync.is.sync.null.value=false 而步骤中 isSyncNullValue = true 那表示该步骤要同步空值
 	 */
-	private Boolean syncSyncNullValue;
+	private Boolean syncSyncNullValue = true;
 	
 	/**
 	 * 是否自动修复
 	 */
-	private Boolean syncIsAutoRepair;
+	private Boolean syncIsAutoRepair = false;
 	
 	/**
 	 * 目标最大线程数
 	 */
-	private Integer syncToMaxThreadNum;
+	private Integer syncToMaxThreadNum = 1;
 	
 	/**
 	 * 来源最大线程数
 	 */
-	private Integer syncFromMaxThreadNum;
+	private Integer syncFromMaxThreadNum = 1;
 	
 	/**
 	 * 单表(即步骤)分页最大线程数
 	 */
-	private Integer syncTablePageMaxThreadNum;
+	private Integer syncTablePageMaxThreadNum = 1;
 	
 	/**
 	 * 插入或者更新线程
 	 */
-	private Integer syncInsertOrUpdateMaxThreadNum;
+	private Integer syncInsertOrUpdateMaxThreadNum = 1;
 	
 	/**
 	 * 行拆分最大线程数
 	 */
-	private Integer syncPageRowThreadMaxThreadNum;
+	private Integer syncPageRowThreadMaxThreadNum = 1;
 	
 	/**
 	 * 拆分行最大列数量
 	 */
-	private Integer syncPageRowMaxColumnNum;
+	private Integer syncPageRowMaxColumnNum = 50;
 	
 	/**
 	 * 同步警告列日志打印开关,true:打印所有日志,false:相同日志只打印一次
 	 */
-	private Boolean syncAlarmColumnLoggingPrint;
+	private Boolean syncAlarmColumnLoggingPrint = false;
 	
 	/**
 	 * 最大队列数
