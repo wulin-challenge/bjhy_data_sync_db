@@ -19,7 +19,7 @@
 		<version.cglib>3.1</version.cglib>
 		<nexusAddress>192.168.2.3:8081</nexusAddress>
 <!-- 		<nexusAddress>wulin:81</nexusAddress>  -->
-		<version.spring>5.3.8</version.spring>
+		<version.spring>5.3.27</version.spring>
 		<version.commons-lang>3.3.2</version.commons-lang>
 		<version.commons-collections>4.0</version.commons-collections>
 		<version.maven-compiler-plugin>3.2</version.maven-compiler-plugin>
